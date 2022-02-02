@@ -235,9 +235,16 @@ console.log(countFactorial(10));
 
 ///////////////////////////////////////////////
 const myData = [1, 2, 3, 4, 5];
-const countAllElementsSum = (previousValue, currentValue) => previousValue + currentValue;
-// const countAllElementsSum = (previousValue, currentValue) => if (currentValue % 2 === 0) previousValue + currentValue;
+const countAllElementsSum = (previousValue, currentValue) => 
+    previousValue + currentValue;
+    
+// const countElementsDivideTwoSum = (previousValue, currentValue) => {
+//     if (currentValue % 2 ===0) {
+//         previousValue + currentValue;
+//     }
+//     };
 
+//myGroup.filter(item => item.price > 1500 || item.price < 800)
 
 function countElementsSum (someArray, userFunc) {
     console.log(someArray.reduce(userFunc));
@@ -245,6 +252,7 @@ function countElementsSum (someArray, userFunc) {
 }
 
 countElementsSum(myData, countAllElementsSum);
+// countElementsSum(myData, countElementsDivideTwoSum);
 
 // expected output: 10
 ///////////////////////////////////////////////
