@@ -154,6 +154,25 @@ const triangleOne = new Triangle();
 triangleOne.perimeter(2, 3, 4);
 triangleOne.square(2, 3, 4);
 
+function Circle (width, height) {
+    this.width = width;
+    this.height = height;
+} 
+Circle.prototype.perimeter = (radius) => {
+    console.log(`Circle perimeter(func): ${2 * Math.PI * radius}`);
+    return 2 * Math.PI * radius;
+}
+
+Circle.prototype.square = (radius) => {
+    console.log(`Circle square(func): ${Math.PI * Math.pow(radius, 2)}`);
+    return (Math.PI * Math.pow(radius, 2));
+}
+
+const circleOne = new Circle();
+circleOne.perimeter(3);
+circleOne.square(3);
+
+
 //// by Class:
 class RectangleClass {
     constructor (width, height){
@@ -192,7 +211,6 @@ class TriangleClass {
     square(sideOne, sideTwo, sideThree) {
         let semiperimetr = (sideOne + sideTwo + sideThree) / 2;
         let square =  Math.sqrt(semiperimetr * (semiperimetr - sideOne) * (semiperimetr - sideTwo) * (semiperimetr - sideThree));
-
         console.log(`Triangle square: ${square}`);
         return square;
     }
@@ -201,6 +219,26 @@ class TriangleClass {
 const firstTriangle = new TriangleClass();
 firstTriangle.perimeter(2, 3, 4);
 firstTriangle.square(2, 3, 4);
+
+class CircleClass {
+    constructor (radius){
+        this.radius = radius;
+    }
+
+    perimeter(radius) {
+        console.log(`Circle perimeter: ${2 * Math.PI * radius}`);
+        return (2 * Math.PI * radius);
+    }
+
+    square(radius) {
+        console.log(`Triangle square: ${Math.PI * Math.pow(radius, 2)}`);
+        return Math.PI * Math.pow(radius, 2);
+    }
+}
+
+const firstCircle = new CircleClass();
+firstCircle.perimeter(3);
+firstCircle.square(3);
 
 /////////// 8 - Вычислить факториал числа. Реализовать с помощью рекурсии. Реализовать мемоизированную функцию вычисления факториала. ///////////
 
@@ -233,42 +271,77 @@ console.log(countFactorial(10));
 
 /////////// 9 - Посчитать сумму всех элементов массива, только тех которые (Кратные двум, кратные трем, которые только положительные и нечетные, реализовать с помощью рекурсии для одномерного массива.) ///////////
 
-///////////////////////////////////////////////
 const myData = [1, 2, 3, 4, 5];
-const countAllElementsSum = (previousValue, currentValue) => 
-    previousValue + currentValue;
-    
-// const countElementsDivideTwoSum = (previousValue, currentValue) => {
-//     if (currentValue % 2 ===0) {
-//         previousValue + currentValue;
-//     }
-//     };
-
-//myGroup.filter(item => item.price > 1500 || item.price < 800)
 
 function countElementsSum (someArray, userFunc) {
-    console.log(someArray.reduce(userFunc));
-    return someArray.reduce(userFunc);
+    console.log(someArray.reduce(userFunc, 0));
+    return someArray.reduce(userFunc, 0);
 }
 
+const countAllElementsSum = (total, currentValue) => 
+    total + currentValue;
+    
+const countElementsDivideTwoSum = (total, currentValue) => {
+    if (currentValue % 2 === 0) {
+        return total + currentValue;
+    } else {
+        return total;
+    }
+};
+
+const countElementsDivideThreeSum = (total, currentValue) => {
+    if (currentValue % 3 === 0) {
+        return total + currentValue;
+    } else {
+        return total;
+    }
+};
+
+const countElementsPositiveOddSum = (total, currentValue) => {
+    if (currentValue % 2 !== 0 && currentValue > 0) {
+        return total + currentValue;
+    } else {
+        return total;
+    }
+};
+
 countElementsSum(myData, countAllElementsSum);
-// countElementsSum(myData, countElementsDivideTwoSum);
+countElementsSum(myData, countElementsDivideTwoSum);
+countElementsSum(myData, countElementsDivideThreeSum);
+countElementsSum(myData, countElementsPositiveOddSum);
+////
 
-// expected output: 10
-///////////////////////////////////////////////
-
-// function countElementsSum (someArray, func) {
-//     someArray.reduce(func)
-// }
-
-// countElementsSum(array1, countAllElementsSum);
-// console.log(countElementsSum(array1, countAllElementsSum));
 
 /////////// 10 - Посчитать количество элементов массива которые (Нулевые, отрицательные, положительные, простые числа) ///////////
-  
+
+let someNumbers = [-1, -2, 0, 0, 0, 1, 2, 3, 4];
+
+function countZeroPosNegPrimeNumbers(myNumbers) {
+    myNumbers.reduce(function (acc, num) {
+        if (num === 0) {
+            acc.zero = ++acc.zero || 1;
+        }
+        if (num < 0) {
+            acc.negative = ++acc.negative || 1;
+        }
+        if (num > 0) {
+            acc.positive = ++acc.positive || 1;
+        }
+        if (num > 1 && (num ^ 0) === num) {
+            acc.prime = ++acc.prime || 1;
+        }
+
+        console.log(`Zero, negative, positive, prime: ${JSON.stringify(acc)}`);
+        return acc;
+    }, {});
+};
+
+countZeroPosNegPrimeNumbers(someNumbers);
+
 /////////// 11 - Написать функции которые преобразовывают число из десятичной системы счисления в двоичную и в обратную сторону. (Достаточно написать для целых положительных чисел) ///////////
 
 function convertFromTwoToTen(numberTwoSystem) {
+    ////first variant
     // let numTen = parseInt(numberTwoSystem, 2);
     // console.log(numTen);
     // return numTen;
@@ -305,3 +378,47 @@ function convertFromTenToTwo(numberTenSystem) {
 convertFromTenToTwo(11);
 
 /////////// 12 - Пункты 9 и 10 выполнить для двумерных массивов. ///////////
+
+const myDataTwoDimension = [[-1, -2, 0], [0, 0, 1], [2, 3, 4]];
+
+
+//// 12.09
+function countElementsSumTwoDimension (someArray, userFunc) {
+    let someOneDimension = [].concat(...someArray);
+    console.log(someOneDimension.reduce(userFunc, 0));
+    return someOneDimension.reduce(userFunc, 0);
+}
+
+countElementsSumTwoDimension(myDataTwoDimension, countAllElementsSum); // 7
+countElementsSumTwoDimension(myDataTwoDimension, countElementsDivideTwoSum); // 4
+countElementsSumTwoDimension(myDataTwoDimension, countElementsDivideThreeSum); // 3
+countElementsSumTwoDimension(myDataTwoDimension, countElementsPositiveOddSum); // 4
+
+//// 12.10
+function countZeroPosNegPrimeNumbersTwoDim(myDataNumbers) {
+    let myNumbers = [].concat(...myDataNumbers);
+    myNumbers.reduce(function (acc, num) {
+        if (num === 0) {
+            acc.zero = ++acc.zero || 1;
+        }
+        if (num < 0) {
+            acc.negative = ++acc.negative || 1;
+        }
+        if (num > 0) {
+            acc.positive = ++acc.positive || 1;
+        }
+        if (num > 1 && (num ^ 0) === num) {
+            acc.prime = ++acc.prime || 1;
+        }
+
+        console.log(`TD: Zero, negative, positive, prime: ${JSON.stringify(acc)}`);
+        return acc;
+    }, {});
+};
+
+countZeroPosNegPrimeNumbersTwoDim(myDataTwoDimension);
+
+///////////// 12 - Посчитать сумму значений чисел от min до max (всех, только тех которые кратны 3, только положительные). Нарисовать блок схему. 
+// Реализовать также с помощью рекурсии. Реализовать мемоизированную функцию. ///////////
+
+
