@@ -418,7 +418,191 @@ function countZeroPosNegPrimeNumbersTwoDim(myDataNumbers) {
 
 countZeroPosNegPrimeNumbersTwoDim(myDataTwoDimension);
 
-///////////// 12 - Посчитать сумму значений чисел от min до max (всех, только тех которые кратны 3, только положительные). Нарисовать блок схему. 
+///////////// 13 - Посчитать сумму значений чисел от min до max (всех, только тех которые кратны 3, только положительные). Нарисовать блок схему. 
 // Реализовать также с помощью рекурсии. Реализовать мемоизированную функцию. ///////////
+
+function countRangeSumm(min, max) {
+    let sumAll = 0;
+    let sumMultiplyTree = 0;
+    let sumPositive = 0;
+
+    let myNumbers = {};
+
+    for (let i = min; i <= max; i++){
+        sumAll += i;
+        myNumbers.all = sumAll;
+
+        if (i % 3 === 0) {
+            sumMultiplyTree += i;
+            myNumbers.divideByThree = sumMultiplyTree;
+        }
+        if (i > 0) {
+            sumPositive += i;
+            myNumbers.positive = sumPositive;
+        }
+    }
+    console.log(myNumbers);
+    return myNumbers;
+  };  
+
+  countRangeSumm(-1, 5);
+
+  /////////////////////////////////////////////////
+
+function countRangeSum(min, max, userFunc) {
+    let someArray = [];
+
+    for (let i = min; i <= max; i++) {
+        someArray.push(i);
+    }
+    console.log(someArray.reduce(userFunc, 0));
+    return someArray.reduce(userFunc, 0);
+}
+
+
+const sumAll = (total, currentValue) => total + currentValue;
+
+const sumElementsDivideThree = (total, currentValue) => {
+    if (currentValue % 3 === 0) {
+        return total + currentValue;
+    } else {
+        return total;
+    }
+};
+
+const sumPositiveElements = (total, currentValue) => {
+    if (currentValue > 0) {
+        return total + currentValue;
+    } else {
+        return total;
+    }
+};
+
+countRangeSum(-1, 3, sumAll);
+countRangeSum(-1, 3, sumElementsDivideThree);
+countRangeSum(-1, 3, sumPositiveElements);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+///////////////////////////
+
+// function sumFromTo(min, max) {
+    
+//     let myNumbers = myNumbers || {}
+
+
+//     console.log (myNumbers);
+//     if (min > max) {
+        
+//         return sumFromTo(max, min);
+//     }
+//     if (max === min) {
+//          return min;
+//     }
+
+//     myNumbers.all = min;
+
+//     return min + sumFromTo(min + 1, max);
+// }
+
+//    sumFromTo (1, 3);
+//    console.log(sumFromTo (1, 3))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// function countRangeSumRecursion(min, max) {
+//     let sumAll;
+//     let sumMultiplyTree;
+//     let sumPositive;
+//     let myNumbers;
+
+//     myNumbers = myNumbers || {};
+//     console.log(myNumbers);
+
+//     if (min < max) {
+
+//     sumAll = sumAll || 0;
+//     sumAll += min;
+//     myNumbers.all = sumAll || 0;
+    
+//     if (min % 3 === 0) {
+//         sumMultiplyTree = sumMultiplyTree || 0;
+//         sumMultiplyTree += i;
+//         myNumbers.divideByThree = sumMultiplyTree;
+//     }
+//     if (min > 0) {
+//         sumPositive = sumPositive || 0;
+//         sumPositive += i;
+//         myNumbers.positive = sumPositive;
+//     }
+//     }
+
+//     if (min === max) {
+//         console.log(myNumbers);
+//         return myNumbers;
+
+//     } else {
+
+
+//         countRangeSumRecursion(min++, max)
+//         console.log(myNumbers);
+
+//         return myNumbers;
+
+//     }
+
+//   };  
+//   countRangeSumRecursion (-1, 5);
+
+
+
+
+
+
+// function factorial () {
+//     let memo = {};
+//     return function fact(num){
+//         if (num === 0) {
+//             return 1;
+//         }
+
+//         if(memo[num] === undefined) {
+
+//             memo[num] = fact(num - 1);
+//         }
+
+//         return num * memo[num];
+//     };
+// };
+
+// console.log(factorial(7));
 
 
