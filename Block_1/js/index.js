@@ -418,34 +418,34 @@ function countZeroPosNegPrimeNumbersTwoDim(myDataNumbers) {
 
 countZeroPosNegPrimeNumbersTwoDim(myDataTwoDimension);
 
-///////////// 13 - Посчитать сумму значений чисел от min до max (всех, только тех которые кратны 3, только положительные). Нарисовать блок схему. 
-// Реализовать также с помощью рекурсии. Реализовать мемоизированную функцию. ///////////
+///////////// 13 - Посчитать сумму значений чисел от min до max (всех, только тех которые кратны 3, только положительные). 
+///////////// Нарисовать блок схему. Реализовать также с помощью рекурсии.///////////
 
-function countRangeSumm(min, max) {
-    let sumAll = 0;
-    let sumMultiplyTree = 0;
-    let sumPositive = 0;
+// function countRangeSumm(min, max) {
+//     let sumAll = 0;
+//     let sumMultiplyTree = 0;
+//     let sumPositive = 0;
 
-    let myNumbers = {};
+//     let myNumbers = {};
 
-    for (let i = min; i <= max; i++){
-        sumAll += i;
-        myNumbers.all = sumAll;
+//     for (let i = min; i <= max; i++){
+//         sumAll += i;
+//         myNumbers.all = sumAll;
 
-        if (i % 3 === 0) {
-            sumMultiplyTree += i;
-            myNumbers.divideByThree = sumMultiplyTree;
-        }
-        if (i > 0) {
-            sumPositive += i;
-            myNumbers.positive = sumPositive;
-        }
-    }
-    console.log(myNumbers);
-    return myNumbers;
-  };  
+//         if (i % 3 === 0) {
+//             sumMultiplyTree += i;
+//             myNumbers.divideByThree = sumMultiplyTree;
+//         }
+//         if (i > 0) {
+//             sumPositive += i;
+//             myNumbers.positive = sumPositive;
+//         }
+//     }
+//     console.log(myNumbers);
+//     return myNumbers;
+//   };  
 
-  countRangeSumm(-1, 5);
+//   countRangeSumm(-1, 5);
 
   /////////////////////////////////////////////////
 
@@ -485,21 +485,127 @@ countRangeSum(-1, 3, sumPositiveElements);
 
 
 
+/////////// 14 - Найти среднее значение всех элементов одномерного/двумерного массива (Среднее только тех которые четные и которые не четные).
 
 
 
+/////////// 15 - Транспонировать матрицу, сложить две матрицы.
+
+let matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
+
+function transposeMatrix(matrix){
+    let transpMatrix = [];
+
+    for(let i = 0; i < matrix.length; i++){
+        transpMatrix.push([]);
+    };
+
+    for(let i = 0; i < matrix.length; i++){
+        for(let j = 0; j < matrix.length; j++){
+            transpMatrix[j].push(matrix[i][j]);
+        };
+    };
+    console.log(matrix);
+    console.log(transpMatrix);
+    return transpMatrix;
+}
+
+//transposeMatrix(matrix);
 
 
+let matrixLeft = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
+let matrixRight = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
+
+function sumMatrix (firstMatrix, secondMatrix) {
+    let resultMatrix = [];
+
+    for(let i = 0; i < firstMatrix.length; i++){
+        resultMatrix.push([]);
+    };
 
 
+    console.log(resultMatrix);
+    console.log(firstMatrix);
+    console.log(secondMatrix);
+
+}
+
+sumMatrix (matrixLeft, matrixRight);
 
 
+/////////// 19 - Реализовать с помощью итератора и генератора светофор. 
+/////////// При каждой следующей итерации мы должны получать следующий корректный цвет по логике светофора. ///////////
+
+function* generateTrafficLight() {
+    for (; ;) {
+        yield "red";
+        yield "yellow";
+        yield "green";
+    }
+}
+
+let generatorLights = generateTrafficLight();
+generatorLights.next();
+
+console.log(generatorLights.next());
+console.log(generatorLights.next());
+console.log(generatorLights.next());
+console.log(generatorLights.next());
+console.log(generatorLights.next());
 
 
+/////////// 20 - Определить является ли число отрицательным или положительным без сравнения на больше/меньше нуля. 
+/////////// Посчитать количество битов числа которые установлены в единицу и которые установлены в 0. Написать свою реализацию для ~, двумя способами.
+
+function isPositiveNumber (number) {
+
+    //// first variant
+    // let isPositive = Math.sign(number);
+    // if (isPositive === 1) {
+    //     return true;
+    // }
+    // if (isPositive === -1){
+    //     return false;
+    // }
+    // console.log(isPositive);
+
+////////
+    let binNumber = ~number.toString(2);
+    let firstIndex = binNumber.toString().split('')[0];
+    if (firstIndex === '-') {
+        console.log('Positive');
+        return true;
+    }else {
+        console.log('Negative');
+        return false;
+    }
+}
+isPositiveNumber(5);
+isPositiveNumber(-5);
+
+function countZeroOneBits (number){
+    number.toString().split('');
+    let zeroBitCount = 0;
+    let oneBitCount = 0;
+
+    for (let i = 0; i < number.length; i++) {
+        if (number[i] === '0'){
+            zeroBitCount++;
+        }
+        if (number[i] === '1'){
+            oneBitCount++;
+        }
+    }
+
+    console.log(zeroBitCount, oneBitCount); 
+}
+
+let binNumber = '00000000000000000000000000001010';
+
+countZeroOneBits(binNumber);
+//////
 
 
-
-///////////////////////////
 
 // function sumFromTo(min, max) {
     
@@ -605,4 +711,44 @@ countRangeSum(-1, 3, sumPositiveElements);
 
 // console.log(factorial(7));
 
+
+
+
+
+
+
+
+
+
+
+
+// // // // // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// // // // // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+/////////// 19 - Реализовать с помощью итератора и генератора светофор.
+// function iterateTrafficSignals() {
+//     let lights = ['Red', 'Yellow', 'Green'];
+
+//     let nextIndex = 0;
+
+//     return {
+
+//         next: function () {
+//             if (nextIndex < lights.length) {
+
+//                 return { value: lights[nextIndex++], done: false }
+//             } else {
+//                 nextIndex = 0;
+//                 return { done: true }
+//             }
+//         }
+
+//     };
+
+// };
+
+// let iteratorLights = iterateTrafficSignals();
+// iteratorLights.next();
+// console.log(iteratorLights.next()); 
+// //////////////////////////
 
