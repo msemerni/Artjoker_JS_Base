@@ -486,51 +486,85 @@ countRangeSum(-1, 3, sumPositiveElements);
 
 
 /////////// 14 - Найти среднее значение всех элементов одномерного/двумерного массива (Среднее только тех которые четные и которые не четные).
+let array23 = [1, 2, 3, 4, 5, 6];
+let array24 = [[1, 2], [3, 4], [5, 6]];
+
+function findAverageArrayValue (someArray, userFunc) {
+    let digits = [].concat(...someArray);
+    console.log(digits.reduce(userFunc, 0));
+    return digits.reduce(userFunc, 0);
+}
+
+const findEvenAverage = (total, currentValue) => {
+
+    if (currentValue % 2 === 0) {
+        return (total + currentValue / 2);
+    } else {
+        return total;
+    }
+
+};
+
+const findOddAverage = (total, currentValue) => {
+
+    if (currentValue % 2 !== 0) {
+        return (total + currentValue / 2);
+    } else {
+        return total;
+    }
+
+};
+
+findAverageArrayValue(array23, findEvenAverage);
+findAverageArrayValue(array23, findOddAverage);
 
 
 
 /////////// 15 - Транспонировать матрицу, сложить две матрицы.
 
-let matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
+let matrix = [[1, 2, 3], 
+              [4, 5, 6], 
+              [7, 8, 9]];
+let matrix1 = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
+let matrix2 = [[1, 2], [3, 4], [5, 6]];
+let matrix3 = [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]];
 
-function transposeMatrix(matrix){
+function transposeMatrix(matrix) {
+
     let transpMatrix = [];
 
-    for(let i = 0; i < matrix.length; i++){
-        transpMatrix.push([]);
-    };
+    for (let i = 0; i < matrix[0].length; i++) {
+        transpMatrix[i] = [];
+        for (let j = 0; j < matrix.length; j++) {
+            transpMatrix[i][j] = matrix[j][i];
+        }
+    }
 
-    for(let i = 0; i < matrix.length; i++){
-        for(let j = 0; j < matrix.length; j++){
-            transpMatrix[j].push(matrix[i][j]);
-        };
-    };
     console.log(matrix);
     console.log(transpMatrix);
     return transpMatrix;
 }
 
-//transposeMatrix(matrix);
-
-
-let matrixLeft = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
-let matrixRight = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
+transposeMatrix(matrix);
 
 function sumMatrix (firstMatrix, secondMatrix) {
-    let resultMatrix = [];
 
-    for(let i = 0; i < firstMatrix.length; i++){
-        resultMatrix.push([]);
-    };
+    let transpMatrix = [];
 
+    for (let i = 0; i < firstMatrix.length; i++) {
+        transpMatrix[i] = [];
+        for (let j = 0; j < firstMatrix[0].length; j++) {
+            transpMatrix[i][j] = firstMatrix[i][j] + secondMatrix[i][j];
+        }
+    }
 
-    console.log(resultMatrix);
     console.log(firstMatrix);
     console.log(secondMatrix);
-
+    console.log(transpMatrix);
+    return transpMatrix;
 }
 
-sumMatrix (matrixLeft, matrixRight);
+sumMatrix (matrix, matrix1);
 
 
 /////////// 19 - Реализовать с помощью итератора и генератора светофор. 
