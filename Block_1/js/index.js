@@ -82,25 +82,45 @@ checkIsPalindrom('а роза упала');
 
 //// first variant
 function countUniqueWords(someString) {
-    let uniqueWords = new Set(someString.split(' '));
-    console.log(`Unique words count: ${uniqueWords.size}`);
-    return uniqueWords.size;
-  }
+    console.log(someString);
+
+    let allWords = someString.split(' ');
+    let counter = 0;
+    let result = [];
+    console.log(allWords);
+    for (let word of allWords) {
+        if (!result.includes(word)) {
+            result.push(word);
+            counter++;
+        }
+    }
+    console.log(`UnicWordsCount: ${counter}`);
+    return counter;
+}
 
 countUniqueWords('привет пока привет пока привет');
 
 //// second variant
 function countUniqueWords2(someString) {
-    let uniqueWords = someString.split(' ').filter((item, i, array) => array.indexOf(item) === i);
-    console.log(`Unique words count2: ${uniqueWords.length}`);
-    return uniqueWords.length;
-}
+    let uniqueWords = new Set(someString.split(' '));
+    console.log(`Unique words count2: ${uniqueWords.size}`);
+    return uniqueWords.size;
+  }
 
 countUniqueWords2('привет пока привет пока привет');
 
+//// third variant
+function countUniqueWords3(someString) {
+    let uniqueWords = someString.split(' ').filter((item, i, array) => array.indexOf(item) === i);
+    console.log(`Unique words count3: ${uniqueWords.length}`);
+    return uniqueWords.length;
+}
+
+countUniqueWords3('привет пока привет пока привет');
+
 /////////// 6 - Написать функцию которая вычисляет вхождение каждого слова в предложение ///////////
 
-function countUniqueWords(someString) {
+function countOccurrenceWord(someString) {
     let words = {};
 
     let splittedsomeString = someString.split(' ');
@@ -108,8 +128,8 @@ function countUniqueWords(someString) {
     splittedsomeString.map((word) => { words[word] = words[word] ? ++words[word] : 1 });
     return words;
   }
-  countUniqueWords('привет пока привет пока привет hello');
-  console.log(countUniqueWords('привет пока привет пока привет hello'));
+  countOccurrenceWord('привет пока привет пока привет hello');
+  console.log(countOccurrenceWord('привет пока привет пока привет hello'));
 
 /////////// 7 - Вычислить периметр и площадь для прямоугольника, треугольника и круга. С помощью конструктора и классов ///////////
 
@@ -329,6 +349,7 @@ countElementsSum(myData, countElementsPositiveOddSum);
 
 let someNumbers = [-1, -2, 0, 0, 0, 1, 2, 3, 4];
 
+//// first variant
 function countZeroPosNegPrimeNumbers(myNumbers) {
     myNumbers.reduce(function (acc, num) {
         if (num === 0) {
@@ -350,6 +371,62 @@ function countZeroPosNegPrimeNumbers(myNumbers) {
 };
 
 countZeroPosNegPrimeNumbers(someNumbers);
+
+//// second variant
+let someNumbers2 = [-1, -2, 0, 0, 0, 0, 1, 2, 3, 4];
+
+
+function countNumbers (someArray, userFunc) {
+    return userFunc(someArray);
+}
+
+const countZeroNumbers = (arr) => { 
+    let counter = 0;
+    for (let i = 0; i < arr.length; i++) {
+        if(arr[i] === 0) {
+            counter++;
+        }
+    }
+    console.log(`ZERO: ${counter}`);
+    return counter;
+}
+
+const countNegativeNumbers = (arr) => { 
+    let counter = 0;
+    for (let i = 0; i < arr.length; i++) {
+        if(arr[i] < 0) {
+            counter++;
+        }
+    }
+    console.log(`NEG: ${counter}`);
+    return counter;
+}
+
+const countPositiveNumbers = (arr) => { 
+    let counter = 0;
+    for (let i = 0; i < arr.length; i++) {
+        if(arr[i] > 0) {
+            counter++;
+        }
+    }
+    console.log(`POS: ${counter}`);
+    return counter;
+}
+
+const countPrimeNumbers = (arr) => { 
+    let counter = 0;
+    for (let i = 0; i < arr.length; i++) {
+        if(arr[i] > 0 && arr[i] ^ 0) {
+            counter++;
+        }
+    }
+    console.log(`PRIME: ${counter}`);
+    return counter;
+}
+countNumbers(someNumbers2, countZeroNumbers);
+countNumbers(someNumbers2, countNegativeNumbers);
+countNumbers(someNumbers2, countPositiveNumbers);
+countNumbers(someNumbers2, countPrimeNumbers);
 
 /////////// 11 - Написать функции которые преобразовывают число из десятичной системы счисления в двоичную и в обратную сторону. (Достаточно написать для целых положительных чисел) ///////////
 
@@ -494,9 +571,6 @@ const sumPositiveElements = (total, currentValue) => {
 countRangeSum(-1, 3, sumAll);
 countRangeSum(-1, 3, sumElementsDivideThree);
 countRangeSum(-1, 3, sumPositiveElements);
-
-
-
 
 /////////// 14 - Найти среднее значение всех элементов одномерного/двумерного массива (Среднее только тех которые четные и которые не четные).
 let array23 = [1, 2, 3, 4, 5, 6];
