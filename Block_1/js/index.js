@@ -36,23 +36,21 @@ countDigits(123);
 countDigits(12345);
 
 function countDigitsRecursion(num) {
-    //// second variant
 
     if (Math.floor(num) == 0) {
         return 0;
-    } 
-        // num = num / 10;
+    }
     return 1 + countDigitsRecursion((num/10));
 
 }
-let res = countDigitsRecursion(123);
-let res2 = countDigitsRecursion(12345);
-console.log(`Number of digits (recursion): ${res}`);
-console.log(`Number of digits (recursion): ${res2}`);
+let countResult = countDigitsRecursion(123);
+let secondResult = countDigitsRecursion(12345);
+console.log(`Number of digits (recursion): ${countResult}`);
+console.log(`Number of digits (recursion): ${secondResult}`);
 
 /////////// 4 - Реализовать функцию которая проверяет, является ли строка палиндромом ///////////
 
-function checkIsPalindrom(someString) {
+function checkIsPalindrom(initialString) {
 
     let reversedString = '';
     //// first variant
@@ -63,12 +61,12 @@ function checkIsPalindrom(someString) {
     // reversedString = reversedString.toLowerCase().replaceAll(" ", "");
 
     //// second variant
-    reversedString = someString.toLowerCase().replaceAll(' ', '').split('').reverse().join('');
-    someString = someString.toLowerCase().replaceAll(' ', '');
+    reversedString = initialString.toLowerCase().replaceAll(' ', '').split('').reverse().join('');
+    initialString = initialString.toLowerCase().replaceAll(' ', '');
 
-    console.log(`Or: ${someString}`);
+    console.log(`Or: ${initialString}`);
     console.log(`Re: ${reversedString}`);
-    if (someString === reversedString) {
+    if (initialString === reversedString) {
         console.log('Palindrom');
         return true;
     } else {
@@ -82,7 +80,8 @@ checkIsPalindrom('а роза упала');
 
 /////////// 5 - Написать функцию которая вычисляет подсчет уникальных слов в предложении ///////////
 
-function countUniqueWords(someString) { 
+//// first variant
+function countUniqueWords(someString) {
     let uniqueWords = new Set(someString.split(' '));
     console.log(`Unique words count: ${uniqueWords.size}`);
     return uniqueWords.size;
@@ -90,35 +89,34 @@ function countUniqueWords(someString) {
 
 countUniqueWords('привет пока привет пока привет');
 
-// function countUniqueWords2(someString) {
-//     let uniqueWords = someString.split(' ').filter((item, i, ar) => ar.indexOf(item) === i);
-//     console.log(`Unique words count1: ${uniqueWords.length}`);
-//     return uniqueWords.length;
-// }
+//// second variant
+function countUniqueWords2(someString) {
+    let uniqueWords = someString.split(' ').filter((item, i, array) => array.indexOf(item) === i);
+    console.log(`Unique words count2: ${uniqueWords.length}`);
+    return uniqueWords.length;
+}
 
-// countUniqueWords2('привет пока привет пока привет');
+countUniqueWords2('привет пока привет пока привет');
 
 /////////// 6 - Написать функцию которая вычисляет вхождение каждого слова в предложение ///////////
 
 function countUniqueWords(someString) {
     let words = {};
-    
+
     let splittedsomeString = someString.split(' ');
-    
-    splittedsomeString.map((word) => {
-        words[word] = words[word] ? ++words[word] : 1;
-    });
+
+    splittedsomeString.map((word) => { words[word] = words[word] ? ++words[word] : 1 });
     return words;
   }
   countUniqueWords('привет пока привет пока привет hello');
   console.log(countUniqueWords('привет пока привет пока привет hello'));
-  
+
 /////////// 7 - Вычислить периметр и площадь для прямоугольника, треугольника и круга. С помощью конструктора и классов ///////////
 
 function Rectangle (width, height) {
     this.width = width;
     this.height = height;
-} 
+}
 Rectangle.prototype.perimeter = (width, height) => {
     console.log(`Rectangle perimeter(func): ${(width + height) * 2}`);
     return (width + height) * 2;
@@ -137,7 +135,7 @@ function Triangle (sideOne, sideTwo, sideThree) {
     this.sideOne = sideOne;
     this.sideTwo = sideTwo;
     this.sideThree = sideThree;
-} 
+}
 Triangle.prototype.perimeter = (sideOne, sideTwo, sideThree) => {
     console.log(`Triangle perimeter(func): ${sideOne + sideTwo + sideThree}`);
     return (sideOne + sideTwo + sideThree);
@@ -157,7 +155,7 @@ triangleOne.square(2, 3, 4);
 function Circle (width, height) {
     this.width = width;
     this.height = height;
-} 
+}
 Circle.prototype.perimeter = (radius) => {
     console.log(`Circle perimeter(func): ${2 * Math.PI * radius}`);
     return 2 * Math.PI * radius;
@@ -242,6 +240,20 @@ firstCircle.square(3);
 
 /////////// 8 - Вычислить факториал числа. Реализовать с помощью рекурсии. Реализовать мемоизированную функцию вычисления факториала. ///////////
 
+//// loop:
+function calculateFactorial(num){
+    let result = 1;
+
+    while(num){
+        result *= num--;
+    }
+
+    return result;
+}
+console.log(`Factorial result: ${calculateFactorial(10)}`);
+calculateFactorial(10);
+
+//// recursion:
 function countFactorial(num){
     if (num === 0){
         return 1;
@@ -254,6 +266,7 @@ function countFactorial(num){
 countFactorial(10);
 console.log(countFactorial(10));
 
+//// memo:
   function countFactorialMemo () {
     let memo = {};
     const func = (num) => {
@@ -264,7 +277,7 @@ console.log(countFactorial(10));
     }
     return func;
   };
-  
+
   const func = countFactorialMemo();
   func(10);
   console.log(func(10));
@@ -278,9 +291,9 @@ function countElementsSum (someArray, userFunc) {
     return someArray.reduce(userFunc, 0);
 }
 
-const countAllElementsSum = (total, currentValue) => 
+const countAllElementsSum = (total, currentValue) =>
     total + currentValue;
-    
+
 const countElementsDivideTwoSum = (total, currentValue) => {
     if (currentValue % 2 === 0) {
         return total + currentValue;
@@ -360,18 +373,18 @@ function convertFromTwoToTen(numberTwoSystem) {
 convertFromTwoToTen('0011');
 
 function convertFromTenToTwo(numberTenSystem) {
-    
+
     let ostatok = 0;
     let numberTwoSystem = [];
     for (let i = 0; numberTenSystem >= 0; i++) {
         ostatok = numberTenSystem % 2;
         numberTenSystem = Math.floor(numberTenSystem / 2);
         numberTwoSystem.unshift(ostatok);
-        
+
         if (numberTenSystem === 0) {
             console.log(+numberTwoSystem.toString().replaceAll(',',''));
             return +numberTwoSystem.toString().replaceAll(',','');
-        } 
+        }
     }
 }
 
@@ -418,7 +431,7 @@ function countZeroPosNegPrimeNumbersTwoDim(myDataNumbers) {
 
 countZeroPosNegPrimeNumbersTwoDim(myDataTwoDimension);
 
-///////////// 13 - Посчитать сумму значений чисел от min до max (всех, только тех которые кратны 3, только положительные). 
+///////////// 13 - Посчитать сумму значений чисел от min до max (всех, только тех которые кратны 3, только положительные).
 ///////////// Нарисовать блок схему. Реализовать также с помощью рекурсии.///////////
 
 // function countRangeSumm(min, max) {
@@ -443,7 +456,7 @@ countZeroPosNegPrimeNumbersTwoDim(myDataTwoDimension);
 //     }
 //     console.log(myNumbers);
 //     return myNumbers;
-//   };  
+//   };
 
 //   countRangeSumm(-1, 5);
 
@@ -522,8 +535,8 @@ findAverageArrayValue(array23, findOddAverage);
 
 /////////// 15 - Транспонировать матрицу, сложить две матрицы.
 
-let matrix = [[1, 2, 3], 
-              [4, 5, 6], 
+let matrix = [[1, 2, 3],
+              [4, 5, 6],
               [7, 8, 9]];
 let matrix1 = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
 let matrix2 = [[1, 2], [3, 4], [5, 6]];
@@ -567,19 +580,66 @@ function sumMatrix (firstMatrix, secondMatrix) {
 sumMatrix (matrix, matrix1);
 
 
-
-
 /////////// 16 - Удалить из двумерного массива строку в которой присутствует хотя бы один нулевой элемент. Для столбца аналогично реализовать.
+let matrixInit = [[1, 2, 3],
+                  [4, 0, 6],
+                  [7, 8, 0],
+                  [10, 11, 12]];
+
+function removeMatrixRowWithZero(someArray) {
+
+    for (let i = 0; i < someArray.length; i++) {
+        for (let j = 0; j < someArray[0].length; j++) {
+            if (someArray[i][j] === 0) {
+                someArray.splice(i--, 1);
+                break;
+            }
+        }
+    }
+    console.log(someArray);
+}
+
+removeMatrixRowWithZero(matrixInit);
+
+let matrixInit2 = [[1, 2, 0],
+                  [0, 5, 6],
+                  [7, 8, 0],
+                  [10, 11, 12]];
+
+function removeMatrixColWithZero (someArray) {
+    let position;
+    for (let i = 0; i < someArray.length; i++) {
+        for (let j = 0; j < someArray[0].length; j++) {
+
+            if (someArray[i][j] === 0) {
+                position = j;
+                for (let i = 0; i < someArray.length; i++) {
+                    for (let j = 0; j < someArray[0].length; j++) {
+                        someArray[i].splice(position, 1);
+                        break;
+                    }
+                }
+            }
+        }
+
+        if (someArray[0].length === 0) {
+            someArray = [];
+            break;
+        };
+    }
+    console.log(someArray);
+    return someArray;
+}
+
+removeMatrixColWithZero(matrixInit2);
 
 /////////// 17 - Посчитать сумму/количество нулевых элементов/среднее значение элементов матрицы над и под главной диагональю и на главной диагональю.
 
-/////////// 18 - Создать итерируемый объект, который на каждой итерации возвращает следующее значение числа фибоначчи 
+/////////// 18 - Создать итерируемый объект, который на каждой итерации возвращает следующее значение числа фибоначчи
 /////////// (Реализовать с помощью итератора и генератора). Реализовать мемоизированную функцию. Реализовать с помощью рекурсии.
 
 
-
-
-/////////// 19 - Реализовать с помощью итератора и генератора светофор. 
+/////////// 19 - Реализовать с помощью итератора и генератора светофор.
 /////////// При каждой следующей итерации мы должны получать следующий корректный цвет по логике светофора. ///////////
 
 function* generateTrafficLight() {
@@ -600,8 +660,9 @@ console.log(generatorLights.next());
 console.log(generatorLights.next());
 
 
-/////////// 20 - Определить является ли число отрицательным или положительным без сравнения на больше/меньше нуля. 
-/////////// Посчитать количество битов числа которые установлены в единицу и которые установлены в 0. Написать свою реализацию для ~, двумя способами.
+/////////// 20 - Определить является ли число отрицательным или положительным без сравнения на больше/меньше нуля.
+/////////// Посчитать количество битов числа которые установлены в единицу и которые установлены в 0.
+/////////// Написать свою реализацию для ~, двумя способами.
 
 function isPositiveNumber (number) {
 
@@ -629,6 +690,9 @@ function isPositiveNumber (number) {
 isPositiveNumber(5);
 isPositiveNumber(-5);
 
+
+let binNumber = '00000000000000000000000000001010';
+
 function countZeroOneBits (number){
     number.toString().split('');
     let zeroBitCount = 0;
@@ -642,19 +706,105 @@ function countZeroOneBits (number){
             oneBitCount++;
         }
     }
-
-    console.log(zeroBitCount, oneBitCount); 
+    console.log({zero: zeroBitCount, one: oneBitCount});
+    return {zero: zeroBitCount, one: oneBitCount};
 }
 
-let binNumber = '00000000000000000000000000001010';
-
 countZeroOneBits(binNumber);
+
+
+let binNumber2 = '10000000000000000000000000001010';
+
+function invertBinDigits (binNumber) { ////myTilda
+    console.log(binNumber);
+    binNumber = binNumber.split("");
+    for (let i = 0; i < binNumber.length; i++) {
+        if(binNumber[i] === '0'){
+            binNumber[i] = 1;
+        } else {
+            binNumber[i] = 0;
+        }
+    }
+    console.log(binNumber.toString().replaceAll(",", ""));
+    return binNumber.toString().replaceAll(",", "");
+}
+
+invertBinDigits(binNumber2);
+
+
+let binNumber3 = '00000000000000000000000000000101';
+
+function invertBinNumber (number) { ////myTilda
+    // number = number.toString(2);
+    console.log(number);
+    console.log(-(number + 1));
+    return -(number+1);
+}
+
+invertBinNumber(5);
+
+
+
+
+// // invertBinNumber(binNumber3);
+
+////
+
+// const b = 5;
+// const c = 5;
+
+// console.log(~b);
+// console.log(-(c+1));
+
+// a ^ b;
+
+
+
+// ~n == -(n+1)
+
+// const a = 5;        // 00000000000000000000000000000101
+// const b = 3;        // 00000000000000000000000000000011
+
+// console.log(a ^ b); // 00000000000000000000000000000110
+// // expected output: 6
+
+
+// const a = 5;        // 00000000000000000000000000000101
+// const b = 3;        // 00000000000000000000000000000101
+
+// console.log(a ^ b); // 00000000000000000000000000000000
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
 
 
+// var array = [];
+
+// var count = 0;
+// for (var row=0; row<4; row++) {
+//     array[row] = [];
+//     for (var col=0; col<5; col++) {
+//       array[row][col] = count++;
+//     }
+// }
+
+// console.log(array);
+
+//    [ [ 0,  1,  2,  3,  4  ],
+//      [ 5,  6,  7,  8,  9  ],
+//      [ 10, 11, 12, 13, 14 ],
+//      [ 15, 16, 17, 18, 19 ] ]
+
+
+// function deleteRow(arr, row) {
+//    arr = arr.slice(0); // make copy
+//    arr.splice(row - 1, 1);
+//    return arr;
+// }
+
+// console.log(deleteRow(array, 1));
 
 
 
@@ -665,13 +815,13 @@ countZeroOneBits(binNumber);
 
 
 // function sumFromTo(min, max) {
-    
+
 //     let myNumbers = myNumbers || {}
 
 
 //     console.log (myNumbers);
 //     if (min > max) {
-        
+
 //         return sumFromTo(max, min);
 //     }
 //     if (max === min) {
@@ -715,7 +865,7 @@ countZeroOneBits(binNumber);
 //     sumAll = sumAll || 0;
 //     sumAll += min;
 //     myNumbers.all = sumAll || 0;
-    
+
 //     if (min % 3 === 0) {
 //         sumMultiplyTree = sumMultiplyTree || 0;
 //         sumMultiplyTree += i;
@@ -742,7 +892,7 @@ countZeroOneBits(binNumber);
 
 //     }
 
-//   };  
+//   };
 //   countRangeSumRecursion (-1, 5);
 
 
@@ -806,6 +956,36 @@ countZeroOneBits(binNumber);
 
 // let iteratorLights = iterateTrafficSignals();
 // iteratorLights.next();
-// console.log(iteratorLights.next()); 
-// //////////////////////////
+// console.log(iteratorLights.next());
+
+// ////////////////////////////////////////////////////////////////////////////
+
+
+/////////////// 5 third variant
+// // function countUniqueWords3(someString) {
+// //     let uniqueWords = someString.toLowerCase().split(' ');
+
+// //     let counter = uniqueWords.length;
+    
+// //     for (let i = 0; i < uniqueWords.length; i++) {
+// //         let yye = uniqueWords[i];
+
+// //         for (let j = i + 1 ; j < uniqueWords.length; j++) {
+// //             let yy = uniqueWords[i];
+// //             let yyrr = uniqueWords[j];
+// //             if (uniqueWords[i] === uniqueWords[j]) {
+// //                 counter--;
+// //                 i++;
+// //             } 
+
+            
+// //         console.log(`Unique words COUNT: ${counter}`);
+// //         console.log(`Unique WORDS: ${uniqueWords[i]}`);
+
+// //         }
+// //     }
+// //     return uniqueWords.length;
+// // }
+
+// // countUniqueWords3('привет пока привет пока привет hello');
 
