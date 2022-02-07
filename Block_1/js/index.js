@@ -1,6 +1,15 @@
-'use strict'
+'use strict';
+
+
+//// countSum - неправильно
+
 /////////// 1 - Написать функцию которая проверяет являются две строки анаграммой или нет ///////////
 function checkIsAnagram(firstStr, secondStr) {
+    
+    if (typeof firstStr !== 'string' || typeof firstStr !== 'string') {
+        return false;
+    }
+
     let firstString = firstStr.toLowerCase().replaceAll(' ', '').split('').sort().join('');
     let secondString = secondStr.toLowerCase().replaceAll(' ', '').split('').sort().join('');
 
@@ -50,7 +59,7 @@ console.log(`Number of digits (recursion): ${secondResult}`);
 
 /////////// 4 - Реализовать функцию которая проверяет, является ли строка палиндромом ///////////
 
-function checkIsPalindrom(initialString) {
+function checkIsPalindrom(initialString) {   ///// название правильное
 
     let reversedString = '';
     //// first variant
@@ -103,7 +112,7 @@ countUniqueWords('привет пока привет пока привет');
 //// second variant
 function countUniqueWords2(someString) {
     let uniqueWords = new Set(someString.split(' '));
-    console.log(`Unique words count2: ${uniqueWords.size}`);
+    console.log(`Unique words count2: ${uniqueWords.size}`);   //// не нужна переменная uniqueWords. сразу ретурн
     return uniqueWords.size;
   }
 
@@ -505,11 +514,10 @@ function countZeroPosNegPrimeNumbersTwoDim(myDataNumbers) {
         return acc;
     }, {});
 };
-
-countZeroPosNegPrimeNumbersTwoDim(myDataTwoDimension);
-
-///////////// 13 - Посчитать сумму значений чисел от min до max (всех, только тех которые кратны 3, только положительные).
-///////////// Нарисовать блок схему. Реализовать также с помощью рекурсии.///////////
+function countMainDiagonal(matrix, userFunc){
+    console.log(`countMainDiagonal::: ${userFunc(matrix)}`);
+    return userFunc(matrix);
+}
 
 // function countRangeSumm(min, max) {
 //     let sumAll = 0;
@@ -707,38 +715,261 @@ function removeMatrixColWithZero (someArray) {
 
 removeMatrixColWithZero(matrixInit2);
 
-/////////// 17 - Посчитать сумму/количество нулевых элементов/среднее значение элементов матрицы над и под главной диагональю и на главной диагональю.
+/////////// 17 - Посчитать сумму/количество нулевых элементов/среднее значение элементов матрицы: над и под главной диагональю и на главной диагонали.
+
+let matrix5 = [
+    [2,2,3,4,5],
+    [1,2,3,4,0],
+    [0,8,0,6,5],
+    [9,8,0,6,5],
+    [0,8,7,6,1]];
+
+///first variant
+function countDiagonal(matrix, userFunc){
+    return userFunc(matrix);
+}
+
+function countMainMatrixDiagonal(matrix) {
+    let result = {};
+    let zero = 0;
+    let sum = 0;
+    let counter = 0;
+    let average = 0;
+
+    for (let i = 0; i < matrix.length; i++) {
+        for (let j = i; j < i + 1; j++) {
+            if (matrix[i] === matrix[j]) {
+                if(matrix[i][j] === 0) {
+                    zero++;
+                }
+                sum += matrix[i][j];
+                counter++;
+            }
+        }
+    }
+
+    average = sum / counter;
+    result.zeros = zero;
+    result.sum = sum;
+    result.average = average;
+
+    // if (userFunc === "countZero") {
+    //     return zero;
+    // } else if (condition === "countSum") {
+    //     return sum;
+    // } else if (condition === "countAverage") {
+    //     return sum / counter;
+    // }
+
+    console.log(result);
+    return result;
+}
+
+countMainMatrixDiagonal(matrix5);
+
+function countTopMatrixPart(matrix) {
+    let result = {};
+    let zero = 0;
+    let sum = 0;
+    let counter = 0;
+    let average = 0;
+
+    for (let i = 0; i < matrix.length; i++) {
+        for (let j = i + 1; j < matrix[i].length; j++) {
+            if (matrix[i][j] === 0) {
+                zero++;
+            }
+            sum += matrix[i][j];
+            counter++;
+        }
+    }
+
+    average = sum / counter;
+    result.zeros = zero;
+    result.sum = sum;
+    result.average = average;
+
+    console.log(result);
+    return result;
+}
+
+countTopMatrixPart(matrix5);
+
+function countBottomMatrixPart(matrix) {
+    let result = {};
+    let zero = 0;
+    let sum = 0;
+    let counter = 0;
+    let average = 0;
+
+    for(let i = 1; i < matrix.length; i++){
+        for(let j = 0; j < i; j++){        
+            if(matrix[i][j] === 0){
+                zero++;
+            }
+            sum += matrix[i][j];
+            counter++;
+        }
+    }
+
+    average = sum / counter;
+    result.zeros = zero;
+    result.sum = sum;
+    result.average = average;
+
+    console.log(result);
+    return result;
+}
+
+countBottomMatrixPart(matrix5);
+
+countDiagonal(matrix5, countMainMatrixDiagonal);
+countDiagonal(matrix5, countTopMatrixPart);
+countDiagonal(matrix5, countBottomMatrixPart);
+
+//////////////////////////////////////////////////////////////////
+
+///second variant //закоментировать
+// function countMainDiagonal(matrix, userFunc){
+//     return userFunc(matrix);
+// }
+
+// function countMatrixDiagonalZeros(matrix){
+//     let zeroCounter = 0;
+
+//     for(let i = 0; i < matrix.length; i++){
+//         for(let j = i; j < i + 1; j++){
+//             if(matrix[i][j] === 0){
+//                 zeroCounter++;
+//             }
+//         }
+//     }
+//     console.log(zeroCounter);
+//     return zeroCounter;
+
+// }
+
+// function countMatrixDiagonalSum(matrix) {
+//     let sum = 0;
+
+//     for (let i = 0; i < matrix.length; i++) {
+//         for (let j = i; j < i + 1; j++) {
+//             sum += matrix[i][j];
+//         }
+//     }
+//     console.log(sum);
+//     return sum;
+
+// }
+
+// function countMatrixDiagonalAverage(matrix) {
+//     let average = 0;
+//     let counter = 0;
+//     let sum = 0;
+
+//     for(let i = 0; i < matrix.length; i++){
+//         for(let j = i; j < i + 1; j++){
+//             if(i === j){
+//                 sum += matrix[i][j];
+//                 counter++;
+//             }
+//         }
+//     }
+//     average = sum/counter;
+//     console.log(average);
+//     return average;
+
+// }
+
+// countMainDiagonal(matrix5, countMatrixDiagonalZeros);
+// countMainDiagonal(matrix5, countMatrixDiagonalSum);
+// countMainDiagonal(matrix5, countMatrixDiagonalAverage);
+
+////////////
+
+
 
 /////////// 18 - Создать итерируемый объект, который на каждой итерации возвращает следующее значение числа фибоначчи
 /////////// (Реализовать с помощью итератора и генератора). Реализовать мемоизированную функцию. Реализовать с помощью рекурсии.
 
+function countFibonacci (num) {
+    if (num <= 1) {
+        return 1;
+    } else {
+    return countFibonacci(num - 1) + countFibonacci(num - 2);
+    }
+};
+
+countFibonacci (3);
+
+function memoCountFibonacci (func) {
+    const memo = {};
+    return (num) => memo[num] || (memo[num] = func(num));
+};
+
+let memorizedFibonacci = memoCountFibonacci(countFibonacci);
+memorizedFibonacci(3);
+
+
+
+let iterableObject = {
+    *[Symbol.iterator]() {
+        let number1 = 1;
+        let number2 = 1;
+        let isTrue = true;
+
+        while (isTrue) {
+            let currentValue = number2;
+            number2 = number1;
+            number1 = number1 + currentValue;
+            yield currentValue;
+            if (currentValue == Infinity) {
+                isTrue = false;
+            };
+        }
+    },
+};
+
+let iterObject = iterableObject[Symbol.iterator]();
+iterObject.next();
+
+// // iterableObject[Symbol.iterator]().next();
+
+// for (let num of iterableObject) {
+//     console.log(num);
+// }
+
+
+///// 18 мемо неправильно
 
 /////////// 19 - Реализовать с помощью итератора и генератора светофор.
 /////////// При каждой следующей итерации мы должны получать следующий корректный цвет по логике светофора. ///////////
 
-function* generateTrafficLight() {
-    for (; ;) {
-        yield "red";
-        yield "yellow";
-        yield "green";
-    }
-}
 
-let generatorLights = generateTrafficLight();
-generatorLights.next();
+// function* generateTrafficLight() {
+//     for (; ;) {
+//         yield "red";
+//         yield "yellow";
+//         yield "green";
+//         yield "yellow";
+//     }
+// }
 
-console.log(generatorLights.next());
-console.log(generatorLights.next());
-console.log(generatorLights.next());
-console.log(generatorLights.next());
-console.log(generatorLights.next());
+// let generatorLights = generateTrafficLight();
+// generatorLights.next();
+
+// console.log(generatorLights.next());
+// console.log(generatorLights.next());
+// console.log(generatorLights.next());
+// console.log(generatorLights.next());
+// console.log(generatorLights.next());
 
 
-/////////// 20 - Определить является ли число отрицательным или положительным без сравнения на больше/меньше нуля.
+/////////// 20 - Определить является ли число отрицательным или положительным без сравнения на больше/меньше нуля (побитово).
 /////////// Посчитать количество битов числа которые установлены в единицу и которые установлены в 0.
 /////////// Написать свою реализацию для ~, двумя способами.
 
-function isPositiveNumber (number) {
+function checkIsPositiveNumber(number) {
 
     //// first variant
     // let isPositive = Math.sign(number);
@@ -750,19 +981,47 @@ function isPositiveNumber (number) {
     // }
     // console.log(isPositive);
 
-////////
+    ////////
     let binNumber = ~number.toString(2);
     let firstIndex = binNumber.toString().split('')[0];
     if (firstIndex === '-') {
         console.log('Positive');
         return true;
-    }else {
+    } else {
         console.log('Negative');
         return false;
     }
 }
-isPositiveNumber(5);
-isPositiveNumber(-5);
+checkIsPositiveNumber(5);
+checkIsPositiveNumber(-5);
+
+//// second variant // не нужно
+function checksIsPositivNumber(number) {
+    if ((number & 0x80000000) === 0) {
+        console.log('Positive');
+        return true;
+    } else {
+        console.log('Negative');
+        return false;
+    }
+}
+checksIsPositivNumber(5);
+checksIsPositivNumber(-5);
+///
+
+function checkIsPositiveNumber (number) {
+    if ((number & (1 << 63)) !== (1 << 63)) {
+        console.log('Positive');
+        return true;
+    } else {
+        console.log('Negative');
+        return false;
+    }
+}
+
+checkIsPositiveNumber(5);
+
+//////////
 
 
 let binNumber = '00000000000000000000000000001010';
@@ -805,8 +1064,13 @@ function invertBinDigits (binNumber) { ////myTilda
 
 invertBinDigits(binNumber2);
 
+//////
+// let binNumber3 = '00000000000000000000000000000101';
 
-let binNumber3 = '00000000000000000000000000000101';
+//////
+
+
+
 
 function invertBinNumber (number) { ////myTilda
     // number = number.toString(2);
@@ -818,6 +1082,22 @@ function invertBinNumber (number) { ////myTilda
 invertBinNumber(5);
 
 
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+//// побитовый и не побитовый способ
+//// (53 & 1) === 1
+//// (53 & 1 << 1) === 1
+//// (53 & (1 << 1)) === (1 << 1)
+
+// 11001101010111000111
+// 00000000000000000010
+// 00000000000000000010
 
 
 // // invertBinNumber(binNumber3);
@@ -1063,3 +1343,48 @@ invertBinNumber(5);
 
 // // countUniqueWords3('привет пока привет пока привет hello');
 
+
+
+// /////////// 17 - Посчитать сумму/количество нулевых элементов/среднее значение элементов матрицы: над и под главной диагональю и на главной диагонали.
+
+// let matrix5 = [
+//     [2,2,3,4,5],
+//     [1,2,3,4,0],
+//     [0,8,0,6,5],
+//     [9,8,0,6,5],
+//     [0,8,7,6,1]]
+
+// function countMainDiagonal(matrix, userFunc){
+//     return userFunc(matrix);
+// }
+
+// function countMatrixZeros(matrix){
+//     let zeroCounter = 0;
+
+//     for(let i = 0; i < matrix.length; i++){
+//         for(let j = i; j < i + 1; j++){
+//             if(matrix[i][j] === 0){
+//                 zeroCounter++;
+//             }
+//         }
+//     }
+//     console.log(zeroCounter);
+//     return zeroCounter;
+
+// }
+
+// function countMatrixSum(matrix) {
+//     let sum = 0;
+
+//     for (let i = 0; i < matrix.length; i++) {
+//         for (let j = i; j < i + 1; j++) {
+//             sum += matrix[i][j];
+//         }
+//     }
+//     console.log(sum);
+//     return sum;
+
+// }
+
+// countMainDiagonal(matrix5, countMatrixZeros);
+// countMainDiagonal(matrix5, countMatrixSum);
