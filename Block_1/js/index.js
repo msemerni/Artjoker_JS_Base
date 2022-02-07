@@ -965,10 +965,11 @@ iterObject.next();
 // console.log(generatorLights.next());
 
 
-/////////// 20 - Определить является ли число отрицательным или положительным без сравнения на больше/меньше нуля (побитово).
-/////////// Посчитать количество битов числа которые установлены в единицу и которые установлены в 0.
-/////////// Написать свою реализацию для ~, двумя способами.
+/////////// Определить является ли число отрицательным или положительным без сравнения на больше/меньше нуля (побитово). 
+/////////// Посчитать количество битов числа которые установлены в единицу и которые установлены в 0. 
+/////////// Написать свою реализацию для ~, двумя способами).
 
+    ////////////////////////////////////является ли число отрицательным или положительным
 function checkIsPositiveNumber(number) {
 
     //// first variant
@@ -995,7 +996,22 @@ function checkIsPositiveNumber(number) {
 checkIsPositiveNumber(5);
 checkIsPositiveNumber(-5);
 
-//// second variant // не нужно
+
+///
+//// second variant //
+function checkIsPositivNumber (number) {
+    if ((number & (1 << 63)) !== (1 << 63)) {
+        console.log('Positive');
+        return true;
+    } else {
+        console.log('Negative');
+        return false;
+    }
+}
+
+checkIsPositivNumber(5);
+
+//// third variant // не нужно
 function checksIsPositivNumber(number) {
     if ((number & 0x80000000) === 0) {
         console.log('Positive');
@@ -1007,22 +1023,9 @@ function checksIsPositivNumber(number) {
 }
 checksIsPositivNumber(5);
 checksIsPositivNumber(-5);
-///
 
-function checkIsPositiveNumber (number) {
-    if ((number & (1 << 63)) !== (1 << 63)) {
-        console.log('Positive');
-        return true;
-    } else {
-        console.log('Negative');
-        return false;
-    }
-}
 
-checkIsPositiveNumber(5);
-
-//////////
-
+    ////////////////////////////////////////Посчитать количество битов числа
 
 let binNumber = '00000000000000000000000000001010';
 
@@ -1046,6 +1049,8 @@ function countZeroOneBits (number){
 countZeroOneBits(binNumber);
 
 
+///////////////////////////////////////////Написать свою реализацию для ~ тильда
+
 let binNumber2 = '10000000000000000000000000001010';
 
 function invertBinDigits (binNumber) { ////myTilda
@@ -1064,14 +1069,8 @@ function invertBinDigits (binNumber) { ////myTilda
 
 invertBinDigits(binNumber2);
 
-//////
-// let binNumber3 = '00000000000000000000000000000101';
-
-//////
-
-
-
-
+    
+//// 2nd
 function invertBinNumber (number) { ////myTilda
     // number = number.toString(2);
     console.log(number);
@@ -1081,9 +1080,22 @@ function invertBinNumber (number) { ////myTilda
 
 invertBinNumber(5);
 
+//// 3rd
+function invertBinaryNumber (number) { ////myTilda
+    console.log(number);
+    // console.log(-number - 1);
+    // console.log(number ^= -1);
+    console.log(-1 * (number + 1));
+}
 
+invertBinaryNumber(5);
 
+// let a = '';
+// let b = 0;
 
+// for (let i = 0; i < 100; i++) {
+    
+// }
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1272,6 +1284,52 @@ invertBinNumber(5);
 
 // console.log(factorial(7));
 
+
+///////////////////////////////////////
+// // // function f(a, d, b, c){
+// // //     return this.a + a + b + c + d;
+// // // }
+// // // let obj = {
+// // //     a: 10,
+// // //     f,
+// // // };
+// // // let obj2 = {
+// // //     a: 1,
+// // // };
+// // // let f2 = f.bind(obj2, 31, 2);
+// // // console.dir(f2(4,5));
+
+
+// function myBind(func, context) {
+//         let self = Object.create(context);
+//         return function() {
+//         self.func = func;
+//         return self.func();
+//         };
+//     }
+    
+//     function myBind(func, context) {
+//         return function() {
+//         let symbol = Symbol();
+//         context[symbol] = func;
+//         let result = context[symbol]();
+//         delete context[symbol];
+//         return result;
+//         };
+//     }
+    
+//     function f() {
+//         return this.a + 1;
+//     }
+    
+//     let obj = {
+//         a: 10,
+//     };
+    
+//     let f2 = myBind(f, obj);
+//     console.dir(f2());
+    
+//     console.log(Symbol() === Symbol());
 
 
 
