@@ -1,17 +1,75 @@
 'use strict';
 
+String.prototype.mySplit = function (separator){
+    let newArr = [];
+    let word = '';
+    for (let i = 0; i < this.length; i++) {
+        if (separator === '') {
+            newArr.push(this[i]);
+        } else {
+            if (this[i] !== separator) {
+                word = word + this[i];
+            }
+            if (this[i] === separator || i === this.length - 1) {
+                newArr.push(word);
+                word = '';
+            }
+        }
+    }
+    return newArr;
+}
+////
+Array.prototype.myJoin = function (separator) {
+    let string;
+    if (separator !== undefined) {
+        string = this.toString().replace(/,/g, separator);
+    } else {
+        string = this.toString();
+    }
+    return string;
+}
+////
+Array.prototype.mySort = function () {
+    for (let i = 0; i < this.length; i++) {
+        for (let j = 0; j < this.length; j++) {
+            if (this[j] > this[j + 1]) {
+                let temp = this[j];
+                this[j] = this[j + 1];
+                this[j + 1] = temp;
+            }
+        }
+    }
+    return this;
+}
 
 //// countSum - неправильно
 
+function checkIsString (string) {
+    if (typeof (string) !== 'string') {
+        throw new Error("Not String !!");
+    }
+}
+
+function checkIsNumber (number) {
+    if (typeof (number) !== 'number') {
+        throw new Error("Not Number !!");
+    }
+}
+
+function checkIsArray (array) {
+    if (typeof (array) !== 'object') {
+        throw new Error("Not Array !!");
+    }
+}
+
 /////////// 1 - Написать функцию которая проверяет являются две строки анаграммой или нет ///////////
 function checkIsAnagram(firstStr, secondStr) {
-    
-    if (typeof firstStr !== 'string' || typeof firstStr !== 'string') {
-        return false;
+    if ((typeof (firstStr) !== 'string') || (typeof (secondStr) !== 'string' )) {
+        throw new Error("Not String !!");
     }
 
-    let firstString = firstStr.toLowerCase().replaceAll(' ', '').split('').sort().join('');
-    let secondString = secondStr.toLowerCase().replaceAll(' ', '').split('').sort().join('');
+    let firstString = firstStr.toLowerCase().replaceAll(' ', '').mySplit('').mySort().myJoin('');
+    let secondString = secondStr.toLowerCase().replaceAll(' ', '').mySplit('').mySort().myJoin('');
 
     if (firstString === secondString) {
         console.log('Anagram');
@@ -32,6 +90,7 @@ checkIsAnagram('кабан', 'олень');
 
 function countDigits(num) {
     //// first variant
+    checkIsNumber(num);
     let digitsCounter = 0;
     for (let i = 0; num > 1; i++) {
         num = num / 10;
@@ -46,6 +105,8 @@ countDigits(12345);
 
 function countDigitsRecursion(num) {
 
+    checkIsNumber(num);
+
     if (Math.floor(num) == 0) {
         return 0;
     }
@@ -59,19 +120,19 @@ console.log(`Number of digits (recursion): ${secondResult}`);
 
 /////////// 4 - Реализовать функцию которая проверяет, является ли строка палиндромом ///////////
 
-function checkIsPalindrom(initialString) {   ///// название правильное
-
+function checkIsPalindrom(initialString) {   ///// название правильное. всё ОК
+    checkIsString(initialString);
     let reversedString = '';
     //// first variant
-    // for (let i = someString.length - 1; i >= 0; i--) {
-    //     reversedString += someString[i];
-    // }
-    // someString = someString.toLowerCase().replaceAll(" ", "");
-    // reversedString = reversedString.toLowerCase().replaceAll(" ", "");
+    for (let i = initialString.length - 1; i >= 0; i--) {
+        reversedString += initialString[i];
+    }
+    initialString = initialString.toLowerCase().replaceAll(' ', '');
+    reversedString = reversedString.toLowerCase().replaceAll(' ', '');
 
     //// second variant
-    reversedString = initialString.toLowerCase().replaceAll(' ', '').split('').reverse().join('');
-    initialString = initialString.toLowerCase().replaceAll(' ', '');
+    // reversedString = initialString.toLowerCase().replaceAll(' ', '').mySplit('').reverse().join('');
+    // initialString = initialString.toLowerCase().replaceAll(' ', '');
 
     console.log(`Or: ${initialString}`);
     console.log(`Re: ${reversedString}`);
@@ -91,9 +152,10 @@ checkIsPalindrom('а роза упала');
 
 //// first variant
 function countUniqueWords(someString) {
+    checkIsString(someString);
     console.log(someString);
 
-    let allWords = someString.split(' ');
+    let allWords = someString.mySplit(' ');
     let counter = 0;
     let result = [];
     console.log(allWords);
@@ -111,7 +173,8 @@ countUniqueWords('привет пока привет пока привет');
 
 //// second variant
 function countUniqueWords2(someString) {
-    let uniqueWords = new Set(someString.split(' '));
+    checkIsString(someString);
+    let uniqueWords = new Set(someString.mySplit(' '));
     console.log(`Unique words count2: ${uniqueWords.size}`);   //// не нужна переменная uniqueWords. сразу ретурн
     return uniqueWords.size;
   }
@@ -120,7 +183,8 @@ countUniqueWords2('привет пока привет пока привет');
 
 //// third variant
 function countUniqueWords3(someString) {
-    let uniqueWords = someString.split(' ').filter((item, i, array) => array.indexOf(item) === i);
+    checkIsString(someString);
+    let uniqueWords = someString.mySplit(' ').filter((item, i, array) => array.indexOf(item) === i);
     console.log(`Unique words count3: ${uniqueWords.length}`);
     return uniqueWords.length;
 }
@@ -130,9 +194,11 @@ countUniqueWords3('привет пока привет пока привет');
 /////////// 6 - Написать функцию которая вычисляет вхождение каждого слова в предложение ///////////
 
 function countOccurrenceWord(someString) {
+    checkIsString(someString);
+
     let words = {};
 
-    let splittedsomeString = someString.split(' ');
+    let splittedsomeString = someString.mySplit(' ');
 
     splittedsomeString.map((word) => { words[word] = words[word] ? ++words[word] : 1 });
     return words;
@@ -143,134 +209,137 @@ function countOccurrenceWord(someString) {
 /////////// 7 - Вычислить периметр и площадь для прямоугольника, треугольника и круга. С помощью конструктора и классов ///////////
 
 function Rectangle (width, height) {
+    checkIsNumber(width);
+    checkIsNumber(height);
+
     this.width = width;
     this.height = height;
-}
-Rectangle.prototype.perimeter = (width, height) => {
+    this.perimeter = (width + height) * 2;
+    this.square =(width * height);
+
     console.log(`Rectangle perimeter(func): ${(width + height) * 2}`);
-    return (width + height) * 2;
-}
-
-Rectangle.prototype.square = (width, height) => {
     console.log(`Rectangle square(func): ${(width * height)}`);
-    return (width * height);
+
 }
 
-const rectangleOne = new Rectangle();
-rectangleOne.perimeter(2, 3);
-rectangleOne.square(2, 3);
+const rectangleOne = new Rectangle(2, 3);
+rectangleOne.perimeter;
+rectangleOne.square;
 
 function Triangle (sideOne, sideTwo, sideThree) {
+    checkIsNumber(sideOne);
+    checkIsNumber(sideTwo);
+    checkIsNumber(sideThree);
+    let semiperimetr = (sideOne + sideTwo + sideThree) / 2;
     this.sideOne = sideOne;
     this.sideTwo = sideTwo;
     this.sideThree = sideThree;
-}
-Triangle.prototype.perimeter = (sideOne, sideTwo, sideThree) => {
+    this.perimeter = (sideOne + sideTwo + sideThree);
+    this.square = Math.sqrt(semiperimetr * (semiperimetr - sideOne) * (semiperimetr - sideTwo) * (semiperimetr - sideThree));
+
+    console.log(`Triangle square(func): ${this.square}`);
     console.log(`Triangle perimeter(func): ${sideOne + sideTwo + sideThree}`);
-    return (sideOne + sideTwo + sideThree);
-}
-Triangle.prototype.square = (sideOne, sideTwo, sideThree) => {
-    let semiperimetr = (sideOne + sideTwo + sideThree) / 2;
-    let square =  Math.sqrt(semiperimetr * (semiperimetr - sideOne) * (semiperimetr - sideTwo) * (semiperimetr - sideThree));
 
-    console.log(`Triangle square(func): ${square}`);
-    return square;
 }
 
-const triangleOne = new Triangle();
-triangleOne.perimeter(2, 3, 4);
-triangleOne.square(2, 3, 4);
+const triangleOne = new Triangle(2, 3, 4);
+triangleOne.perimeter;
+triangleOne.square;
 
-function Circle (width, height) {
-    this.width = width;
-    this.height = height;
-}
-Circle.prototype.perimeter = (radius) => {
-    console.log(`Circle perimeter(func): ${2 * Math.PI * radius}`);
-    return 2 * Math.PI * radius;
-}
-
-Circle.prototype.square = (radius) => {
+function Circle (radius) {
+    checkIsNumber(radius);
+    this.radius = radius;
+    this.perimeter = 2 * Math.PI * radius;
+    this.square = (Math.PI * Math.pow(radius, 2));
     console.log(`Circle square(func): ${Math.PI * Math.pow(radius, 2)}`);
-    return (Math.PI * Math.pow(radius, 2));
+    console.log(`Circle perimeter(func): ${2 * Math.PI * radius}`);
 }
 
-const circleOne = new Circle();
-circleOne.perimeter(3);
-circleOne.square(3);
+const circleOne = new Circle(3);
+circleOne.perimeter;
+circleOne.square;
 
 
-//// by Class:
+// by Class:
 class RectangleClass {
     constructor (width, height){
+        checkIsNumber(width);
+        checkIsNumber(height);
+
         this.width = width;
         this.height = height;
     }
 
-    perimeter(width, height) {
-        console.log(`Rectangle perimeter: ${(width + height) * 2}`);
-        return (width + height) * 2;
+    perimeter() {
+        console.log(`Rectangle perimeter: ${(this.width + this.height) * 2}`);
+        return (this.width + this.height) * 2;
     }
 
-    square(width, height) {
-        console.log(`Rectangle square: ${(width * height)}`);
-        return (width * height);
+    square() {
+        console.log(`Rectangle square: ${(this.width * this.height)}`);
+        return (this.width * this.height);
     }
 
 }
 
-const firstRectangle = new RectangleClass();
-firstRectangle.perimeter(2, 3);
-firstRectangle.square(2, 3);
+const firstRectangle = new RectangleClass(2, 3);
+firstRectangle.perimeter();
+firstRectangle.square();
 
 class TriangleClass {
     constructor (sideOne, sideTwo, sideThree){
+        checkIsNumber(sideOne);
+        checkIsNumber(sideTwo);
+        checkIsNumber(sideThree);
         this.sideOne = sideOne;
         this.sideTwo = sideTwo;
         this.sideThree = sideThree;
     }
 
-    perimeter(sideOne, sideTwo, sideThree) {
-        console.log(`Triangle perimeter: ${sideOne + sideTwo + sideThree}`);
-        return (sideOne + sideTwo + sideThree);
+    perimeter() {
+        console.log(`Triangle perimeter: ${this.sideOne + this.sideTwo + this.sideThree}`);
+        return (this.sideOne + this.sideTwo + this.sideThree);
     }
 
-    square(sideOne, sideTwo, sideThree) {
-        let semiperimetr = (sideOne + sideTwo + sideThree) / 2;
-        let square =  Math.sqrt(semiperimetr * (semiperimetr - sideOne) * (semiperimetr - sideTwo) * (semiperimetr - sideThree));
+    square() {
+        let semiperimetr = (this.sideOne + this.sideTwo + this.sideThree) / 2;
+        let square =  Math.sqrt(semiperimetr * (semiperimetr - this.sideOne) * (semiperimetr - this.sideTwo) * (semiperimetr - this.sideThree));
         console.log(`Triangle square: ${square}`);
         return square;
     }
 }
 
-const firstTriangle = new TriangleClass();
-firstTriangle.perimeter(2, 3, 4);
-firstTriangle.square(2, 3, 4);
+const firstTriangle = new TriangleClass(2, 3, 4);
+firstTriangle.perimeter();
+firstTriangle.square();
 
 class CircleClass {
     constructor (radius){
+        checkIsNumber(radius);
         this.radius = radius;
     }
 
-    perimeter(radius) {
-        console.log(`Circle perimeter: ${2 * Math.PI * radius}`);
-        return (2 * Math.PI * radius);
+    perimeter() {
+        console.log(`Circle perimeter: ${2 * Math.PI * this.radius}`);
+        return (2 * Math.PI * this.radius);
     }
 
-    square(radius) {
-        console.log(`Triangle square: ${Math.PI * Math.pow(radius, 2)}`);
-        return Math.PI * Math.pow(radius, 2);
+    square() {
+        console.log(`Circle square: ${Math.PI * Math.pow(this.radius, 2)}`);
+        return Math.PI * Math.pow(this.radius, 2);
     }
 }
 
-const firstCircle = new CircleClass();
-firstCircle.perimeter(3);
-firstCircle.square(3);
+const firstCircle = new CircleClass(3);
+firstCircle.perimeter();
+firstCircle.square();
 
 /////////// 8 - Вычислить факториал числа. Реализовать с помощью рекурсии. Реализовать мемоизированную функцию вычисления факториала. ///////////
 
 //// loop:
 function calculateFactorial(num){
+    checkIsNumber(num);
+
     let result = 1;
 
     while(num){
@@ -284,6 +353,8 @@ calculateFactorial(10);
 
 //// recursion:
 function countFactorial(num){
+    checkIsNumber(num);
+
     if (num === 0){
         return 1;
     }
@@ -316,6 +387,7 @@ console.log(countFactorial(10));
 const myData = [1, 2, 3, 4, 5];
 
 function countElementsSum (someArray, userFunc) {
+    checkIsArray(someArray);
     console.log(someArray.reduce(userFunc, 0));
     return someArray.reduce(userFunc, 0);
 }
@@ -353,6 +425,20 @@ countElementsSum(myData, countElementsDivideThreeSum);
 countElementsSum(myData, countElementsPositiveOddSum);
 ////
 
+function getElementsSumRecursion(someArray, userFunc, ind){
+    ind = ind || 0;
+    let sum = null;
+    sum += userFunc(someArray[ind]) ? someArray[ind] :  0;
+    
+    if (someArray.length <= ind) {
+        return sum;
+    }
+    return sum + getElementsSumRecursion(someArray, userFunc, ++ind);
+}
+
+const myData33 = [1, 2, 3, 4, 5];
+
+getElementsSumRecursion(myData33, item => item % 2 === 0);
 
 /////////// 10 - Посчитать количество элементов массива которые (Нулевые, отрицательные, положительные, простые числа) ///////////
 
@@ -360,6 +446,8 @@ let someNumbers = [-1, -2, 0, 0, 0, 1, 2, 3, 4];
 
 //// first variant
 function countZeroPosNegPrimeNumbers(myNumbers) {
+    checkIsArray(myNumbers);
+
     myNumbers.reduce(function (acc, num) {
         if (num === 0) {
             acc.zero = ++acc.zero || 1;
@@ -384,8 +472,8 @@ countZeroPosNegPrimeNumbers(someNumbers);
 //// second variant
 let someNumbers2 = [-1, -2, 0, 0, 0, 0, 1, 2, 3, 4];
 
-
 function countNumbers (someArray, userFunc) {
+    checkIsArray(someArray);
     return userFunc(someArray);
 }
 
@@ -440,12 +528,13 @@ countNumbers(someNumbers2, countPrimeNumbers);
 /////////// 11 - Написать функции которые преобразовывают число из десятичной системы счисления в двоичную и в обратную сторону. (Достаточно написать для целых положительных чисел) ///////////
 
 function convertFromTwoToTen(numberTwoSystem) {
+    checkIsString(numberTwoSystem);
     ////first variant
     // let numTen = parseInt(numberTwoSystem, 2);
     // console.log(numTen);
     // return numTen;
 
-    numberTwoSystem = numberTwoSystem.split('');
+    numberTwoSystem = numberTwoSystem.mySplit('');
     let numberInTenSystem = 0;
 
     let rank = 0;
@@ -459,6 +548,7 @@ function convertFromTwoToTen(numberTwoSystem) {
 convertFromTwoToTen('0011');
 
 function convertFromTenToTwo(numberTenSystem) {
+    checkIsNumber(numberTenSystem);
 
     let ostatok = 0;
     let numberTwoSystem = [];
@@ -514,10 +604,11 @@ function countZeroPosNegPrimeNumbersTwoDim(myDataNumbers) {
         return acc;
     }, {});
 };
-function countMainDiagonal(matrix, userFunc){
-    console.log(`countMainDiagonal::: ${userFunc(matrix)}`);
-    return userFunc(matrix);
-}
+
+// function countMainDiagonal(matrix, userFunc){
+//     console.log(`countMainDiagonal::: ${userFunc(matrix)}`);
+//     return userFunc(matrix);
+// }
 
 // function countRangeSumm(min, max) {
 //     let sumAll = 0;
@@ -548,6 +639,8 @@ function countMainDiagonal(matrix, userFunc){
   /////////////////////////////////////////////////
 
 function countRangeSum(min, max, userFunc) {
+    checkIsNumber(min);
+    checkIsNumber(max);
     let someArray = [];
 
     for (let i = min; i <= max; i++) {
@@ -625,6 +718,7 @@ let matrix2 = [[1, 2], [3, 4], [5, 6]];
 let matrix3 = [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]];
 
 function transposeMatrix(matrix) {
+    checkIsArray(matrix);
 
     let transpMatrix = [];
 
@@ -643,6 +737,9 @@ function transposeMatrix(matrix) {
 transposeMatrix(matrix);
 
 function sumMatrix (firstMatrix, secondMatrix) {
+    checkIsArray(firstMatrix);
+    checkIsArray(secondMatrix);
+
 
     let transpMatrix = [];
 
@@ -689,6 +786,8 @@ let matrixInit2 = [[1, 2, 0],
                   [10, 11, 12]];
 
 function removeMatrixColWithZero (someArray) {
+    checkIsArray(someArray);
+
     let position;
     for (let i = 0; i < someArray.length; i++) {
         for (let j = 0; j < someArray[0].length; j++) {
@@ -726,10 +825,13 @@ let matrix5 = [
 
 ///first variant
 function countDiagonal(matrix, userFunc){
+    checkIsArray(matrix);
     return userFunc(matrix);
 }
 
 function countMainMatrixDiagonal(matrix) {
+    checkIsArray(matrix);
+
     let result = {};
     let zero = 0;
     let sum = 0;
@@ -768,6 +870,7 @@ function countMainMatrixDiagonal(matrix) {
 countMainMatrixDiagonal(matrix5);
 
 function countTopMatrixPart(matrix) {
+    checkIsArray(matrix);
     let result = {};
     let zero = 0;
     let sum = 0;
@@ -796,6 +899,7 @@ function countTopMatrixPart(matrix) {
 countTopMatrixPart(matrix5);
 
 function countBottomMatrixPart(matrix) {
+    checkIsArray(matrix);
     let result = {};
     let zero = 0;
     let sum = 0;
@@ -893,6 +997,7 @@ countDiagonal(matrix5, countBottomMatrixPart);
 /////////// (Реализовать с помощью итератора и генератора). Реализовать мемоизированную функцию. Реализовать с помощью рекурсии.
 
 function countFibonacci (num) {
+    checkIsNumber(num);
     if (num <= 1) {
         return 1;
     } else {
@@ -945,61 +1050,34 @@ iterObject.next();
 /////////// 19 - Реализовать с помощью итератора и генератора светофор.
 /////////// При каждой следующей итерации мы должны получать следующий корректный цвет по логике светофора. ///////////
 
+function* generateTrafficLight() {
+    for (; ;) {
+        yield "red";
+        yield "yellow";
+        yield "green";
+        yield "yellow";
+    }
+}
 
-// function* generateTrafficLight() {
-//     for (; ;) {
-//         yield "red";
-//         yield "yellow";
-//         yield "green";
-//         yield "yellow";
-//     }
-// }
+let generatorLights = generateTrafficLight();
+generatorLights.next();
 
-// let generatorLights = generateTrafficLight();
-// generatorLights.next();
-
-// console.log(generatorLights.next());
-// console.log(generatorLights.next());
-// console.log(generatorLights.next());
-// console.log(generatorLights.next());
-// console.log(generatorLights.next());
+console.log(generatorLights.next());
+console.log(generatorLights.next());
+console.log(generatorLights.next());
+console.log(generatorLights.next());
+console.log(generatorLights.next());
 
 
-/////////// Определить является ли число отрицательным или положительным без сравнения на больше/меньше нуля (побитово). 
+/////////// 20 - Определить является ли число отрицательным или положительным без сравнения на больше/меньше нуля (побитово). 
 /////////// Посчитать количество битов числа которые установлены в единицу и которые установлены в 0. 
 /////////// Написать свою реализацию для ~, двумя способами).
 
     ////////////////////////////////////является ли число отрицательным или положительным
-function checkIsPositiveNumber(number) {
-
-    //// first variant
-    // let isPositive = Math.sign(number);
-    // if (isPositive === 1) {
-    //     return true;
-    // }
-    // if (isPositive === -1){
-    //     return false;
-    // }
-    // console.log(isPositive);
-
-    ////////
-    let binNumber = ~number.toString(2);
-    let firstIndex = binNumber.toString().split('')[0];
-    if (firstIndex === '-') {
-        console.log('Positive');
-        return true;
-    } else {
-        console.log('Negative');
-        return false;
-    }
-}
-checkIsPositiveNumber(5);
-checkIsPositiveNumber(-5);
-
-
-///
-//// second variant //
+//// first variant
 function checkIsPositivNumber (number) {
+    checkIsNumber(number);
+
     if ((number & (1 << 63)) !== (1 << 63)) {
         console.log('Positive');
         return true;
@@ -1011,8 +1089,27 @@ function checkIsPositivNumber (number) {
 
 checkIsPositivNumber(5);
 
+//// second variant
+function checkIsPositiveNumber(number) {
+    checkIsNumber(number);
+
+    let binNumber = ~number.toString(2);
+    let firstIndex = binNumber.toString().mySplit('')[0];
+    if (firstIndex === '-') {
+        console.log('Positive');
+        return true;
+    } else {
+        console.log('Negative');
+        return false;
+    }
+}
+checkIsPositiveNumber(5);
+checkIsPositiveNumber(-5);
+
 //// third variant // не нужно
 function checksIsPositivNumber(number) {
+    checkIsNumber(number);
+
     if ((number & 0x80000000) === 0) {
         console.log('Positive');
         return true;
@@ -1024,13 +1121,47 @@ function checksIsPositivNumber(number) {
 checksIsPositivNumber(5);
 checksIsPositivNumber(-5);
 
+    //// fourth variant
+    // let isPositive = Math.sign(number);
+    // if (isPositive === 1) {
+    //     return true;
+    // }
+    // if (isPositive === -1){
+    //     return false;
+    // }
+    // console.log(isPositive);
+
 
     ////////////////////////////////////////Посчитать количество битов числа
+//// first variant
+function countBits(number) {
+    checkIsNumber(number);
+    let stringNumber = "";
+    let zeroBitCount = 0;
+    let oneBitCount = 0;
+    for (let i = 0; i < 32; i++) {
+        if ((number & (1 << i)) === (1 << i)) {
+            stringNumber += "1";
+            oneBitCount++
+        } else {
+            stringNumber += "0";
+            zeroBitCount++;
+        }
+    }
+console.log(stringNumber);
+console.log({one: oneBitCount, zero: zeroBitCount});
+return {one: oneBitCount, zero: zeroBitCount}
+}
 
+countBits(5);
+
+//// second variant
 let binNumber = '00000000000000000000000000001010';
 
 function countZeroOneBits (number){
-    number.toString().split('');
+    checkIsString(number);
+
+    number.toString().mySplit('');
     let zeroBitCount = 0;
     let oneBitCount = 0;
 
@@ -1052,10 +1183,12 @@ countZeroOneBits(binNumber);
 ///////////////////////////////////////////Написать свою реализацию для ~ тильда
 
 let binNumber2 = '10000000000000000000000000001010';
-
+//// 1st
 function invertBinDigits (binNumber) { ////myTilda
+    checkIsString(binNumber);
+
     console.log(binNumber);
-    binNumber = binNumber.split("");
+    binNumber = binNumber.mySplit("");
     for (let i = 0; i < binNumber.length; i++) {
         if(binNumber[i] === '0'){
             binNumber[i] = 1;
@@ -1072,6 +1205,7 @@ invertBinDigits(binNumber2);
     
 //// 2nd
 function invertBinNumber (number) { ////myTilda
+    checkIsNumber(number);
     // number = number.toString(2);
     console.log(number);
     console.log(-(number + 1));
@@ -1082,6 +1216,7 @@ invertBinNumber(5);
 
 //// 3rd
 function invertBinaryNumber (number) { ////myTilda
+    checkIsNumber(number);
     console.log(number);
     // console.log(-number - 1);
     // console.log(number ^= -1);
@@ -1090,6 +1225,22 @@ function invertBinaryNumber (number) { ////myTilda
 
 invertBinaryNumber(5);
 
+
+
+// ///
+/////////// Посчитать количество битов числа которые установлены в единицу и которые установлены в 0
+// let a = 1;
+// let s = "";
+// for (let i = 0; i < 100; i++) {
+//     if ((a & (1 << i)) === (1 << i)) {
+//         s += "1";
+//     } else {
+//         s += "0";
+//     }
+// }
+// console.log(s);
+
+////////////////////////////////
 // let a = '';
 // let b = 0;
 
