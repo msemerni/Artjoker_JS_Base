@@ -71,11 +71,6 @@ function checkIsAnagram(firstStr, secondStr) {
     let firstString = firstStr.toLowerCase().replaceAll(' ', '').mySplit('').mySort().myJoin('');
     let secondString = secondStr.toLowerCase().replaceAll(' ', '').mySplit('').mySort().myJoin('');
     return (firstString === secondString);
-    // if (firstString === secondString) {                                                                                                        **** УДАЛИТЬ
-    //     return true;
-    // } else {
-    //     return false;
-    // }
 }
 
 /////////// 2 - Нарисовать блок схему алгоритма анаграммы ///////////
