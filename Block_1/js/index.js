@@ -70,12 +70,12 @@ function checkIsAnagram(firstStr, secondStr) {
 
     let firstString = firstStr.toLowerCase().replaceAll(' ', '').mySplit('').mySort().myJoin('');
     let secondString = secondStr.toLowerCase().replaceAll(' ', '').mySplit('').mySort().myJoin('');
-
-    if (firstString === secondString) {
-        return true;
-    } else {
-        return false;
-    };
+    return (firstString === secondString);
+    // if (firstString === secondString) {                                                                                                        **** УДАЛИТЬ
+    //     return true;
+    // } else {
+    //     return false;
+    // }
 }
 
 /////////// 2 - Нарисовать блок схему алгоритма анаграммы ///////////
@@ -280,6 +280,7 @@ function countFactorialMemo() {
 
 ////////////////////////// 9 - Посчитать сумму всех элементов массива, только тех которые (Кратные двум, кратные трем, которые только положительные и нечетные, реализовать с помощью рекурсии для одномерного массива.) ///////////
 
+//// first variant
 function countElementsSum(someArray, userFunc) {
     checkIsArray(someArray);
     return someArray.reduce(userFunc, 0);
@@ -323,6 +324,18 @@ function getElementsSumRecursion(someArray, userFunc, index) {
     return sum + getElementsSumRecursion(someArray, userFunc, ++index);
 }
 
+//// second variant
+function countElementSum (someArray, userFunc) {
+    checkIsArray(someArray);
+    let sum = 0;
+    for (let i = 0; i < someArray.length; i++) {
+        if (userFunc(someArray[i])) {
+            sum += someArray[i];
+        }
+    }
+    console.log(sum);
+    return sum;
+}
 
 /////////// 10 - Посчитать количество элементов массива которые (Нулевые, отрицательные, положительные, простые числа) ///////////
 //// first variant
@@ -389,6 +402,19 @@ const countPrimeNumbers = (arr) => {
             counter++;
         }
     }
+    return counter;
+}
+
+//// third variant
+function countArrayElements(array, userFunc) {
+    checkIsArray(someArray);
+    let counter = 0;
+    for (let i = 0; i < array.length; i++) {
+        if (userFunc(array[i])) {
+            counter++;
+        }
+    }
+    console.log(counter);
     return counter;
 }
 
@@ -860,4 +886,5 @@ function invertBinDigits (binNumber) {
     }
     return binNumber.toString().replaceAll(",", "");
 }
+
 
