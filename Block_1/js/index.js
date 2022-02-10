@@ -797,36 +797,21 @@ function* generateTrafficLight() {
 //// first variant
 function checksIsPositivNumber(number) {
     checkIsNumber(number);
-
-    if ((number & 2147483648) === 0) {
-        return true;
-    } else {
-        return false;
-    }
+    return (number & 2147483648);
 }
 
 //// second variant
 function checkIsPositivNumber(number) {
     checkIsNumber(number);
-
-    if ((number & (1 << 31)) !== (1 << 31)) {
-        return true;
-    } else {
-        return false;
-    }
+    return (number & (1 << 31)) !== (1 << 31);
 }
 
 //// third variant
 function checkIsPositiveNumber(number) {
     checkIsNumber(number);
-
     let binNumber = ~number.toString(2);
     let firstIndex = binNumber.toString().mySplit('')[0];
-    if (firstIndex === '-') {
-        return true;
-    } else {
-        return false;
-    }
+    return (firstIndex === '-') 
 }
 
 ////////////////////////////////////////Посчитать количество битов числа
