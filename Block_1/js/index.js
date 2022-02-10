@@ -200,7 +200,7 @@ function Triangle(leftSide, rightSide, baseSide) {
 }
 
 function Circle(radius) {
-    if ((typeof (radius) !== 'number') || (radius <=0)) {
+    if ((typeof (radius) !== 'number') || (radius <= 0)) {
         throw new Error("Not Number !!");
     }
     this.radius = radius;
@@ -253,7 +253,7 @@ class TriangleClass {
 
 class CircleClass {
     constructor(radius) {
-        if ((typeof (radius) !== 'number') || (radius <=0)) {
+        if ((typeof (radius) !== 'number') || (radius <= 0)) {
             throw new Error("Not Number !!");
         }
         this.radius = radius;
@@ -297,15 +297,15 @@ function calculateFactorial(num) {
 
 const calculateFactorialMemo = (function () {
     let memo = {};
-    return function calculateFactorial(num){
-    if (typeof (num) !== 'number' || num < 0) {
-        throw new Error("Not Number !!");
-    }
+    return function calculateFactorial(num) {
+        if (typeof (num) !== 'number' || num < 0) {
+            throw new Error("Not Number !!");
+        }
         if (num === 0) {
             return 1;
         }
 
-        if(memo[num] === undefined) {
+        if (memo[num] === undefined) {
             memo[num] = calculateFactorial(num - 1);
         }
         return num * memo[num];
@@ -315,7 +315,7 @@ const calculateFactorialMemo = (function () {
 ////////////////////////// 9 - Посчитать сумму всех элементов массива, только тех которые (Кратные двум, кратные трем, которые только положительные и нечетные, реализовать с помощью рекурсии для одномерного массива.) ///////////
 
 function countElementSum(someArray, userFunc) {
-    if(Array.isArray(someArray) !== true){
+    if (Array.isArray(someArray) !== true) {
         throw new Error("Not Array !!");
     }
     let sum = 0;
@@ -338,11 +338,10 @@ function getElementsSumRecursion(someArray, userFunc, index) {
     return sum + getElementsSumRecursion(someArray, userFunc, ++index);
 }
 
-
 /////////// 10 - Посчитать количество элементов массива которые (Нулевые, отрицательные, положительные, простые числа) ///////////
 
 function countArrayElements(array, userFunc) {
-    if(Array.isArray(array) !== true){
+    if (Array.isArray(array) !== true) {
         throw new Error("Not Array !!");
     }
     let counter = 0;
@@ -392,7 +391,7 @@ function convertFromTenToTwo(numberTenSystem) {
 
 function countElementsSum(someArray, userFunc) {
 
-    if(Array.isArray(someArray) !== true){
+    if (Array.isArray(someArray) !== true) {
         throw new Error("Not Array !!");
     }
     let matrix = [].concat(...someArray);
@@ -407,7 +406,7 @@ function countElementsSum(someArray, userFunc) {
 
 function countArrayElement(array, userFunc) {
 
-    if(Array.isArray(array) !== true){
+    if (Array.isArray(array) !== true) {
         throw new Error("Not Array !!");
     }
     let matrix = [].concat(...someArray);
@@ -493,7 +492,7 @@ const sumPositiveElements = (total, currentValue) => {
 
 /////////// 14 - Найти среднее значение всех элементов одномерного/двумерного массива (Среднее только тех которые четные и которые не четные).
 function findAverageArrayValue(someArray, userFunc) {
-    if(Array.isArray(someArray) !== true){
+    if (Array.isArray(someArray) !== true) {
         throw new Error("Not Array !!");
     }
     let digits = [].concat(...someArray);
@@ -521,7 +520,7 @@ const findOddAverage = (total, currentValue) => {
 /////////// 15 - Транспонировать матрицу, сложить две матрицы.
 
 function transposeMatrix(matrix) {
-    if(Array.isArray(matrix) !== true){
+    if (Array.isArray(matrix) !== true) {
         throw new Error("Not Array !!");
     }
     let transpMatrix = [];
@@ -536,7 +535,7 @@ function transposeMatrix(matrix) {
 }
 
 function sumMatrix(firstMatrix, secondMatrix) {
-    if(Array.isArray((firstMatrix) !== true) || Array.isArray((secondMatrix) !== true)){
+    if (Array.isArray((firstMatrix) !== true) || Array.isArray((secondMatrix) !== true)) {
         throw new Error("Not Array !!");
     }
     let transpMatrix = [];
@@ -552,7 +551,7 @@ function sumMatrix(firstMatrix, secondMatrix) {
 
 /////////// 16 - Удалить из двумерного массива строку в которой присутствует хотя бы один нулевой элемент. Для столбца аналогично реализовать.
 function removeMatrixRowWithZero(someArray) {
-    if(Array.isArray(someArray) !== true){
+    if (Array.isArray(someArray) !== true) {
         throw new Error("Not Array !!");
     }
     for (let i = 0; i < someArray.length; i++) {
@@ -566,7 +565,7 @@ function removeMatrixRowWithZero(someArray) {
 }
 
 function removeMatrixColWithZero(someArray) {
-    if(Array.isArray(someArray) !== true){
+    if (Array.isArray(someArray) !== true) {
         throw new Error("Not Array !!");
     }
     let position;
@@ -596,14 +595,14 @@ function removeMatrixColWithZero(someArray) {
 
 ///first variant
 function countDiagonal(matrix, userFunc) {
-    if(Array.isArray(matrix) !== true){
+    if (Array.isArray(matrix) !== true) {
         throw new Error("Not Array !!");
     }
     return userFunc(matrix);
 }
 
 function countMainMatrixDiagonal(matrix) {
-    if(Array.isArray(matrix) !== true){
+    if (Array.isArray(matrix) !== true) {
         throw new Error("Not Array !!");
     }
     let result = {};
@@ -632,7 +631,7 @@ function countMainMatrixDiagonal(matrix) {
 }
 
 function countTopMatrixPart(matrix) {
-    if(Array.isArray(matrix) !== true){
+    if (Array.isArray(matrix) !== true) {
         throw new Error("Not Array !!");
     }
     let result = {};
@@ -659,7 +658,7 @@ function countTopMatrixPart(matrix) {
 }
 
 function countBottomMatrixPart(matrix) {
-    if(Array.isArray(matrix) !== true){
+    if (Array.isArray(matrix) !== true) {
         throw new Error("Not Array !!");
     }
     let result = {};
