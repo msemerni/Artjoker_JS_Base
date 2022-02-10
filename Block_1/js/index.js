@@ -191,7 +191,6 @@ function Circle(radius) {
     this.square = (Math.PI * Math.pow(radius, 2));
 }
 
-// by Class:
 class RectangleClass {
     constructor(width, height) {
         checkIsNumber(width);
@@ -208,7 +207,6 @@ class RectangleClass {
     square() {
         return (this.width * this.height);
     }
-
 }
 
 class TriangleClass {
@@ -565,7 +563,6 @@ const findEvenAverage = (total, currentValue) => {
     } else {
         return total;
     }
-
 };
 
 const findOddAverage = (total, currentValue) => {
