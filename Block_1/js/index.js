@@ -1,5 +1,20 @@
 'use strict';
 
+String.prototype.myReplaceAll = function (initialChar, newChar) {
+    let newStr = '';
+    for (let i = 0; i < this.length; i++) {
+        if (this[i] === initialChar) {
+            let charReplaced = this[i];
+            charReplaced = newChar;
+            newStr += charReplaced;
+        } else {
+            newStr += this[i];
+        }
+    }
+    console.log(newStr);
+    return newStr;
+}
+
 String.prototype.mySplit = function (separator) {
     let newArr = [];
     let word = '';
@@ -105,14 +120,10 @@ function checkIsPalindrom(initialString) {
     for (let i = initialString.length - 1; i >= 0; i--) {
         reversedString += initialString[i];
     }
-    initialString = initialString.toLowerCase().replaceAll(' ', '');
-    reversedString = reversedString.toLowerCase().replaceAll(' ', '');
+    initialString = initialString.toLowerCase().myReplaceAll(' ', '');
+    reversedString = reversedString.toLowerCase().myReplaceAll(' ', '');
 
-    if (initialString === reversedString) {
-        return true;
-    } else {
-        return false;
-    }
+    return (initialString === reversedString);
 }
 
 /////////// 5 - Написать функцию которая вычисляет подсчет уникальных слов в предложении ///////////
@@ -161,16 +172,16 @@ function Rectangle(width, height) {
     this.square = (width * height);
 }
 
-function Triangle(sideOne, sideTwo, sideThree) {
-    checkIsNumber(sideOne);
-    checkIsNumber(sideTwo);
-    checkIsNumber(sideThree);
-    let semiperimetr = (sideOne + sideTwo + sideThree) / 2;
-    this.sideOne = sideOne;
-    this.sideTwo = sideTwo;
-    this.sideThree = sideThree;
-    this.perimeter = (sideOne + sideTwo + sideThree);
-    this.square = Math.sqrt(semiperimetr * (semiperimetr - sideOne) * (semiperimetr - sideTwo) * (semiperimetr - sideThree));
+function Triangle(leftSide, rightSide, baseSide) {
+    checkIsNumber(leftSide);
+    checkIsNumber(rightSide);
+    checkIsNumber(baseSide);
+    let semiperimetr = (leftSide + rightSide + baseSide) / 2;
+    this.leftSide = leftSide;
+    this.rightSide = rightSide;
+    this.baseSide = baseSide;
+    this.perimeter = (leftSide + rightSide + baseSide);
+    this.square = Math.sqrt(semiperimetr * (semiperimetr - leftSide) * (semiperimetr - rightSide) * (semiperimetr - baseSide));
 }
 
 function Circle(radius) {
@@ -201,22 +212,22 @@ class RectangleClass {
 }
 
 class TriangleClass {
-    constructor(sideOne, sideTwo, sideThree) {
-        checkIsNumber(sideOne);
-        checkIsNumber(sideTwo);
-        checkIsNumber(sideThree);
-        this.sideOne = sideOne;
-        this.sideTwo = sideTwo;
-        this.sideThree = sideThree;
+    constructor(leftSide, rightSide, baseSide) {
+        checkIsNumber(leftSide);
+        checkIsNumber(rightSide);
+        checkIsNumber(baseSide);
+        this.leftSide = leftSide;
+        this.rightSide = rightSide;
+        this.baseSide = baseSide;
     }
 
     perimeter() {
-        return (this.sideOne + this.sideTwo + this.sideThree);
+        return (this.leftSide + this.rightSide + this.baseSide);
     }
 
     square() {
-        let semiperimetr = (this.sideOne + this.sideTwo + this.sideThree) / 2;
-        let square = Math.sqrt(semiperimetr * (semiperimetr - this.sideOne) * (semiperimetr - this.sideTwo) * (semiperimetr - this.sideThree));
+        let semiperimetr = (this.leftSide + this.rightSide + this.baseSide) / 2;
+        let square = Math.sqrt(semiperimetr * (semiperimetr - this.leftSide) * (semiperimetr - this.rightSide) * (semiperimetr - this.baseSide));
         return square;
     }
 }
@@ -320,7 +331,7 @@ function getElementsSumRecursion(someArray, userFunc, index) {
 }
 
 //// second variant
-function countElementSum (someArray, userFunc) {
+function countElementSum(someArray, userFunc) {
     checkIsArray(someArray);
     let sum = 0;
     for (let i = 0; i < someArray.length; i++) {
@@ -490,14 +501,14 @@ function countRangeSum(min, max, userFunc) {
     return sum;
 }
 
-function countRangeSumRecursion(min, max, userFunc){
+function countRangeSumRecursion(min, max, userFunc) {
     checkIsNumber(min);
     checkIsNumber(max);
     checkIsFunction(userFunc);
 
     let sum = 0;
 
-    if(userFunc(min)){
+    if (userFunc(min)) {
         sum += min;
     }
 
@@ -868,12 +879,12 @@ function invertBinaryNumber(number) {
     return (number ^ -1);
 }
 
-function invertBinDigits (binNumber) {
+function invertBinDigits(binNumber) {
     checkIsString(binNumber);
 
     binNumber = binNumber.mySplit("");
     for (let i = 0; i < binNumber.length; i++) {
-        if(binNumber[i] === '0'){
+        if (binNumber[i] === '0') {
             binNumber[i] = 1;
         } else {
             binNumber[i] = 0;
