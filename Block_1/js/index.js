@@ -1,5 +1,15 @@
 'use strict';
 
+function isEquilateralMatrix(matrix) {
+    let isEquilateralMatrix = true;
+    for (let i = 0; i < matrix.length; i++) {
+        if (matrix[i].length !== matrix.length) {
+            isEquilateralMatrix = false;
+        }
+    }
+    return isEquilateralMatrix;
+}
+
 String.prototype.myReplaceAll = function (initialChar, newChar) {
     let newStr = '';
     for (let i = 0; i < this.length; i++) {
@@ -11,7 +21,6 @@ String.prototype.myReplaceAll = function (initialChar, newChar) {
             newStr += this[i];
         }
     }
-    console.log(newStr);
     return newStr;
 }
 
@@ -50,39 +59,11 @@ Array.prototype.mySort = function () {
 Array.prototype.myJoin = function (separator) {
     let string;
     if (separator !== undefined) {
-        string = this.toString().replace(/,/g, separator);
+        string = this.toString().replaceAll(',', separator);
     } else {
         string = this.toString();
     }
     return string;
-}
-
-function isEquilateralMatrix(matrix) {
-    let isEquilateralMatrix = true;
-    for (let i = 0; i < matrix.length; i++) {
-        if (matrix[i].length !== matrix.length) {
-            isEquilateralMatrix = false;
-        }
-    }
-    return isEquilateralMatrix;
-}
-
-function checkIsString(string) {
-    if (typeof (string) !== 'string') {
-        throw new Error("Not String !!");
-    }
-}
-
-function checkIsNumber(number) {
-    if (typeof (number) !== 'number') {
-        throw new Error("Not Number !!");
-    }
-}
-
-function checkIsArray(array) {
-    if (typeof (array) !== 'object') {
-        throw new Error("Not Array !!");
-    }
 }
 
 /////////// 1 - Написать функцию которая проверяет являются две строки анаграммой или нет ///////////
@@ -101,7 +82,9 @@ function checkIsAnagram(firstStr, secondStr) {
 
 /////////// 3 - Написать функцию которая вычисляет подсчет количество цифр в числе. Реализовать с помощью рекурсии. /////////// !!!!!!
 function countDigits(num) {
-    checkIsNumber(num);
+    if (typeof (num) !== 'number') {
+        throw new Error("Not Number !!");
+    }
     let digitsCounter = 0;
 
     for (let i = 0; num > 1; i++) {
@@ -112,7 +95,9 @@ function countDigits(num) {
 }
 
 function countDigitsRecursion(num) {
-    checkIsNumber(num);
+    if (typeof (num) !== 'number') {
+        throw new Error("Not Number !!");
+    }
 
     if (Math.floor(num) == 0) {
         return 0;
@@ -122,7 +107,9 @@ function countDigitsRecursion(num) {
 
 /////////// 4 - Реализовать функцию которая проверяет, является ли строка палиндромом ///////////
 function checkIsPalindrom(initialString) {
-    checkIsString(initialString);
+    if (typeof (initialString) !== 'string') {
+        throw new Error("Not String !!");
+    }
     let reversedString = '';
 
     for (let i = initialString.length - 1; i >= 0; i--) {
@@ -137,7 +124,9 @@ function checkIsPalindrom(initialString) {
 /////////// 5 - Написать функцию которая вычисляет подсчет уникальных слов в предложении ///////////
 //// first variant
 function countUniqueWords(someString) {
-    checkIsString(someString);
+    if (typeof (someString) !== 'string') {
+        throw new Error("Not String !!");
+    }
 
     let allWords = someString.mySplit(' ');
     let counter = 0;
@@ -154,74 +143,98 @@ function countUniqueWords(someString) {
 
 //// second variant
 function countUniqueWords2(someString) {
-    checkIsString(someString);
+    if (typeof (someString) !== 'string') {
+        throw new Error("Not String !!");
+    }
     let uniqueWords = new Set(someString.mySplit(' '));
     return uniqueWords.size;
 }
 
 /////////// 6 - Написать функцию которая вычисляет вхождение каждого слова в предложение ///////////
 function countOccurrenceWord(someString) {
-    checkIsString(someString);
+    if (typeof (someString) !== 'string') {
+        throw new Error("Not String !!");
+    }
     let words = {};
-    let splittedsomeString = someString.mySplit(' ');
-    splittedsomeString.map((word) => { words[word] = words[word] ? ++words[word] : 1 });
+    for (let i = 0; i < someString.length; i++) {
+        if (words[someString[i]]) {
+            words[someString[i]]++;
+        } else {
+            words[someString[i]] = 1;
+        }
+    }
     return words;
 }
 
 /////////// 7 - Вычислить периметр и площадь для прямоугольника, треугольника и круга. С помощью конструктора и классов ///////////
 
 function Rectangle(width, height) {
-    checkIsNumber(width);
-    checkIsNumber(height);
-
+    if ((typeof (width) !== 'number' || width <= 0) || (typeof (height) !== 'number' || height <= 0)) {
+        throw new Error("Not Number !!");
+    }
     this.width = width;
     this.height = height;
-    this.perimeter = (width + height) * 2;
-    this.square = (width * height);
+    this.perimeter = function () {
+        return (this.width + this.height) * 2;
+    };
+    this.square = function () {
+        return (this.width * this.height);
+    };
 }
 
 function Triangle(leftSide, rightSide, baseSide) {
-    checkIsNumber(leftSide);
-    checkIsNumber(rightSide);
-    checkIsNumber(baseSide);
-    let semiperimetr = (leftSide + rightSide + baseSide) / 2;
+    if (((typeof (leftSide) !== 'number') || (leftSide <= 0)) || ((typeof (rightSide) !== 'number') || (rightSide <= 0)) || ((typeof (baseSide)) !== 'number') || (baseSide <= 0)) {
+        throw new Error("Not Number !!");
+    }
     this.leftSide = leftSide;
     this.rightSide = rightSide;
     this.baseSide = baseSide;
-    this.perimeter = (leftSide + rightSide + baseSide);
-    this.square = Math.sqrt(semiperimetr * (semiperimetr - leftSide) * (semiperimetr - rightSide) * (semiperimetr - baseSide));
+    this.perimeter = function () {
+        return (this.leftSide + this.rightSide + this.baseSide);
+    };
+    this.square = function () {
+        let semiperimetr = (this.leftSide + this.rightSide + this.baseSide) / 2;
+        let square = Math.sqrt(semiperimetr * (semiperimetr - this.leftSide) * (semiperimetr - this.rightSide) * (semiperimetr - this.baseSide));
+        return square;
+    };
 }
 
 function Circle(radius) {
-    checkIsNumber(radius);
+    if ((typeof (radius) !== 'number') || (radius <=0)) {
+        throw new Error("Not Number !!");
+    }
     this.radius = radius;
-    this.perimeter = 2 * Math.PI * radius;
-    this.square = (Math.PI * Math.pow(radius, 2));
+    this.perimeter = function () {
+        return (2 * Math.PI * this.radius);
+    };
+    this.square = function () {
+        return (Math.PI * Math.pow(this.radius, 2));
+    };
 }
 
 class RectangleClass {
     constructor(width, height) {
-        checkIsNumber(width);
-        checkIsNumber(height);
-
+        if ((typeof (width) !== 'number' || width <= 0) || (typeof (height) !== 'number' || height <= 0)) {
+            throw new Error("Not Number !!");
+        }
         this.width = width;
         this.height = height;
     }
 
     perimeter() {
         return (this.width + this.height) * 2;
-    }
+    };
 
     square() {
         return (this.width * this.height);
-    }
+    };
 }
 
 class TriangleClass {
     constructor(leftSide, rightSide, baseSide) {
-        checkIsNumber(leftSide);
-        checkIsNumber(rightSide);
-        checkIsNumber(baseSide);
+        if (((typeof (leftSide) !== 'number') || (leftSide <= 0)) || ((typeof (rightSide) !== 'number') || (rightSide <= 0)) || ((typeof (baseSide)) !== 'number') || (baseSide <= 0)) {
+            throw new Error("Not Number !!");
+        }
         this.leftSide = leftSide;
         this.rightSide = rightSide;
         this.baseSide = baseSide;
@@ -229,35 +242,37 @@ class TriangleClass {
 
     perimeter() {
         return (this.leftSide + this.rightSide + this.baseSide);
-    }
+    };
 
     square() {
         let semiperimetr = (this.leftSide + this.rightSide + this.baseSide) / 2;
         let square = Math.sqrt(semiperimetr * (semiperimetr - this.leftSide) * (semiperimetr - this.rightSide) * (semiperimetr - this.baseSide));
         return square;
-    }
+    };
 }
 
 class CircleClass {
     constructor(radius) {
-        checkIsNumber(radius);
+        if ((typeof (radius) !== 'number') || (radius <=0)) {
+            throw new Error("Not Number !!");
+        }
         this.radius = radius;
     }
-
     perimeter() {
         return (2 * Math.PI * this.radius);
-    }
+    };
 
     square() {
         return Math.PI * Math.pow(this.radius, 2);
-    }
+    };
 }
 
 /////////// 8 - Вычислить факториал числа. Реализовать с помощью рекурсии. Реализовать мемоизированную функцию вычисления факториала. ///////////
 
-
 function calculateFactorial(num) {
-    checkIsNumber(num);
+    if (typeof (num) !== 'number' || num < 0) {
+        throw new Error("Not Number !!");
+    }
 
     let result = 1;
 
@@ -268,62 +283,49 @@ function calculateFactorial(num) {
     return result;
 }
 
-function countFactorial(num) {
-    checkIsNumber(num);
+function calculateFactorial(num) {
+    if (typeof (num) !== 'number' || num < 0) {
+        throw new Error("Not Number !!");
+    }
 
     if (num === 0) {
         return 1;
-    }
-    else {
+    } else {
         return num * countFactorial(num - 1);
     }
 }
 
-function countFactorialMemo() {
+const calculateFactorialMemo = (function () {
     let memo = {};
-    const func = (num) => {
-        if (!memo[num]) {
-            memo[num] = countFactorial(num);
-        }
-        return memo[num];
+    return function calculateFactorial(num){
+    if (typeof (num) !== 'number' || num < 0) {
+        throw new Error("Not Number !!");
     }
-    return func;
-};
+        if (num === 0) {
+            return 1;
+        }
+
+        if(memo[num] === undefined) {
+            memo[num] = calculateFactorial(num - 1);
+        }
+        return num * memo[num];
+    };
+})();
 
 ////////////////////////// 9 - Посчитать сумму всех элементов массива, только тех которые (Кратные двум, кратные трем, которые только положительные и нечетные, реализовать с помощью рекурсии для одномерного массива.) ///////////
 
-//// first variant
-function countElementsSum(someArray, userFunc) {
-    checkIsArray(someArray);
-    return someArray.reduce(userFunc, 0);
+function countElementSum(someArray, userFunc) {
+    if(Array.isArray(someArray) !== true){
+        throw new Error("Not Array !!");
+    }
+    let sum = 0;
+    for (let i = 0; i < someArray.length; i++) {
+        if (userFunc(someArray[i])) {
+            sum += someArray[i];
+        }
+    }
+    return sum;
 }
-
-const countAllElementsSum = (total, currentValue) =>
-    total + currentValue;
-
-const countElementsDivideTwoSum = (total, currentValue) => {
-    if (currentValue % 2 === 0) {
-        return total + currentValue;
-    } else {
-        return total;
-    }
-};
-
-const countElementsDivideThreeSum = (total, currentValue) => {
-    if (currentValue % 3 === 0) {
-        return total + currentValue;
-    } else {
-        return total;
-    }
-};
-
-const countElementsPositiveOddSum = (total, currentValue) => {
-    if (currentValue % 2 !== 0 && currentValue > 0) {
-        return total + currentValue;
-    } else {
-        return total;
-    }
-};
 
 function getElementsSumRecursion(someArray, userFunc, index) {
     index = index || 0;
@@ -336,107 +338,30 @@ function getElementsSumRecursion(someArray, userFunc, index) {
     return sum + getElementsSumRecursion(someArray, userFunc, ++index);
 }
 
-//// second variant
-function countElementSum(someArray, userFunc) {
-    checkIsArray(someArray);
-    let sum = 0;
-    for (let i = 0; i < someArray.length; i++) {
-        if (userFunc(someArray[i])) {
-            sum += someArray[i];
-        }
-    }
-    console.log(sum);
-    return sum;
-}
 
 /////////// 10 - Посчитать количество элементов массива которые (Нулевые, отрицательные, положительные, простые числа) ///////////
-//// first variant
-function countZeroPosNegPrimeNumbers(myNumbers) {
-    checkIsArray(myNumbers);
 
-    myNumbers.reduce(function (acc, num) {
-        if (num === 0) {
-            acc.zero = ++acc.zero || 1;
-        }
-        if (num < 0) {
-            acc.negative = ++acc.negative || 1;
-        }
-        if (num > 0) {
-            acc.positive = ++acc.positive || 1;
-        }
-        if (num > 1 && (num ^ 0) === num) {
-            acc.prime = ++acc.prime || 1;
-        }
-        return acc;
-    }, {});
-};
-
-//// second variant
-function countNumbers(someArray, userFunc) {
-    checkIsArray(someArray);
-    return userFunc(someArray);
-}
-
-const countZeroNumbers = (arr) => {
-    let counter = 0;
-    for (let i = 0; i < arr.length; i++) {
-        if (arr[i] === 0) {
-            counter++;
-        }
-    }
-    return counter;
-}
-
-const countNegativeNumbers = (arr) => {
-    let counter = 0;
-    for (let i = 0; i < arr.length; i++) {
-        if (arr[i] < 0) {
-            counter++;
-        }
-    }
-    return counter;
-}
-
-const countPositiveNumbers = (arr) => {
-    let counter = 0;
-    for (let i = 0; i < arr.length; i++) {
-        if (arr[i] > 0) {
-            counter++;
-        }
-    }
-    return counter;
-}
-
-const countPrimeNumbers = (arr) => {
-    let counter = 0;
-    for (let i = 0; i < arr.length; i++) {
-        if (arr[i] > 0 && arr[i] ^ 0) {
-            counter++;
-        }
-    }
-    return counter;
-}
-
-//// third variant
 function countArrayElements(array, userFunc) {
-    checkIsArray(array);
+    if(Array.isArray(array) !== true){
+        throw new Error("Not Array !!");
+    }
     let counter = 0;
     for (let i = 0; i < array.length; i++) {
         if (userFunc(array[i])) {
             counter++;
         }
     }
-    console.log(counter);
     return counter;
 }
 
 /////////// 11 - Написать функции которые преобразовывают число из десятичной системы счисления в двоичную и в обратную сторону. (Достаточно написать для целых положительных чисел) ///////////
 
 function convertFromTwoToTen(numberTwoSystem) {
-    checkIsString(numberTwoSystem);
+    if (typeof (numberTwoSystem) !== 'string') {
+        throw new Error("Not String !!");
+    }
     numberTwoSystem = numberTwoSystem.mySplit('');
     let numberInTenSystem = 0;
-
     let rank = 0;
     for (let i = numberTwoSystem.length - 1; i >= 0; i--) {
         numberInTenSystem += numberTwoSystem[i] * 2 ** rank;
@@ -446,7 +371,9 @@ function convertFromTwoToTen(numberTwoSystem) {
 }
 
 function convertFromTenToTwo(numberTenSystem) {
-    checkIsNumber(numberTenSystem);
+    if (typeof (numberTenSystem) !== 'number') {
+        throw new Error("Not Number !!");
+    }
 
     let ostatok = 0;
     let numberTwoSystem = [];
@@ -462,35 +389,43 @@ function convertFromTenToTwo(numberTenSystem) {
 }
 
 /////////// 12 - Пункты 9 и 10 выполнить для двумерных массивов. ///////////
-function countElementsSumTwoDimension(someArray, userFunc) {
-    let someOneDimension = [].concat(...someArray);
-    return someOneDimension.reduce(userFunc, 0);
+
+function countElementsSum(someArray, userFunc) {
+
+    if(Array.isArray(someArray) !== true){
+        throw new Error("Not Array !!");
+    }
+    let matrix = [].concat(...someArray);
+    let sum = 0;
+    for (let i = 0; i < matrix.length; i++) {
+        if (userFunc(matrix[i])) {
+            sum += matrix[i];
+        }
+    }
+    return sum;
 }
 
-function countZeroPosNegPrimeNumbersTwoDim(myDataNumbers) {
-    let myNumbers = [].concat(...myDataNumbers);
-    myNumbers.reduce(function (acc, num) {
-        if (num === 0) {
-            acc.zero = ++acc.zero || 1;
+function countArrayElement(array, userFunc) {
+
+    if(Array.isArray(array) !== true){
+        throw new Error("Not Array !!");
+    }
+    let matrix = [].concat(...someArray);
+    let counter = 0;
+    for (let i = 0; i < matrix.length; i++) {
+        if (userFunc(matrix[i])) {
+            counter++;
         }
-        if (num < 0) {
-            acc.negative = ++acc.negative || 1;
-        }
-        if (num > 0) {
-            acc.positive = ++acc.positive || 1;
-        }
-        if (num > 1 && (num ^ 0) === num) {
-            acc.prime = ++acc.prime || 1;
-        }
-        return acc;
-    }, {});
-};
+    }
+    return counter;
+}
 
 ////////// 13 - Посчитать сумму значений чисел от min до max (всех, только тех которые кратны 3, только положительные). Нарисовать блок схему. Реализовать также с помощью рекурсии.
 
 function countRangeSum(min, max, userFunc) {
-    checkIsNumber(min);
-    checkIsNumber(max);
+    if ((typeof (min) !== 'number') || (typeof (max) !== 'number')) {
+        throw new Error("Not Number !!");
+    }
     checkIsFunction(userFunc);
 
     let sum = 0;
@@ -508,8 +443,9 @@ function countRangeSum(min, max, userFunc) {
 }
 
 function countRangeSumRecursion(min, max, userFunc) {
-    checkIsNumber(min);
-    checkIsNumber(max);
+    if ((typeof (min) !== 'number') || (typeof (max) !== 'number')) {
+        throw new Error("Not Number !!");
+    }
     checkIsFunction(userFunc);
 
     let sum = 0;
@@ -526,8 +462,9 @@ function countRangeSumRecursion(min, max, userFunc) {
 
 //// second variant 
 function countRangeSumReduce(min, max, userFunc) {
-    checkIsNumber(min);
-    checkIsNumber(max);
+    if ((typeof (min) !== 'number') || (typeof (max) !== 'number')) {
+        throw new Error("Not Number !!");
+    }
     let someArray = [];
 
     for (let i = min; i <= max; i++) {
@@ -554,13 +491,11 @@ const sumPositiveElements = (total, currentValue) => {
     }
 };
 
-countRangeSumReduce(-1, 3, sumAll);
-countRangeSumReduce(-1, 3, sumElementsDivideThree);
-countRangeSumReduce(-1, 3, sumPositiveElements);
-
 /////////// 14 - Найти среднее значение всех элементов одномерного/двумерного массива (Среднее только тех которые четные и которые не четные).
 function findAverageArrayValue(someArray, userFunc) {
-    checkIsArray(someArray);
+    if(Array.isArray(someArray) !== true){
+        throw new Error("Not Array !!");
+    }
     let digits = [].concat(...someArray);
     return digits.reduce(userFunc, 0);
 }
@@ -586,7 +521,9 @@ const findOddAverage = (total, currentValue) => {
 /////////// 15 - Транспонировать матрицу, сложить две матрицы.
 
 function transposeMatrix(matrix) {
-    checkIsArray(matrix);
+    if(Array.isArray(matrix) !== true){
+        throw new Error("Not Array !!");
+    }
     let transpMatrix = [];
 
     for (let i = 0; i < matrix[0].length; i++) {
@@ -599,10 +536,9 @@ function transposeMatrix(matrix) {
 }
 
 function sumMatrix(firstMatrix, secondMatrix) {
-    checkIsArray(firstMatrix);
-    checkIsArray(secondMatrix);
-    isEquilateralMatrix(firstMatrix);
-    isEquilateralMatrix(secondMatrix);
+    if(Array.isArray((firstMatrix) !== true) || Array.isArray((secondMatrix) !== true)){
+        throw new Error("Not Array !!");
+    }
     let transpMatrix = [];
 
     for (let i = 0; i < firstMatrix.length; i++) {
@@ -616,7 +552,9 @@ function sumMatrix(firstMatrix, secondMatrix) {
 
 /////////// 16 - Удалить из двумерного массива строку в которой присутствует хотя бы один нулевой элемент. Для столбца аналогично реализовать.
 function removeMatrixRowWithZero(someArray) {
-    checkIsArray(firstMatrix);
+    if(Array.isArray(someArray) !== true){
+        throw new Error("Not Array !!");
+    }
     for (let i = 0; i < someArray.length; i++) {
         for (let j = 0; j < someArray[0].length; j++) {
             if (someArray[i][j] === 0) {
@@ -628,7 +566,9 @@ function removeMatrixRowWithZero(someArray) {
 }
 
 function removeMatrixColWithZero(someArray) {
-    checkIsArray(someArray);
+    if(Array.isArray(someArray) !== true){
+        throw new Error("Not Array !!");
+    }
     let position;
     for (let i = 0; i < someArray.length; i++) {
         for (let j = 0; j < someArray[0].length; j++) {
@@ -656,14 +596,16 @@ function removeMatrixColWithZero(someArray) {
 
 ///first variant
 function countDiagonal(matrix, userFunc) {
-    checkIsArray(matrix);
-    isEquilateralMatrix(matrix);
+    if(Array.isArray(matrix) !== true){
+        throw new Error("Not Array !!");
+    }
     return userFunc(matrix);
 }
 
 function countMainMatrixDiagonal(matrix) {
-    isEquilateralMatrix(matrix);
-    checkIsArray(matrix);
+    if(Array.isArray(matrix) !== true){
+        throw new Error("Not Array !!");
+    }
     let result = {};
     let zero = 0;
     let sum = 0;
@@ -690,8 +632,9 @@ function countMainMatrixDiagonal(matrix) {
 }
 
 function countTopMatrixPart(matrix) {
-    isEquilateralMatrix(matrix);
-    checkIsArray(matrix);
+    if(Array.isArray(matrix) !== true){
+        throw new Error("Not Array !!");
+    }
     let result = {};
     let zero = 0;
     let sum = 0;
@@ -716,8 +659,9 @@ function countTopMatrixPart(matrix) {
 }
 
 function countBottomMatrixPart(matrix) {
-    isEquilateralMatrix(matrix);
-    checkIsArray(matrix);
+    if(Array.isArray(matrix) !== true){
+        throw new Error("Not Array !!");
+    }
     let result = {};
     let zero = 0;
     let sum = 0;
@@ -774,7 +718,9 @@ function* generateFibonacci() {
 }
 
 function countFibonacci(num) {
-    checkIsNumber(num);
+    if (typeof (num) !== 'number') {
+        throw new Error("Not Number !!");
+    }
     if (num <= 1) {
         return 1;
     } else {
@@ -808,19 +754,25 @@ function* generateTrafficLight() {
 
 //// first variant
 function checksIsPositivNumber(number) {
-    checkIsNumber(number);
+    if (typeof (number) !== 'number') {
+        throw new Error("Not Number !!");
+    }
     return (number & 2147483648);
 }
 
 //// second variant
 function checkIsPositivNumber(number) {
-    checkIsNumber(number);
+    if (typeof (number) !== 'number') {
+        throw new Error("Not Number !!");
+    }
     return (number & (1 << 31)) !== (1 << 31);
 }
 
 //// third variant
 function checkIsPositiveNumber(number) {
-    checkIsNumber(number);
+    if (typeof (number) !== 'number') {
+        throw new Error("Not Number !!");
+    }
     let binNumber = ~number.toString(2);
     let firstIndex = binNumber.toString().mySplit('')[0];
     return (firstIndex === '-');
@@ -829,7 +781,9 @@ function checkIsPositiveNumber(number) {
 ////////////////////////////////////////Посчитать количество битов числа
 //// first variant
 function countBits(number) {
-    checkIsNumber(number);
+    if (typeof (number) !== 'number') {
+        throw new Error("Not Number !!");
+    }
     let stringNumber = "";
     let zeroBitCount = 0;
     let oneBitCount = 0;
@@ -847,8 +801,9 @@ function countBits(number) {
 
 //// second variant
 function countZeroOneBits(numberBin) {
-    checkIsString(numberBin);
-
+    if (typeof (numberBin) !== 'string') {
+        throw new Error("Not String !!");
+    }
     numberBin.toString().mySplit('');
     let zeroBitCount = 0;
     let oneBitCount = 0;
@@ -864,17 +819,23 @@ function countZeroOneBits(numberBin) {
 
 ///////////////////////////////////////////Написать свою реализацию для ~ тильда
 function invertBinNumber(number) {
-    checkIsNumber(number);
+    if (typeof (number) !== 'number') {
+        throw new Error("Not Number !!");
+    }
     return -(number + 1);
 }
 
 function invertBinaryNumber(number) {
-    checkIsNumber(number);
+    if (typeof (number) !== 'number') {
+        throw new Error("Not Number !!");
+    }
     return (number ^ -1);
 }
 
 function invertBinDigits(binNumber) {
-    checkIsString(binNumber);
+    if (typeof (binNumber) !== 'string') {
+        throw new Error("Not String !!");
+    }
     binNumber = binNumber.mySplit("");
     for (let i = 0; i < binNumber.length; i++) {
         if (binNumber[i] === '0') {
