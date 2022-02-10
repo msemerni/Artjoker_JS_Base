@@ -811,7 +811,7 @@ function checkIsPositiveNumber(number) {
     checkIsNumber(number);
     let binNumber = ~number.toString(2);
     let firstIndex = binNumber.toString().mySplit('')[0];
-    return (firstIndex === '-') 
+    return (firstIndex === '-');
 }
 
 ////////////////////////////////////////Посчитать количество битов числа
@@ -830,7 +830,7 @@ function countBits(number) {
             zeroBitCount++;
         }
     }
-    return { one: oneBitCount, zero: zeroBitCount }
+    return { one: oneBitCount, zero: zeroBitCount };
 }
 
 //// second variant
