@@ -875,7 +875,6 @@ function invertBinaryNumber(number) {
 
 function invertBinDigits(binNumber) {
     checkIsString(binNumber);
-
     binNumber = binNumber.mySplit("");
     for (let i = 0; i < binNumber.length; i++) {
         if (binNumber[i] === '0') {
@@ -886,5 +885,3 @@ function invertBinDigits(binNumber) {
     }
     return binNumber.toString().replaceAll(",", "");
 }
-
-
