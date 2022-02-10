@@ -845,3 +845,4 @@ function invertBinDigits(binNumber) {
     }
     return binNumber.toString().replaceAll(",", "");
 }
+
