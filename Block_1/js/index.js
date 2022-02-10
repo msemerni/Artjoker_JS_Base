@@ -57,7 +57,15 @@ Array.prototype.myJoin = function (separator) {
     return string;
 }
 
-
+function isEquilateralMatrix(matrix) {
+    let isEquilateralMatrix = true;
+    for (let i = 0; i < matrix.length; i++) {
+        if (matrix[i].length !== matrix.length) {
+            isEquilateralMatrix = false;
+        }
+    }
+    return isEquilateralMatrix;
+}
 
 function checkIsString(string) {
     if (typeof (string) !== 'string') {
@@ -552,6 +560,7 @@ countRangeSumReduce(-1, 3, sumPositiveElements);
 
 /////////// 14 - Найти среднее значение всех элементов одномерного/двумерного массива (Среднее только тех которые четные и которые не четные).
 function findAverageArrayValue(someArray, userFunc) {
+    checkIsArray(someArray);
     let digits = [].concat(...someArray);
     return digits.reduce(userFunc, 0);
 }
@@ -592,7 +601,8 @@ function transposeMatrix(matrix) {
 function sumMatrix(firstMatrix, secondMatrix) {
     checkIsArray(firstMatrix);
     checkIsArray(secondMatrix);
-
+    isEquilateralMatrix(firstMatrix);
+    isEquilateralMatrix(secondMatrix);
     let transpMatrix = [];
 
     for (let i = 0; i < firstMatrix.length; i++) {
@@ -606,7 +616,7 @@ function sumMatrix(firstMatrix, secondMatrix) {
 
 /////////// 16 - Удалить из двумерного массива строку в которой присутствует хотя бы один нулевой элемент. Для столбца аналогично реализовать.
 function removeMatrixRowWithZero(someArray) {
-
+    checkIsArray(firstMatrix);
     for (let i = 0; i < someArray.length; i++) {
         for (let j = 0; j < someArray[0].length; j++) {
             if (someArray[i][j] === 0) {
@@ -619,7 +629,6 @@ function removeMatrixRowWithZero(someArray) {
 
 function removeMatrixColWithZero(someArray) {
     checkIsArray(someArray);
-
     let position;
     for (let i = 0; i < someArray.length; i++) {
         for (let j = 0; j < someArray[0].length; j++) {
@@ -648,12 +657,13 @@ function removeMatrixColWithZero(someArray) {
 ///first variant
 function countDiagonal(matrix, userFunc) {
     checkIsArray(matrix);
+    isEquilateralMatrix(matrix);
     return userFunc(matrix);
 }
 
 function countMainMatrixDiagonal(matrix) {
+    isEquilateralMatrix(matrix);
     checkIsArray(matrix);
-
     let result = {};
     let zero = 0;
     let sum = 0;
@@ -680,6 +690,7 @@ function countMainMatrixDiagonal(matrix) {
 }
 
 function countTopMatrixPart(matrix) {
+    isEquilateralMatrix(matrix);
     checkIsArray(matrix);
     let result = {};
     let zero = 0;
@@ -705,6 +716,7 @@ function countTopMatrixPart(matrix) {
 }
 
 function countBottomMatrixPart(matrix) {
+    isEquilateralMatrix(matrix);
     checkIsArray(matrix);
     let result = {};
     let zero = 0;
