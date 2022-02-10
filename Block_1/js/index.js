@@ -90,7 +90,7 @@ function countDigits(num) {
     for (let i = 0; num > 1; i++) {
         num = num / 10;
         digitsCounter++;
-    };
+    }
     return digitsCounter;
 }
 
@@ -99,7 +99,7 @@ function countDigitsRecursion(num) {
         throw new Error("Not Number !!");
     }
 
-    if (Math.floor(num) == 0) {
+    if (Math.floor(num) === 0) {
         return 0;
     }
     return 1 + countDigitsRecursion((num / 10));
@@ -283,7 +283,7 @@ function calculateFactorial(num) {
     return result;
 }
 
-function calculateFactorial(num) {
+function countFactorial(num) {
     if (typeof (num) !== 'number' || num < 0) {
         throw new Error("Not Number !!");
     }
