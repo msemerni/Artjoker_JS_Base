@@ -419,7 +419,7 @@ const countPrimeNumbers = (arr) => {
 
 //// third variant
 function countArrayElements(array, userFunc) {
-    checkIsArray(someArray);
+    checkIsArray(array);
     let counter = 0;
     for (let i = 0; i < array.length; i++) {
         if (userFunc(array[i])) {
