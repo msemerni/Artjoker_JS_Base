@@ -34,7 +34,7 @@ String.prototype.mySplit = function (separator) {
       newArr.push(this[i]);
     } else {
       if(this[i] !== separator) {
-        word = word + this[i];
+        word += this[i];
       }
       if(this[i] === separator || i === this.length - 1) {
         newArr.push(word);
@@ -61,11 +61,9 @@ Array.prototype.mySort = function () {
 Array.prototype.myJoin = function (separator) {
   let string;
   if(separator !== undefined) {
-    string = this.toString().replaceAll(',', separator);
-  } else {
-    string = this.toString();
-  }
-  return string;
+    string = this.toString().myReplaceAll(',', separator);
+  } 
+  return this.toString();
 };
 
 /////////// 1 - Написать функцию которая проверяет являются две строки анаграммой или нет ///////////
