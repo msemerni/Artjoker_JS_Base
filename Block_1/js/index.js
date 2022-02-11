@@ -22,7 +22,7 @@ String.prototype.myReplaceAll = function (initialChar, newChar) {
         }
     }
     return newStr;
-}
+};
 
 String.prototype.mySplit = function (separator) {
     let newArr = [];
@@ -41,7 +41,7 @@ String.prototype.mySplit = function (separator) {
         }
     }
     return newArr;
-}
+};
 
 Array.prototype.mySort = function () {
     for (let i = 0; i < this.length; i++) {
@@ -54,7 +54,7 @@ Array.prototype.mySort = function () {
         }
     }
     return this;
-}
+};
 
 Array.prototype.myJoin = function (separator) {
     let string;
@@ -64,7 +64,7 @@ Array.prototype.myJoin = function (separator) {
         string = this.toString();
     }
     return string;
-}
+};
 
 /////////// 1 - Написать функцию которая проверяет являются две строки анаграммой или нет ///////////
 function checkIsAnagram(firstStr, secondStr) {
