@@ -425,7 +425,10 @@ function countRangeSum(min, max, userFunc) {
     if ((typeof (min) !== 'number') || (typeof (max) !== 'number')) {
         throw new Error("Not Number !!");
     }
-    checkIsFunction(userFunc);
+
+    if (min >= max) {
+        throw new Error("min >= max");
+    }
 
     let sum = 0;
     let isUserFunc = userFunc ? true : false
@@ -445,7 +448,10 @@ function countRangeSumRecursion(min, max, userFunc) {
     if ((typeof (min) !== 'number') || (typeof (max) !== 'number')) {
         throw new Error("Not Number !!");
     }
-    checkIsFunction(userFunc);
+
+    if (min >= max) {
+        throw new Error("min >= max");
+    }
 
     let sum = 0;
 
@@ -464,6 +470,11 @@ function countRangeSumReduce(min, max, userFunc) {
     if ((typeof (min) !== 'number') || (typeof (max) !== 'number')) {
         throw new Error("Not Number !!");
     }
+
+    if (min >= max) {
+        throw new Error("min >= max");
+    }
+
     let someArray = [];
 
     for (let i = min; i <= max; i++) {
