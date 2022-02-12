@@ -72,8 +72,8 @@ function checkIsAnagram(firstStr, secondStr) {
     throw new Error("Not String !!");
   }
 
-  let firstString = firstStr.toLowerCase().replaceAll(' ', '').mySplit('').mySort().myJoin('');
-  let secondString = secondStr.toLowerCase().replaceAll(' ', '').mySplit('').mySort().myJoin('');
+  let firstString = firstStr.toLowerCase().myReplaceAll(' ', '').mySplit('').mySort().myJoin('');
+  let secondString = secondStr.toLowerCase().myReplaceAll(' ', '').mySplit('').mySort().myJoin('');
   return (firstString === secondString);
 }
 
