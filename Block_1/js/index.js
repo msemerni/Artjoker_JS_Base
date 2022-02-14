@@ -59,9 +59,9 @@ Array.prototype.mySort = function () {
 };
 
 Array.prototype.myJoin = function (separator) {
-    if(separator !== undefined) {
+  if(separator !== undefined) {
     return this.toString().myReplaceAll(',', separator);
-  } 
+  }
   return this.toString();
 };
 
