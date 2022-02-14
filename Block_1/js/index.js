@@ -293,9 +293,8 @@ function countFactorial(num) {
 
   if(num === 0 || num === 1) {
     return 1;
-  } else {
-    return num * countFactorial(num - 1);
   }
+  return num * countFactorial(num - 1);
 }
 
 const calculateFactorialMemo = (function () {
@@ -317,39 +316,39 @@ const calculateFactorialMemo = (function () {
 
 ////////////////////////// 9 - Посчитать сумму всех элементов массива, только тех которые (Кратные двум, кратные трем, которые только положительные и нечетные, реализовать с помощью рекурсии для одномерного массива.) ///////////
 
-function countElementSum(someArray, userFunc) {
-  if(Array.isArray(someArray) !== true) {
-    throw new Error("Not Array !!");
+function countElementSum(array, func) {
+  if(!Array.isArray(array)) {
+    throw new Error("First parameter should be Array !!");
   }
   let sum = 0;
-  for(let i = 0; i < someArray.length; i++) {
-    if(userFunc(someArray[i])) {
-      sum += someArray[i];
+  for(let i = 0; i < array.length; i++) {
+    if(func(array[i])) {
+      sum += array[i];
     }
   }
   return sum;
 }
 
-function getElementsSumRecursion(someArray, userFunc, index) {
+function getElementsSumRecursion(array, func, index) {
   index = index || 0;
   let sum = null;
-  sum += userFunc(someArray[index]) ? someArray[index] : 0;
+  sum += func(array[index]) ? array[index] : 0;
 
-  if(someArray.length <= index) {
+  if(array.length <= index) {
     return sum;
   }
-  return sum + getElementsSumRecursion(someArray, userFunc, ++index);
+  return sum + getElementsSumRecursion(array, func, ++index);
 }
 
 /////////// 10 - Посчитать количество элементов массива которые (Нулевые, отрицательные, положительные, простые числа) ///////////
 
-function countArrayElements(array, userFunc) {
-  if(Array.isArray(array) !== true) {
-    throw new Error("Not Array !!");
+function countArrayElements(array, func) {
+  if(!Array.isArray(array)) {
+    throw new Error("First parameter should be Array !!");
   }
   let counter = 0;
   for(let i = 0; i < array.length; i++) {
-    if(userFunc(array[i])) {
+    if(func(array[i])) {
       counter++;
     }
   }
@@ -396,35 +395,35 @@ function convertFromTenToTwo(numberTenSystem) {
 
 /////////// 12 - Пункты 9 и 10 выполнить для двумерных массивов. ///////////
 
-function countElementsSum(someArray, userFunc) {
+function countElementsSum(array, func) {
 
-  if(Array.isArray(someArray) !== true) {
-    throw new Error("Not Array !!");
+  if(!Array.isArray(array)) {
+    throw new Error("First parameter should be Array !!");
   }
 
   let sum = 0;
 
-  for(let i = 0; i < someArray.length; i++) {
-    for(let j = 0; j < someArray[i].length; j++) {
-      if(userFunc(someArray[i][j])) {
-        sum += someArray[i][j];
+  for(let i = 0; i < array.length; i++) {
+    for(let j = 0; j < array[i].length; j++) {
+      if(func(array[i][j])) {
+        sum += array[i][j];
       }
     }
   }
   return sum;
 }
 
-function countArrayElement(someArray, userFunc) {
+function countArrayElement(array, func) {
 
-  if(Array.isArray(someArray) !== true) {
-    throw new Error("Not Array !!");
+  if(!Array.isArray(array)) {
+    throw new Error("First parameter should be Array !!");
   }
 
   let counter = 0;
 
-  for(let i = 0; i < someArray.length; i++) {
-    for(let j = 0; j < someArray[i].length; j++) {
-      if(userFunc(someArray[i][j])) {
+  for(let i = 0; i < array.length; i++) {
+    for(let j = 0; j < array[i].length; j++) {
+      if(func(array[i][j])) {
         counter++;
       }
     }
@@ -434,25 +433,25 @@ function countArrayElement(someArray, userFunc) {
 
 ////////// 13 - Посчитать сумму значений чисел от min до max (всех, только тех которые кратны 3, только положительные). Нарисовать блок схему. Реализовать также с помощью рекурсии.
 
-function countRangeSum(min, max, userFunc) {
-  if((typeof (min) !== 'number') || (typeof (max) !== 'number') || typeof userFunc !== 'function') {
-    throw new Error("Wrong data !!");
+function countRangeSum(min, max, func) {
+  if((typeof (min) !== 'number') || (typeof (max) !== 'number') || typeof func !== 'function') {
+    throw new Error("First and second parameter should be number, third - function");
   }
 
   if(min >= max) {
-    throw new Error("min >= max");
+    throw new Error("min >= max!");
   }
 
   let sum = 0;
   for(let i = min; i <= max; i++) {
-    if(userFunc(i)) {
+    if(func(i)) {
       sum += i;
     }
   }
   return sum;
 }
 
-function countRangeSumRecursion(min, max, userFunc) {
+function countRangeSumRecursion(min, max, func) {
   if((typeof (min) !== 'number') || (typeof (max) !== 'number')) {
     throw new Error("Not Number !!");
   }
@@ -463,18 +462,18 @@ function countRangeSumRecursion(min, max, userFunc) {
 
   let sum = 0;
 
-  if(userFunc(min)) {
+  if(func(min)) {
     sum += min;
   }
 
   if(++min <= max) {
-    sum += countRangeSumRecursion(min, max, userFunc);
+    sum += countRangeSumRecursion(min, max, func);
   }
   return sum;
 }
 
 //// second variant 
-function countRangeSumReduce(min, max, userFunc) {
+function countRangeSumReduce(min, max, func) {
   if((typeof (min) !== 'number') || (typeof (max) !== 'number')) {
     throw new Error("Not Number !!");
   }
@@ -483,12 +482,12 @@ function countRangeSumReduce(min, max, userFunc) {
     throw new Error("min >= max");
   }
 
-  let someArray = [];
+  let array = [];
 
   for(let i = min; i <= max; i++) {
-    someArray.push(i);
+    array.push(i);
   }
-  return someArray.reduce(userFunc, 0);
+  return array.reduce(func, 0);
 }
 
 const sumAll = (total, currentValue) => total + currentValue;
@@ -510,12 +509,12 @@ const sumPositiveElements = (total, currentValue) => {
 };
 
 /////////// 14 - Найти среднее значение всех элементов одномерного/двумерного массива (Среднее только тех которые четные и которые не четные).
-function findAverageArrayValue(someArray, userFunc) {
-  if(Array.isArray(someArray) !== true) {
-    throw new Error("Not Array !!");
+function findAverageArrayValue(array, func) {
+  if(!Array.isArray(array)) {
+    throw new Error("First parameter should be Array !!");
   }
-  let digits = [].concat(...someArray);
-  return digits.reduce(userFunc, 0);
+  let digits = [].concat(...array);
+  return digits.reduce(func, 0);
 }
 
 const findEvenAverage = (total, currentValue) => {
@@ -539,8 +538,8 @@ const findOddAverage = (total, currentValue) => {
 /////////// 15 - Транспонировать матрицу, сложить две матрицы.
 
 function transposeMatrix(matrix) {
-  if(Array.isArray(matrix) !== true) {
-    throw new Error("Not Array !!");
+  if(!Array.isArray(matrix)) {
+    throw new Error("Parameter should be Array !!");
   }
 
   let transpMatrix = [];
@@ -555,8 +554,8 @@ function transposeMatrix(matrix) {
 }
 
 function sumMatrix(firstMatrix, secondMatrix) {
-  if(Array.isArray((firstMatrix) !== true) || Array.isArray((secondMatrix) !== true)) {
-    throw new Error("Not Array !!");
+  if((!Array.isArray(firstMatrix)) || (!Array.isArray(secondMatrix))) {
+    throw new Error("Parameters should be Arrays !!");
   }
   let transpMatrix = [];
 
@@ -571,61 +570,61 @@ function sumMatrix(firstMatrix, secondMatrix) {
 
 /////////// 16 - Удалить из двумерного массива строку в которой присутствует хотя бы один нулевой элемент. Для столбца аналогично реализовать.
 
-function removeMatrixRowWithZero(someArray) {
-  if(Array.isArray(someArray) !== true) {
-    throw new Error("Not Array !!");
+function removeMatrixRowWithZero(array) {
+  if(!Array.isArray(array)) {
+    throw new Error("Parameter should be Array !!");
   }
-  for(let i = 0; i < someArray.length; i++) {
-    for(let j = 0; j < someArray[0].length; j++) {
-      if(someArray[i][j] === 0) {
-        someArray.splice(i--, 1);
+  for(let i = 0; i < array.length; i++) {
+    for(let j = 0; j < array[0].length; j++) {
+      if(array[i][j] === 0) {
+        array.splice(i--, 1);
         break;
       }
     }
   }
 }
 
-function removeMatrixColWithZero(someArray) {
-  if(Array.isArray(someArray) !== true) {
-    throw new Error("Not Array !!");
+function removeMatrixColWithZero(array) {
+  if(!Array.isArray(array)) {
+    throw new Error("Parameter should be Array !!");
   }
   let position;
-  for(let i = 0; i < someArray.length; i++) {
-    for(let j = 0; j < someArray[0].length; j++) {
+  for(let i = 0; i < array.length; i++) {
+    for(let j = 0; j < array[0].length; j++) {
 
-      if(someArray[i][j] === 0) {
+      if(array[i][j] === 0) {
         position = j;
-        for(let i = 0; i < someArray.length; i++) {
-          for(let j = 0; j < someArray[0].length; j++) {
-            someArray[i].splice(position, 1);
+        for(let i = 0; i < array.length; i++) {
+          for(let j = 0; j < array[0].length; j++) {
+            array[i].splice(position, 1);
             break;
           }
         }
       }
     }
 
-    if(someArray[0].length === 0) {
-      someArray = [];
+    if(array[0].length === 0) {
+      array = [];
       break;
     };
   }
-  return someArray;
+  return array;
 }
 
 /////////// 17 - Посчитать сумму/количество нулевых элементов/среднее значение элементов матрицы: над и под главной диагональю и на главной диагонали.
 
-function sumMatrixElements(someArray, userFunc) {
-  if(Array.isArray(someArray) !== true) {
-    throw new Error("Not Array !!");
+function sumMatrixElements(array, func) {
+  if(!Array.isArray(array)) {
+    throw new Error("First parameter should be Array !!");
   }
-  isEquilateralMatrix(someArray);
+  isEquilateralMatrix(array);
 
   let sum = 0;
 
-  for(let i = 0; i < someArray.length; i++) {
-    for(let j = 0; j < someArray[i].length; j++) {
-      if(userFunc(i, j)) {
-        sum += someArray[i][j];
+  for(let i = 0; i < array.length; i++) {
+    for(let j = 0; j < array[i].length; j++) {
+      if(func(i, j)) {
+        sum += array[i][j];
       }
     }
   }
@@ -741,9 +740,8 @@ function countBits(number) {
   for(let i = 0; i < 32; i++) {
     if((number & (1 << i)) === (1 << i)) {
       oneBitCount++
-    } else {
-      zeroBitCount++;
     }
+    zeroBitCount = 32 - oneBitCount;
   }
   return { one: oneBitCount, zero: zeroBitCount };
 }
@@ -776,25 +774,9 @@ function invertBinNumber(number) {
   return -(number + 1);
 }
 
-function invertBinaryNumber(number) {
+function invertBinDigits(number) {
   if(typeof (number) !== 'number') {
     throw new Error("Not Number !!");
   }
   return (number ^ -1);
 }
-
-function invertBinDigits(binNumber) {
-  if(typeof (binNumber) !== 'string') {
-    throw new Error("Not String !!");
-  }
-  binNumber = binNumber.mySplit("");
-  for(let i = 0; i < binNumber.length; i++) {
-    if(binNumber[i] === '0') {
-      binNumber[i] = 1;
-    } else {
-      binNumber[i] = 0;
-    }
-  }
-  return binNumber.toString().replaceAll(",", "");
-}
-

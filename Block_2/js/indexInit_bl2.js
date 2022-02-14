@@ -1,4 +1,4 @@
-'use strict';
+// 'use strict';
 
 // if(Array.isArray(someArray) !== true) {
 //   throw new Error("Not Array !!");
@@ -23,8 +23,27 @@
 ///// 1. Написать свою реализацию функций bind, call. Новая реализация должна по функционалу работать аналогично как и соответствующие стандартные функции. 
 ///// Без использования стандартных функций.
 
+// Function.prototype.myBind = function(func, context, ...arguments) {
+  function myBind (func, context, ...arguments) {
+  return function (...args) {
+    const id = Symbol();
+    context[id] = func;
+    let result = context[id](...arguments.concat(args));
+    delete context[id];
+    return result;
+  }
+};
 
+let user = {
+  firstName: "Вася"
+};
 
+function func1() {
+  alert(this.firstName);
+}
+
+let funcUser = myBind(func1, user);
+console.log(funcUser()); // Вася
 
 
 ///// 2. Написать свою реализацию функций для работы с массивами, которые являются аналогами следующих функций: map, filter, reduce, find, forEach. 
@@ -73,7 +92,6 @@ Array.prototype.myMap = function (func) {
 testArray.myMap(item => item * 2);
 
 
-
 //// своя функция filter
 
 ///// 1st variant
@@ -102,7 +120,7 @@ testArray.myMap(item => item * 2);
 
 
 ///// 2nd variant
-let testArray3 = [1, 2, 3, 4, 5];
+// let testArray3 = [1, 2, 3, 4, 5];
 
 Array.prototype.myFilter = function (func) {
   if (typeof func !== "function") {
@@ -113,74 +131,93 @@ Array.prototype.myFilter = function (func) {
 
   for (let i = 0; i < this.length; i++) {
     if (func(this[i])) {
-      newArray.push(func(this[i]));
+      newArray.push(this[i]);
     }
   }
   return newArray;
 }
 
-testArray3.myFilter(item => item % 2 === 0);
-
-
-
-
-
-// myFilter(testArray2, item => item % 2 === 0);
-
-/////
-
-// let testArray3 = [1, 2, 3, 4, 5];
+// testArray3.myFilter(item => item > 3);
 
 
 //// своя функция reduce
 
-function myReduce(array, func) {
-  if(Array.isArray(array) !== true) {
-    throw new Error("Not Array !!");
-  }
+///// 1st variant
+// let testArray3 = [1, 2, 3, 4, 5];
+
+// function myReduce(array, func) {
+//   if(Array.isArray(array) !== true) {
+//     throw new Error("Not Array !!");
+//   }
   
-  if(typeof func !== "function") {
+//   if(typeof func !== "function") {
+//     throw new Error("Not function !!");
+//   }
+
+//   let accumulator = null;
+
+//   for(let item of array) {
+//     accumulator = func(accumulator, item);
+//   }
+//   return accumulator;
+// }
+
+// myReduce(testArray3, (accumulator, item) => accumulator + item);
+
+
+///// 2nd variant
+
+// let testArray3 = [1, 2, 3, 4, 5];
+
+Array.prototype.myReduce = function (func, initAccum) {
+  if (typeof func !== "function") {
     throw new Error("Not function !!");
   }
 
-  let accumulator = null;
+  let accumulator = initAccum || null;
 
-  for(let item of array) {
-    accumulator = func(accumulator, item);
+  for (let i = 0; i < this.length; i++) {
+    accumulator = func(accumulator, this[i]);
   }
   return accumulator;
 }
 
-// myReduce(testArray3, (accumulator, item) => accumulator + item);
+// testArray3.myReduce(((accumulator, item) => accumulator + item), 10);
 
-//////
-
-let users = [
-  {id: 1, name: "Вася"},
-  {id: 2, name: "Петя"},
-  {id: 3, name: "Маша"}
-];
 
 //// своя функция find
-function myFind (array, func) {
-  if(Array.isArray(array) !== true) {
-    throw new Error("Not Array !!");
-  }
-  
-  if(typeof func !== "function") {
+
+let testArray4 = [1, 2, 3, 4, 5];
+
+Array.prototype.myFind = function (func) {
+  if (typeof func !== "function") {
     throw new Error("Not function !!");
   }
 
-for (let item of array) {
-  if(item === func(item)) {
-    return item;
+  for (let i = 0; i < this.length; i++) {
+    if (func(this[i])) {
+      return(this[i]);
+    }
+  }
+  return -1;
+}
+
+testArray4.myFind(item => item > 3);
+
+
+//// своя функция forEach
+let testArray5 = [1, 2, 3, 4, 5];
+
+Array.prototype.myForEach = function (func) {
+  if (typeof func !== "function") {
+    throw new Error("Not function !!");
+  }
+  for (let i = 0; i < this.length; i++) {
+    func(this[i], i, this);
   }
 }
 
-users.myFind();
-
-
-}
+testArray5.myForEach();
 
 
 
