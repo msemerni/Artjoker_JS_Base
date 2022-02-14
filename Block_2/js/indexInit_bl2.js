@@ -23,6 +23,27 @@
 ///// 1. Написать свою реализацию функций bind, call. Новая реализация должна по функционалу работать аналогично как и соответствующие стандартные функции. 
 ///// Без использования стандартных функций.
 
+//// своя функция call
+Function.prototype.myCall = function(context, ...argumnts) {
+  // function myBind (func, context, ...argums) {
+    const ID = Symbol();
+    context[ID] = this;
+    let result = context[ID](...argumnts);
+    delete context[ID];
+    return result;
+};
+
+let user1 = {
+  firstName: "Вася"
+};
+
+function func1() {
+  alert(this.firstName);
+}
+
+let funcUser1 = func1.myCall(user2);
+console.log(funcUser1());
+
 //// своя функция bind
 Function.prototype.myBind = function(context, ...argumnts) {
   // function myBind (func, context, ...argums) {
@@ -39,37 +60,14 @@ let user = {
   firstName: "Вася"
 };
 
-function func1() {
-  alert(this.firstName);
-}
-
-// let funcUser = myBind(func1, user);
-// console.log(funcUser()); // Вася
-let funcUser = func1.myBind(user);
-console.log(funcUser());
-
-//// своя функция call
-Function.prototype.myCall = function(context, ...argumnts) {
-  // function myBind (func, context, ...argums) {
-    const ID = Symbol();
-    context[ID] = this;
-    let result = context[ID](...argumnts);
-    delete context[ID];
-    return result;
-};
-
-let user2 = {
-  firstName: "Вася"
-};
-
 function func2() {
   alert(this.firstName);
 }
 
-// let funcUser = myBind(func1, user);
-// console.log(funcUser()); // Вася
-let funcUser2 = func2.myCall(user2);
+let funcUser2 = func2.myBind(user);
 console.log(funcUser2());
+
+
 
 
 ///// 2. Написать свою реализацию функций для работы с массивами, которые являются аналогами следующих функций: map, filter, reduce, find, forEach. 
