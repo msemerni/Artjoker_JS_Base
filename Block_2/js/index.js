@@ -58,12 +58,12 @@ Array.prototype.myFilter = function(callback) {
 };
 
 //// своя функция reduce
-Array.prototype.myReduce = function(callback, initAccum) {
+Array.prototype.myReduce = function(callback, initialAccum) {
   if(typeof callback !== "function") {
     throw new Error("Parameter is not a callback function");
   }
 
-  let accumulator = initAccum || null;
+  let accumulator = initialAccum || null;
 
   for(let i = 0; i < this.length; i++) {
     accumulator = callback(accumulator, this[i]);
