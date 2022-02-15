@@ -4,13 +4,13 @@
 //// своя функция bind
 Function.prototype.myBind = function(context, ...argumnts) {
   let bindedThis = this;
-  return function (...args) {
+  return function(...args) {
     const uniqueKey = Symbol();
     context[uniqueKey] = bindedThis;
     const result = context[uniqueKey](...argumnts.concat(args));
     delete context[uniqueKey];
     return result;
-  }
+  };
 };
 
 //// своя функция call
@@ -26,74 +26,74 @@ Function.prototype.myCall = function(context, ...argumnts) {
 ///// Без использования стандартных функций.
 
 //// своя функция map
-Array.prototype.myMap = function (func) {
-  if(typeof func !== "function") {
-    throw new Error("Not function !!");
+Array.prototype.myMap = function(callback) {
+  if(typeof callback !== "function") {
+    throw new Error("Parameter is not a callback function");
   }
 
-  let resultArray = [];
+  let array = [];
 
   for(let i = 0; i < this.length; i++) {
-    resultArray.push(func(this[i]));
+    array.push(callback(this[i]));
   }
 
-  return resultArray;
-}
+  return array;
+};
 
 //// своя функция filter
-Array.prototype.myFilter = function (func) {
-  if(typeof func !== "function") {
-    throw new Error("Not function !!");
+Array.prototype.myFilter = function(callback) {
+  if(typeof callback !== "function") {
+    throw new Error("Parameter is not a callback function");
   }
 
-  let resultArray = [];
+  let array = [];
 
   for(let i = 0; i < this.length; i++) {
-    if (func(this[i])) {
-      resultArray.push(this[i]);
+    if (callback(this[i])) {
+      array.push(this[i]);
     }
   }
 
-  return resultArray;
-}
+  return array;
+};
 
 //// своя функция reduce
-Array.prototype.myReduce = function (func, initAccum) {
-  if(typeof func !== "function") {
-    throw new Error("Not function !!");
+Array.prototype.myReduce = function(callback, initAccum) {
+  if(typeof callback !== "function") {
+    throw new Error("Parameter is not a callback function");
   }
 
   let accumulator = initAccum || null;
 
   for(let i = 0; i < this.length; i++) {
-    accumulator = func(accumulator, this[i]);
+    accumulator = callback(accumulator, this[i]);
   }
 
   return accumulator;
-}
+};
 
 //// своя функция find
-Array.prototype.myFind = function (func) {
-  if(typeof func !== "function") {
-    throw new Error("Not function !!");
+Array.prototype.myFind = function(callback) {
+  if(typeof callback !== "function") {
+    throw new Error("Parameter is not a callback function");
   }
 
   for(let i = 0; i < this.length; i++) {
-    if(func(this[i])) {
-      return(this[i]);
+    if(callback(this[i])) {
+      return this[i];
     }
   }
 
   return -1;
-}
+};
 
 //// своя функция forEach
-Array.prototype.myForEach = function (func) {
-  if(typeof func !== "function") {
-    throw new Error("Not function !!");
+Array.prototype.myForEach = function(callback) {
+  if(typeof callback !== "function") {
+    throw new Error("Parameter is not a callback function");
   }
 
   for(let i = 0; i < this.length; i++) {
-    func(this[i], i, this);
+    callback(this[i], i, this);
   }
-}
+};
