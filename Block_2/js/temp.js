@@ -23,6 +23,30 @@
 ///// 1. Написать свою реализацию функций bind, call. Новая реализация должна по функционалу работать аналогично как и соответствующие стандартные функции. 
 ///// Без использования стандартных функций.
 
+//// своя функция bind
+Function.prototype.myBind = function(context, ...argumnts) {
+  let bindedThis = this;
+  return function (...args) {
+    const ID = Symbol();
+    context[ID] = bindedThis;
+    let result = context[ID](...argumnts.concat(args));
+    delete context[ID];
+    return result;
+  }
+};
+
+let user = {
+  firstName: "Вася"
+};
+
+function func2() {
+  alert(this.firstName);
+}
+
+let funcUser2 = func2.myBind(user);
+console.log(funcUser2());
+console.log(user);
+
 //// своя функция call
 Function.prototype.myCall = function(context, ...argumnts) {
   // function myBind (func, context, ...argums) {
@@ -43,29 +67,9 @@ function func1() {
 
 let funcUser1 = func1.myCall(user2);
 console.log(funcUser1());
+console.log(user1);
 
-//// своя функция bind
-Function.prototype.myBind = function(context, ...argumnts) {
-  // function myBind (func, context, ...argums) {
-  return function (...args) {
-    const ID = Symbol();
-    context[ID] = this;
-    let result = context[ID](...argumnts.concat(args));
-    delete context[ID];
-    return result;
-  }
-};
 
-let user = {
-  firstName: "Вася"
-};
-
-function func2() {
-  alert(this.firstName);
-}
-
-let funcUser2 = func2.myBind(user);
-console.log(funcUser2());
 
 
 
