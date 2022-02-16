@@ -34,7 +34,7 @@ function bubbleSort(array, callback) {
 //// сортировка выбором
 function selectionSort(array, callback) {
   if(!Array.isArray(array)) {
-    throw new Error("Parameter should be array");
+    throw new Error("First parameter should be an array");
   }
 
   if(typeof callback !== "function") {
