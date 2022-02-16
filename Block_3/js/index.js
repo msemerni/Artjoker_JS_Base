@@ -1,43 +1,37 @@
 'use strict';
 
 //// сортировка пузырьком
-Array.prototype.sortByBubble = function(array, callback) {
-  if(!Array.isArray(array)) {
-    throw new Error("First parameter should be an array");
-  }
+Array.prototype.sortByBubble = function(callback) {
 
   if(typeof callback !== "function") {
     throw new Error("Second parameter should be a callback function");
   }
 
-    for(let i = 0; i < array.length; i++) {
-      for(let j = 0; j < array.length - i - 1; j++) {
-        if(callback(array[j], array[j + 1])) {
-          [array[j], array[j + 1]] = [array[j + 1], array[j]];
+    for(let i = 0; i < this.length; i++) {
+      for(let j = 0; j < this.length - i - 1; j++) {
+        if(callback(this[j], this[j + 1])) {
+          [this[j], this[j + 1]] = [this[j + 1], this[j]];
         }
       }
     }
-  return array;
+  return this;
 }
 
 //// сортировка выбором
-Array.prototype.sortBySelection = function(array, callback) {
-  if(!Array.isArray(array)) {
-    throw new Error("First parameter should be an array");
-  }
+Array.prototype.sortBySelection = function(callback) {
 
   if(typeof callback !== "function") {
     throw new Error("Second parameter should be a callback function");
   }
 
-  for(let i = 0; i < array.length; i++) {
+  for(let i = 0; i < this.length; i++) {
     let min = i;
-    for(let j = i; j < array.length; j++) {
-      if(callback(array[min], array[j])) {
+    for(let j = i; j < this.length; j++) {
+      if(callback(this[min], this[j])) {
         min = j;
       }
     }
-    [array[i], array[min]] = [array[min], array[i]];
+    [this[i], this[min]] = [this[min], this[i]];
   }
-  return array;
+  return this;
 }
