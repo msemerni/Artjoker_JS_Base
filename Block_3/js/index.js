@@ -7,7 +7,7 @@ function bubbleSort(array, callback) {
   }
 
   if(typeof callback !== "function") {
-    throw new Error("Second parameter should be a function");
+    throw new Error("Second parameter should be a callback function");
   }
 
   let flagIsChanged = true;
@@ -38,7 +38,7 @@ function selectionSort(array, callback) {
   }
 
   if(typeof callback !== "function") {
-    throw new Error("Second parameter should be a function");
+    throw new Error("Second parameter should be a callback function");
   }
 
   for(let i = 0; i < array.length; i++) {
