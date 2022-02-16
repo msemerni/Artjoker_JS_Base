@@ -1,9 +1,13 @@
 'use strict';
 
 //// сортировка пузырьком
-function bubbleSort(array) {
+function bubbleSort(array, callback) {
   if(!Array.isArray(array)) {
-    throw new Error("Parameter should be array");
+    throw new Error("First parameter should be an array");
+  }
+
+  if(typeof callback !== "function") {
+    throw new Error("Second parameter should be a function");
   }
 
   let flagIsChanged = true;
@@ -12,9 +16,9 @@ function bubbleSort(array) {
   while(flagIsChanged) {
     flagIsChanged = false;
 
-    for(let i = 0; i < iterations; i++) {
+    for(let i = 0; i < iterations-1; i++) {
 
-      if(array[i] > array[i + 1]) {
+      if(callback(array[i], array[i + 1])) {
         [array[i], array[i + 1]] = [array[i + 1], array[i]];
         flagIsChanged = true;
       }
@@ -24,12 +28,17 @@ function bubbleSort(array) {
       }
     }
   }
+  return array;
 }
 
 //// сортировка выбором
-function selectionSort(array) {
+function selectionSort(array, callback) {
   if(!Array.isArray(array)) {
     throw new Error("Parameter should be array");
+  }
+
+  if(typeof callback !== "function") {
+    throw new Error("Second parameter should be a function");
   }
 
   for(let i = 0; i < array.length; i++) {
@@ -38,7 +47,7 @@ function selectionSort(array) {
 
     for(let j = i; j < array.length; j++) {
 
-      if(array[j] < array[min]) {
+      if(callback(array[min], array[j])) {
         min = j;
       }
     }
