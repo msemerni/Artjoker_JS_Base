@@ -1,7 +1,7 @@
 'use strict';
 
 //// сортировка пузырьком
-function sortByBubble(array, callback) {
+Array.prototype.sortByBubble = function(array, callback) {
   if(!Array.isArray(array)) {
     throw new Error("First parameter should be an array");
   }
@@ -21,7 +21,7 @@ function sortByBubble(array, callback) {
 }
 
 //// сортировка выбором
-function sortBySelection(array, callback) {
+Array.prototype.sortBySelection = function(array, callback) {
   if(!Array.isArray(array)) {
     throw new Error("First parameter should be an array");
   }
