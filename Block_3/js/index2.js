@@ -66,7 +66,7 @@ class Node {
 
       ///// DELETE NODE {
 
-      }
+      //}
       console.log(`${node} deleted`);
 
       // ...
@@ -84,27 +84,17 @@ class Node {
       return this.left.delete(node);
 
     }
-
+  }
     else {
 
-      // console.log(`Oooh! ${node} not found`);
+      console.log(`Nothing to delete`);
       // console.log(this);
 
       return null;
     }
+  
   }
-
-
- 
-
-
-
-
-
 }
-
-
-
 
 
 let node = new Node(11);
