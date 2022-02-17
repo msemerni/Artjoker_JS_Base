@@ -1,4 +1,4 @@
-'use strict'
+// 'use strict'
 
 
 let arrayTree = [11, 15, 7, 9, 6, 8]
@@ -48,7 +48,7 @@ class Node {
     else {
 
       console.log(`Oooh! ${node} not found`);
-      console.log(this);
+      // console.log(this);
 
       // return node;
       return null;
@@ -57,9 +57,18 @@ class Node {
 
 
   remove(node) {
+    
+    
 
+    
+        delete this;
+        // delete node;
 
+ 
+
+    
     console.log(`${node} removed`);
+    console.log(this);
 
 
   }
@@ -75,20 +84,27 @@ class Node {
 let node = new Node(11);
 console.log(node);
 
-node.add(15);
-console.log(node);
-node.add(7);
-node.add(9);
-node.add(6);
-node.add(8);
+node.remove(11);
 console.log(node);
 
-node.find(6);
-node.find(15);
+
+
+
+// node.add(15);
+// console.log(node);
+// node.add(7);
+// node.add(9);
+// node.add(6);
+// node.add(8);
 // console.log(node);
 
-node.find(80);
+// node.find(6);
+// node.find(15);
+// // console.log(node);
+
+// node.find(80);
 // console.log(node);
+
 
 
 
