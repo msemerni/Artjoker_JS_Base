@@ -1,5 +1,103 @@
 'use strict'
 
+
+let arrayTree = [11, 15, 7, 9, 6, 8]
+
+class Node {
+
+  constructor(node) {
+    this.node = node;
+    this.left = null;
+    this.right = null;
+  }
+
+  add(node) {
+
+    if (node > this.node && this.right === null) {
+      this.right = new Node(node);
+    } else if (node > this.node && this.right !== null) {
+      this.right.add(node);
+    } else if (node < this.node && this.left === null) {
+      this.left = new Node(node);
+    } else if (node < this.node && this.left !== null) {
+      this.left.add(node);
+    }
+
+  }
+
+  find(node) {
+
+    if (node === this.node) {
+
+      console.log(`Congrats! You have found: ${node}`);
+
+      return this;
+    }
+
+    if (node > this.node && this.right !== null) {
+
+      return this.right.find(node);
+    }
+
+    if (node < this.node && this.left !== null) {
+
+      return this.left.find(node);
+
+    }
+
+    else {
+
+      console.log(`Oooh! ${node} not found`);
+      console.log(this);
+
+      return node;
+      // return null;
+    }
+  }
+
+}
+
+
+let node = new Node(11);
+console.log(node);
+
+node.add(15);
+console.log(node);
+node.add(7);
+node.add(9);
+node.add(6);
+node.add(8);
+console.log(node);
+
+node.find(6);
+node.find(15);
+// console.log(node);
+
+node.find(80);
+// console.log(node);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //////////////////////////////////////////////////////////////////////////////////////////
 //// сортировка пузырьком
 // function bubbleSort(array) {
@@ -210,18 +308,18 @@
 //     throw new Error("Second parameter should be a callback function");
 //   }
 
-//   let isElementsPermuted = true;
+//   let isnodesPermuted = true;
 //   let iteration = array.length;
 
-//   while(isElementsPermuted) {
-//     isElementsPermuted = false;
+//   while(isnodesPermuted) {
+//     isnodesPermuted = false;
 
 //     for(let i = 0; i < iteration-1; i++) {
 //       if(callback(array[i], array[i + 1])) {
 //         [array[i], array[i + 1]] = [array[i + 1], array[i]];
-//         isElementsPermuted = true;
+//         isnodesPermuted = true;
 //       }
-//       if(!isElementsPermuted) {
+//       if(!isnodesPermuted) {
 //         iteration--;
 //       }
 //     }
@@ -274,58 +372,4 @@
 
 
 ////****************************************************************************************************************************************/
-
-
-let arrayTree = [11, 15, 7, 9, 6, 8]
-
-class Element {
-  
-  constructor(element) {
-   this.element = element;
-   this.parent = null;
-   this.left = null;
-   this.right = null;
-  }
-
-
-  insertElement (element) {
-
-    if (element > this.element && this.right === null) {
-
-      console.log(this.element);
-
-      this.right = new Element(element);
-
-
-      // this.right.insertElement(element);
-      console.log(element);
-
-    }
-
-    if (element < this.element && this.left === null) {
-
-      console.log(this.element);
-
-      this.left = new Element(element);
-
-      console.log(element);
-
-    }
-
-  }
-
-
-}
-
-
-
-
-let el = new Element(11);
-console.log(el);
-
-el.insertElement(15);
-console.log(el);
-
-el.insertElement(7);
-console.log(el);
 
