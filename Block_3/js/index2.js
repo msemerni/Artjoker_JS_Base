@@ -32,13 +32,6 @@ class Node {
 
     if (node === this.node) {
 
-
-      //////
-      // ...
-      // node.right = null;
-
-
-
       // console.log(`Congrats! You have found: ${node}`);
       // console.log(this)
       
@@ -68,22 +61,43 @@ class Node {
 
 
   delete(node) {
-    
+
     if (node === this.node) {
 
-      // console.log(`${node} deleted`);
+      ///// DELETE NODE {
 
+      }
+      console.log(`${node} deleted`);
 
-      // this = null;
-
+      // ...
       // node.right = null;
+
+      // console.log(this)
+
+    if (node > this.node && this.right !== null) {
+
+      return this.right.delete(node);
     }
-         
-        console.log(this);
+
+    if (node < this.node && this.left !== null) {
+
+      return this.left.delete(node);
+
+    }
+
+    else {
+
+      // console.log(`Oooh! ${node} not found`);
+      // console.log(this);
+
+      return null;
+    }
+  }
+
+
  
 
 
-  }
 
 
 
@@ -102,20 +116,20 @@ console.log(node);
 
 
 
-node.add(15);
-// console.log(node);
-node.add(7);
-node.add(9);
-node.add(6);
-node.add(8);
-// console.log(node);
+// node.add(15);
+// // console.log(node);
+// node.add(7);
+// node.add(9);
+// node.add(6);
+// node.add(8);
+// // console.log(node);
 
-// node.find(6);
-node.find(15);
-// console.log(node);
+// // node.find(6);
+// node.find(15);
+// // console.log(node);
 
-// node.find(80);
-// console.log(node);
+// // node.find(80);
+// // console.log(node);
 
 
 
