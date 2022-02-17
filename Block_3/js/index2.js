@@ -61,6 +61,7 @@ class Node {
 
       ///// DELETE NODE 
 
+
       // node.right = this;
       // node.right = null;
 
@@ -72,7 +73,9 @@ class Node {
 
       // this.right = this;
       // console.log(this); 
-
+      this = null;
+      console.log(this); 
+      
       console.log(`${node} deleted`);
 
       // ...
