@@ -280,18 +280,24 @@ let arrayTree = [11, 15, 7, 9, 6, 8]
 
 class Element {
   
-  constructor(value) {
-   this.value = value;
+  constructor(element) {
+   this.element = element;
    this.parent = null;
    this.left = null;
    this.right = null;
   }
 
 
-  insertElement (value) {
+  insertElement (element) {
 
-    if (value > this.value) {
-      console.log(this.value);
+    if (element > this.element && this.right === null) {
+
+      console.log(this.element);
+
+      this.right.insertElement(element);
+
+
+      
 
     }
 
@@ -309,15 +315,11 @@ class Element {
 
 
 
+let el = new Element(11);
+console.log(el);
 
 
-
-let node = new Element(11);
-console.log(node);
-
-
-
-node.insertElement(15);
-console.log(node);
+el.insertElement(15);
+console.log(el);
 
 
