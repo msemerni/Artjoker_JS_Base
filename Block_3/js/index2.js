@@ -50,12 +50,26 @@ class Node {
       console.log(`Oooh! ${node} not found`);
       console.log(this);
 
-      return node;
-      // return null;
+      // return node;
+      return null;
     }
   }
 
+
+  remove(node) {
+
+
+    console.log(`${node} removed`);
+
+
+  }
+
+
+
 }
+
+
+
 
 
 let node = new Node(11);
