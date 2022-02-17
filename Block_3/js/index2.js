@@ -294,23 +294,25 @@ class Element {
 
       console.log(this.element);
 
-      this.right = new Element(element)
+      this.right = new Element(element);
 
 
       // this.right.insertElement(element);
       console.log(element);
 
+    }
 
+    if (element < this.element && this.left === null) {
 
-      
+      console.log(this.element);
+
+      this.left = new Element(element);
+
+      console.log(element);
 
     }
 
-
-
   }
-
-
 
 
 }
@@ -318,13 +320,12 @@ class Element {
 
 
 
-
-
 let el = new Element(11);
 console.log(el);
-
 
 el.insertElement(15);
 console.log(el);
 
+el.insertElement(7);
+console.log(el);
 
