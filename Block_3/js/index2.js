@@ -5,78 +5,67 @@ let arrayTree = [11, 15, 7, 9, 6, 8]
 
 class Node {
 
-  constructor(node) {
-    this.node = node;
+  constructor(value) {
+    this.value = value;
     this.left = null;
     this.right = null;
   }
 
-  add(node) {
+  add(value) {
 
-    if (node > this.node && this.right === null) {
-      this.right = new Node(node);
-    } else if (node > this.node && this.right !== null) {
-      this.right.add(node);
-    } else if (node < this.node && this.left === null) {
-      this.left = new Node(node);
-    } else if (node < this.node && this.left !== null) {
-      this.left.add(node);
+    if (value > this.value && this.right === null) {
+      this.right = new Node(value);
+    } else if (value > this.value && this.right !== null) {
+      this.right.add(value);
+    } else if (value < this.value && this.left === null) {
+      this.left = new Node(value);
+    } else if (value < this.value && this.left !== null) {
+      this.left.add(value);
     }
-
-    
-
 
   }
 
-  find(node) {
+  find(value) {
 
-    if (node === this.node) {
-      // console.log(`Congrats! You have found: ${node}`);
+    if (value === this.value) {
+      // console.log(`Congrats! You have found: ${value}`);
       // console.log(this)
       return this;
     }
 
-    if (node > this.node && this.right !== null) {
-      return this.right.find(node);
+    if (value > this.value && this.right !== null) {
+      return this.right.find(value);
     }
 
-    if (node < this.node && this.left !== null) {
-      return this.left.find(node);
+    if (value < this.value && this.left !== null) {
+      return this.left.find(value);
 
     }
 
     else {
-      // console.log(`Oooh! ${node} not found`);
+      // console.log(`Oooh! ${value} not found`);
       // console.log(this);
-      // return node;
+      // return value;
       return null;
     }
   }
 
 
-  delete(node) {
+  delete(value) {
 
-    if (node === this.node) {
+    if (value === this.value) {
 
+      // console.log(this);        // Node {value: 7, left: Node, right: Node}
+      // console.log(this.value);   // 7
+      // console.log(this.left);   // Node {value: 6, left: null, right: null}
+      // console.log(this.right);  // Node {value: 9, left: Node, right: null}
+      // console.log(value);        // 7
 
-      ///// DELETE NODE 
+      // Node.value = null;
 
+      // console.log(this);
 
-      // node.right = this;
-      // node.right = null;
-
-      console.log(this);        //// Node {node: 7, left: Node, right: Node}
-      // console.log(this.node);   //// 7
-      console.log(this.left);   //// Node {node: 6, left: null, right: null}
-      console.log(this.right);  //// Node {node: 9, left: Node, right: null}
-      console.log(node);        //// 7
-
-      // this.right = this;
-      // console.log(this); 
-      this = null;
-      console.log(this); 
-      
-      console.log(`${node} deleted`);
+      // console.log(`${this.value} deleted`);
 
       // ...
 
@@ -85,66 +74,65 @@ class Node {
 
 
     }
-      if (node > this.node && this.right !== null) {
-
-        return this.right.delete(node);
-      }
-
-      if (node < this.node && this.left !== null) {
-
-        return this.left.delete(node);
-
-      }
-
-      else {
-
-        console.log(`Nothing to delete`);
-        // console.log(this);
-
-        return null;
-      }
+    if (value > this.value && this.right !== null) {
+      
+      return this.right.delete(value);
     }
 
+    if (value < this.value && this.left !== null) {
 
-  
+
+      console.log(value);       // 7
+      console.log(this);        // Node {value: 11, left: Node, right: Node}
+      console.log(this.value);  // 11
+      console.log(this.right);  // Node {value: 15, left: null, right: null}
+      console.log(this.left);   // Node {value: 7, left: Node, right: Node}
+
+      return this.left.delete(value);
+
+    }
+
+    else {
+
+      console.log(`Nothing to delete`);
+      // console.log(this);
+
+      return null;
+    }
+  }
+
+
+
 }
 
 
-let node = new Node(11);
-// console.log(node);
+let value = new Node(11);
+// console.log(value);
 
-node.add(15);
-// console.log(node);
-node.add(7);
-node.add(9);
-node.add(6);
-node.add(8);
-// console.log(node);
+value.add(15);
+// console.log(value);
+value.add(7);
+value.add(9);
+value.add(6);
+value.add(8);
+// console.log(value);
 
-// node.find(6);
-// node.find(15);
-// console.log(node);
+// value.find(6);
+// value.find(15);
+// console.log(value);
 
-// node.find(80);
-// console.log(node);
+// value.find(80);
+// console.log(value);
 
-node.delete(7);
-// console.log(node);
-
-
+value.delete(7);
+// console.log(value);
 
 
 
 
 
 
-
-
-
-
-
-
-
+////****************************** */
 
 
 
