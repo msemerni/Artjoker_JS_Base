@@ -46,18 +46,34 @@ class Node {
 
   delete(value, thisNode) {
     thisNode = thisNode || this;
+    
+    
+    console.log("*****");
+    console.log(parent);
+    console.log("*****");
 
 
-    if ((thisNode.value === value) && (thisNode.right === null && thisNode.left === null)) {
-                                       /// УДАЛЯЕМ 15   /   УДАЛЯЕМ 9  
-      console.log(value);           // 15
-      console.log(thisNode.value);  // 15
+    if ((thisNode.value === value)) {
+                                       //   УДАЛЯЕМ 9  
+      console.log("++++");                              
+      console.log(parent);           // Node {value: 7, left: Node, right: Node}
+      console.log("----");                              
+
+      console.log(value);           // 9
+      console.log(thisNode.value);  // 9
       console.log("DELETED");
 
-      thisNode = null;
+      
+      
       // console.log(thisNode.value);  // NULL
-      return thisNode;
-
+      
+      if (parent.value < value) {
+        parent.right = thisNode.left
+      }
+      thisNode.left = null;
+      thisNode.right = null;
+        thisNode = null;
+        return parent;
     }
 
     // if (value > thisNode.value) {
@@ -66,33 +82,33 @@ class Node {
 
 
 
-    if (value > thisNode.value) {
+    else if (value > thisNode.value) {
                                       /// УДАЛЯЕМ 9
-      // console.log(value);             // 9
-      // console.log(thisNode);          // Node {value: 7, left: Node, right: Node}// PARENT
-      // console.log(thisNode.value);    // 7
-      
+      console.log(value);             // 9
+      console.log(thisNode);          // Node {value: 7, left: Node, right: Node}// PARENT
+      console.log(thisNode.value);    // 7
+      console.log(thisNode.left);     // Node {value: 6, left: Node, right: Node}
+      console.log(thisNode.right);    // Node {value: 9, left: null, right: null}
+      parent = thisNode;
       thisNode.right = thisNode.right.delete(value, thisNode.right);
  
       return thisNode;
 
     }
 
-    if (value < thisNode.value) {
+    else if (value < thisNode.value) {
 
       //                                 /// УДАЛЯЕМ 9
-      console.log(value);             // 9
-      console.log(thisNode);          // Node {value: 11, left: Node, right: Node} // PARENT
-      console.log(thisNode.value);    // 11
-      console.log(thisNode.left);     // Node {value: 7, left: Node, right: Node}
-      console.log(thisNode.right);    // Node {value: 15, left: null, right: null}
-      
+      // console.log(value);             // 9
+      // console.log(thisNode);          // Node {value: 11, left: Node, right: Node} // PARENT
+      // console.log(thisNode.value);    // 11
+      // console.log(thisNode.left);     // Node {value: 7, left: Node, right: Node}
+      // console.log(thisNode.right);    // Node {value: 15, left: null, right: null}
+      parent = thisNode;
       thisNode.left = thisNode.left.delete(value, thisNode.left);
 
       return thisNode;
     }
-
-
 
     return null;
   }
