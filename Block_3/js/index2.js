@@ -6,6 +6,7 @@ let arrayTree = [11, 15, 7, 9, 6, 8]
 class Node {
 
   constructor(value) {
+    // // // value === 0 || value
     this.value = value;
     this.left = null;
     this.right = null;
@@ -22,7 +23,6 @@ class Node {
     } else if (value < this.value && this.left !== null) {
       this.left.add(value);
     }
-
   }
 
   find(value) {
@@ -45,67 +45,84 @@ class Node {
   }
 
   delete(value, thisNode) {
-
     thisNode = thisNode || this;
 
-    if ((value === this.value) && (thisNode.right === null && thisNode.left === null)) {
+
+    if ((thisNode.value === value) && (thisNode.right === null && thisNode.left === null)) {
+                                       /// УДАЛЯЕМ 15   /   УДАЛЯЕМ 9  
+      console.log(value);           // 15
+      console.log(thisNode.value);  // 15
+      console.log("DELETED");
+
       thisNode = null;
-      // console.log(thisNode);
-      console.log(`${this.value} deleted`);
-      // console.log(this)
-      // console.log(thisNode);
-
+      // console.log(thisNode.value);  // NULL
       return thisNode;
 
-    } 
+    }
+
+    // if (value > thisNode.value) {
     
-    else if (value > this.value && this.right !== null) {
+    // }
 
-      this.right.delete(value, thisNode.right);
 
+
+    if (value > thisNode.value) {
+                                      /// УДАЛЯЕМ 9
+      // console.log(value);             // 9
+      // console.log(thisNode);          // Node {value: 7, left: Node, right: Node}// PARENT
+      // console.log(thisNode.value);    // 7
+      
+      thisNode.right = thisNode.right.delete(value, thisNode.right);
+ 
       return thisNode;
 
-    } 
-    
-    else if (value < this.value && this.left !== null) {
+    }
 
-      this.left.delete(value, thisNode.left);
+    if (value < thisNode.value) {
+
+      //                                 /// УДАЛЯЕМ 9
+      console.log(value);             // 9
+      console.log(thisNode);          // Node {value: 11, left: Node, right: Node} // PARENT
+      console.log(thisNode.value);    // 11
+      console.log(thisNode.left);     // Node {value: 7, left: Node, right: Node}
+      console.log(thisNode.right);    // Node {value: 15, left: null, right: null}
+      
+      thisNode.left = thisNode.left.delete(value, thisNode.left);
 
       return thisNode;
     }
 
-    
 
 
-
+    return null;
   }
 
-    
-
-
+    /////
+  
+ 
 }
 
 
-let value = new Node(11);
-// console.log(value);
+let tree = new Node(11);
+// console.log(tree);
 
-value.add(15);
-// console.log(value);
-value.add(7);
-value.add(9);
-value.add(6);
-value.add(8);
-// console.log(value);
+tree.add(15);
+// console.log(tree);
+tree.add(7);
+tree.add(9);
+tree.add(6);
+tree.add(8);
+// console.log(tree);
 
-// value.find(6);
-// value.find(15);
-// console.log(value);
+// tree.find(6);
+// tree.find(15);
+// console.log(tree);
 
-// value.find(80);
-// console.log(value);
+// tree.find(80);
+// console.log(tree);
 
-value.delete(15);
-console.log(value);
+tree.delete(9);
+console.log(tree);
 
 
 
