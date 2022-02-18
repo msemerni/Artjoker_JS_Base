@@ -1,5 +1,83 @@
 'use strict';
 
+//// дерево
+class Node {
+  constructor(value) {
+    this.value = value;
+    this.left = null;
+    this.right = null;
+  }
+
+  add(value) {
+    if(value > this.value && this.right === null) {
+      this.right = new Node(value);
+    } else if (value > this.value && this.right !== null) {
+      this.right.add(value);
+    } else if (value < this.value && this.left === null) {
+      this.left = new Node(value);
+    } else if (value < this.value && this.left !== null) {
+      this.left.add(value);
+    }
+  }
+
+  find(value) {
+    if(value === this.value) {
+      return this;
+    } else if (value > this.value && this.right !== null) {
+      return this.right.find(value);
+    } else if (value < this.value && this.left !== null) {
+      return this.left.find(value);
+    }
+    else {
+      return null;
+    }
+  }
+
+  delete(value, thisNode) {
+    thisNode = thisNode || this;
+
+    if(value > thisNode.value) {
+      if(thisNode.right === null) {
+        return thisNode;
+      }
+      thisNode.right = this.delete(value, thisNode.right);
+      return thisNode;
+    } else if (value < thisNode.value) {
+        if (thisNode.left === null) {
+          return thisNode;
+        }
+        thisNode.left = this.delete(value, thisNode.left);
+        return thisNode;
+    } else if (value === thisNode.value) {
+        if(thisNode.left === null && thisNode.right === null) {
+          thisNode = null;
+          return thisNode;
+        } else if (thisNode.left === null) {
+          thisNode = thisNode.right;
+          return thisNode;
+        } else if (thisNode.right === null) {
+          thisNode = thisNode.left;
+          return thisNode;
+        }
+        else {
+          let minNode = this.findMinNode(thisNode.right);
+          thisNode.value = minNode.value;
+          thisNode.right = this.delete(minNode.value, thisNode.right);
+          return thisNode;
+        }
+    } 
+  }
+  
+  findMinNode(thisNode) {
+    thisNode = thisNode || this;
+    if(thisNode.right !== null && thisNode.left !== null) {
+      return this.findMinNode(thisNode.left);
+    } else if (thisNode.left === null) {
+      return thisNode;
+    }
+  }
+}
+
 //// сортировка пузырьком
 Array.prototype.sortByBubble = function(callback) {
   if(typeof callback !== "function") {
