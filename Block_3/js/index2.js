@@ -31,17 +31,11 @@ class Node {
       // console.log(`Congrats! You have found: ${value}`);
       // console.log(this)
       return this;
-    }
-
-    if (value > this.value && this.right !== null) {
+    } else if (value > this.value && this.right !== null) {
       return this.right.find(value);
-    }
-
-    if (value < this.value && this.left !== null) {
+    } else if (value < this.value && this.left !== null) {
       return this.left.find(value);
-
     }
-
     else {
       // console.log(`Oooh! ${value} not found`);
       // console.log(this);
@@ -50,57 +44,43 @@ class Node {
     }
   }
 
+  delete(value, thisNode) {
 
-  delete(value) {
+    thisNode = thisNode || this;
 
-    if (value === this.value) {
+    if ((value === this.value) && (thisNode.right === null && thisNode.left === null)) {
+      thisNode = null;
+      // console.log(thisNode);
+      console.log(`${this.value} deleted`);
+      // console.log(this)
+      // console.log(thisNode);
 
-      // console.log(this);        // Node {value: 7, left: Node, right: Node}
-      // console.log(this.value);   // 7
-      // console.log(this.left);   // Node {value: 6, left: null, right: null}
-      // console.log(this.right);  // Node {value: 9, left: Node, right: null}
-      // console.log(value);        // 7
+      return thisNode;
 
-      // Node.value = null;
+    } 
+    
+    else if (value > this.value && this.right !== null) {
 
-      // console.log(this);
+      this.right.delete(value, thisNode.right);
 
-      // console.log(`${this.value} deleted`);
+      return thisNode;
 
-      // ...
+    } 
+    
+    else if (value < this.value && this.left !== null) {
 
+      this.left.delete(value, thisNode.left);
 
-      return this;
-
-
-    }
-    if (value > this.value && this.right !== null) {
-      
-      return this.right.delete(value);
-    }
-
-    if (value < this.value && this.left !== null) {
-
-
-      console.log(value);       // 7
-      console.log(this);        // Node {value: 11, left: Node, right: Node}
-      console.log(this.value);  // 11
-      console.log(this.right);  // Node {value: 15, left: null, right: null}
-      console.log(this.left);   // Node {value: 7, left: Node, right: Node}
-
-      return this.left.delete(value);
-
+      return thisNode;
     }
 
-    else {
+    
 
-      console.log(`Nothing to delete`);
-      // console.log(this);
 
-      return null;
-    }
+
   }
 
+    
 
 
 }
@@ -124,8 +104,8 @@ value.add(8);
 // value.find(80);
 // console.log(value);
 
-value.delete(7);
-// console.log(value);
+value.delete(15);
+console.log(value);
 
 
 
@@ -133,7 +113,55 @@ value.delete(7);
 
 
 ////****************************** */
+// delete(value) {
 
+//   if (value === this.value) {
+
+//     // console.log(this);        // Node {value: 7, left: Node, right: Node}
+//     // console.log(this.value);   // 7
+//     // console.log(this.left);   // Node {value: 6, left: null, right: null}
+//     // console.log(this.right);  // Node {value: 9, left: Node, right: null}
+//     // console.log(value);        // 7
+
+//     // Node.value = null;
+
+//     // console.log(this);
+
+//     // console.log(`${this.value} deleted`);
+
+//     // ...
+
+
+//     return this;
+
+
+//   }
+//   if (value > this.value && this.right !== null) {
+    
+//     return this.right.delete(value);
+//   }
+
+//   if (value < this.value && this.left !== null) {
+
+
+//     console.log(value);       // 7
+//     console.log(this);        // Node {value: 11, left: Node, right: Node}
+//     console.log(this.value);  // 11
+//     console.log(this.right);  // Node {value: 15, left: null, right: null}
+//     console.log(this.left);   // Node {value: 7, left: Node, right: Node}
+
+//     return this.left.delete(value);
+
+//   }
+
+//   else {
+
+//     console.log(`Nothing to delete`);
+//     // console.log(this);
+
+//     return null;
+//   }
+// }
 
 
 
