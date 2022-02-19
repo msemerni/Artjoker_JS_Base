@@ -16,7 +16,7 @@
 
 // 2. Написать регулярное выражение проверки на email
 
-test("qwerty123@mail.com.ua")
+// test("qwerty123@mail.com.ua")
 
 // 3. Написать регулярное выражение проверку на сайт: http(s)://test.dev(.dev.dev...)
 
