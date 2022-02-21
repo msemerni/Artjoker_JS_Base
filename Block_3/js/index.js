@@ -9,13 +9,21 @@ class Node {
   }
 
   add(value) {
-    if(value > this.value && this.right === null) {
-      this.right = new Node(value);
-    } else if (value > this.value && this.right !== null) {
+    if(value === this.value) {
+      throw new Error("Value should be unique");
+    }
+
+    if(value > this.value) {
+      if(this.right === null) {
+        this.right = new Node(value);
+        return;
+      }
       this.right.add(value);
-    } else if (value < this.value && this.left === null) {
-      this.left = new Node(value);
-    } else if (value < this.value && this.left !== null) {
+    } else {
+      if(this.left === null) {
+        this.left = new Node(value);
+        return;
+      }
       this.left.add(value);
     }
   }
@@ -23,14 +31,14 @@ class Node {
   find(value) {
     if(value === this.value) {
       return this;
-    } else if (value > this.value && this.right !== null) {
+    }
+    if(value > this.value && this.right) {
       return this.right.find(value);
-    } else if (value < this.value && this.left !== null) {
+    }
+    if(value < this.value && this.left) {
       return this.left.find(value);
     }
-    else {
-      return null;
-    }
+    return null;
   }
 
   delete(value, thisNode) {
@@ -59,12 +67,10 @@ class Node {
           thisNode = thisNode.left;
           return thisNode;
         }
-        else {
-          let minNode = this.findMinNode(thisNode.right);
-          thisNode.value = minNode.value;
-          thisNode.right = this.delete(minNode.value, thisNode.right);
-          return thisNode;
-        }
+        let minNode = this.findMinNode(thisNode.right);
+        thisNode.value = minNode.value;
+        thisNode.right = this.delete(minNode.value, thisNode.right);
+        return thisNode;
     } 
   }
   

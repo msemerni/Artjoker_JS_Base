@@ -12,36 +12,97 @@ class Node {
     this.right = null;
   }
 
-  add(value) {
+  // add(value) {
 
-    if (value > this.value && this.right === null) {
-      this.right = new Node(value);
-    } else if (value > this.value && this.right !== null) {
+  //   if (value > this.value && this.right === null) {
+  //     this.right = new Node(value);
+  //   } else if (value > this.value && this.right !== null) {
+  //     this.right.add(value);
+  //   } else if (value < this.value && this.left === null) {
+  //     this.left = new Node(value);
+  //   } else if (value < this.value && this.left !== null) {
+  //     this.left.add(value);
+  //   }
+  // }
+
+  add(value) {
+    if(value === this.value) {
+      throw new Error("Value should be unique");
+    }
+
+    if(value > this.value) {
+      if(this.right === null) {
+        this.right = new Node(value);
+        return;
+      }
       this.right.add(value);
-    } else if (value < this.value && this.left === null) {
-      this.left = new Node(value);
-    } else if (value < this.value && this.left !== null) {
+    } else {
+      if(this.left === null) {
+        this.left = new Node(value);
+        return;
+      }
       this.left.add(value);
     }
   }
 
-  find(value) {
+  // add(value) {
+  //   if(value > this.value && this.right === null) {
+  //     this.right = new Node(value);
+  //   } else if (value > this.value && this.right) {
+  //     this.right.add(value);
+  //   } 
+  //   if(value < this.value && this.left === null) {
+  //     this.left = new Node(value);
+  //   } else if (value < this.value && this.left) {
+  //     this.left.add(value);
+  //   }
+  // }
 
-    if (value === this.value) {
-      // console.log(`Congrats! You have found: ${value}`);
-      // console.log(this)
+
+  // add(value) {
+  //   if(value > this.value && this.right === null) {
+  //     this.right = new Node(value);
+  //   } else if (value > this.value && this.right) {
+  //     this.right.add(value);
+  //   } 
+  //   if(value < this.value && this.left === null) {
+  //     this.left = new Node(value);
+  //   } else if (value < this.value && this.left) {
+  //     this.left.add(value);
+  //   }
+  // }
+
+  // find(value) {
+
+  //   if (value === this.value) {
+  //     // console.log(`Congrats! You have found: ${value}`);
+  //     // console.log(this)
+  //     return this;
+  //   } else if (value > this.value && this.right !== null) {
+  //     return this.right.find(value);
+  //   } else if (value < this.value && this.left !== null) {
+  //     return this.left.find(value);
+  //   }
+  //   else {
+  //     // console.log(`Oooh! ${value} not found`);
+  //     // console.log(this);
+  //     // return value;
+  //     return null;
+  //   }
+  // }
+
+  find(value) {
+    if(value === this.value) {
+      console.log(this);
       return this;
-    } else if (value > this.value && this.right !== null) {
+    }
+    if(value > this.value && this.right) {
       return this.right.find(value);
-    } else if (value < this.value && this.left !== null) {
+    }
+    if(value < this.value && this.left) {
       return this.left.find(value);
     }
-    else {
-      // console.log(`Oooh! ${value} not found`);
-      // console.log(this);
-      // return value;
-      return null;
-    }
+    return null;
   }
 
 
@@ -103,7 +164,6 @@ class Node {
     if (thisNode.right !== null && thisNode.left !== null) {
       return this.findMinNode(thisNode.left);
     } else if (thisNode.left === null) {
-
       return thisNode;
     }
   }
@@ -125,13 +185,13 @@ tree.add(10);
 // console.log(tree);
 
 // tree.find(6);
-// tree.find(15);
-// console.log(tree);
+tree.find(9);
+console.log(tree);
 
 // tree.find(80);
 // console.log(tree);
 
-tree.delete(7);
+tree.delete(9);
 console.log(tree);
 
 
