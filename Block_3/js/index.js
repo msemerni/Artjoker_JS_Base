@@ -87,7 +87,7 @@ class Node {
 //// сортировка пузырьком
 Array.prototype.sortByBubble = function(callback) {
   if(typeof callback !== "function") {
-    throw new Error("Second parameter should be a callback function");
+    throw new Error("Parameter should be a callback function");
   }
 
     for(let i = 0; i < this.length; i++) {
@@ -103,7 +103,7 @@ Array.prototype.sortByBubble = function(callback) {
 //// сортировка выбором
 Array.prototype.sortBySelection = function(callback) {
   if(typeof callback !== "function") {
-    throw new Error("Second parameter should be a callback function");
+    throw new Error("Parameter should be a callback function");
   }
 
   for(let i = 0; i < this.length; i++) {
