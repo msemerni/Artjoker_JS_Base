@@ -1,14 +1,25 @@
-'use strict';
-
 //// дерево
-class NodeTree {
-  constructor(value) {
+interface INodeTree {
+  value: INodeTree | number;
+  left: INodeTree | null;
+  right: INodeTree | null;
+  add (value: number): void;
+  find (value: number): INodeTree | ((value: number) => any) | null;
+  delete(value: number, thisNode: INodeTree | null): INodeTree | null;
+  findMinNode(thisNode: INodeTree): INodeTree;
+}
+
+class NodeTree implements INodeTree {
+  value: INodeTree | number;
+  left: INodeTree | null;
+  right: INodeTree | null;
+  constructor(value: number) {
     this.value = value;
     this.left = null;
     this.right = null;
   }
 
-  add(value) {
+  add(value: number): void {
     if(value === this.value) {
       throw new Error("Value should be unique");
     }
@@ -28,7 +39,7 @@ class NodeTree {
     }
   }
 
-  find(value) {
+  find(value: number): NodeTree | ((value: number) => any) | null {
     if(value === this.value) {
       return this;
     }
@@ -41,7 +52,7 @@ class NodeTree {
     return null;
   }
 
-  delete(value, thisNode) {
+  delete(value: number | NodeTree, thisNode: NodeTree | null): NodeTree | null {
     thisNode = thisNode || this;
 
     if(value > thisNode.value) {
@@ -68,20 +79,28 @@ class NodeTree {
           return thisNode;
         }
         let minNode = this.findMinNode(thisNode.right);
-        thisNode.value = minNode.value;
+        thisNode.value = minNode!.value;
         thisNode.right = this.delete(minNode.value, thisNode.right);
         return thisNode;
     } 
+    return thisNode;
   }
-  
-  findMinNode(thisNode) {
+
+  findMinNode(thisNode: NodeTree): NodeTree {
     thisNode = thisNode || this;
     if(thisNode.right !== null && thisNode.left !== null) {
       return this.findMinNode(thisNode.left);
     } else if (thisNode.left === null) {
       return thisNode;
+    } else {
+      throw new Error("Shouldn't be reachable");
     }
   }
+}
+
+interface Array<T> {
+  sortByBubble(callback: (firstElem: T, secondElem: T) => boolean): Array<T>;
+  sortBySelection(callback: (firstElem: T, secondElem: T) => boolean): Array<T>;
 }
 
 //// сортировка пузырьком
