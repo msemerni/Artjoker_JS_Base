@@ -1,0 +1,51 @@
+html {
+  box-sizing: border-box;
+  background-color: #ccc;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+html, body, div, span, h1, h2, h3, h4, h5, h6, p, a, ul, li, input, textarea {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-family: Roboto, Arial, Verdana, sans-serif;
+  font-weight: normal;
+  font-size: 16px;
+  /* font-size: 100%; */
+}
+
+h1 {
+  font-size: 48px;
+}
+
+h2 {
+  font-size: 32px;
+}
+
+h3 {
+  font-size: 21px;
+}
+
+p {
+  margin-bottom: 15px;
+}
+
+.wrapper {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  vertical-align: top;
+}
+
+/*# sourceMappingURL=style.css.map */

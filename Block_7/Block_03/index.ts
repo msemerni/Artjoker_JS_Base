@@ -1,18 +1,9 @@
-//// дерево
-interface INodeTree {
-  value: INodeTree | number;
-  left: INodeTree | null;
-  right: INodeTree | null;
-  add (value: number): void;
-  find (value: number): INodeTree | ((value: number) => any) | null;
-  delete(value: number, thisNode: INodeTree | null): INodeTree | null;
-  findMinNode(thisNode: INodeTree): INodeTree;
-}
+//// Дерево
 
-class NodeTree implements INodeTree {
-  value: INodeTree | number;
-  left: INodeTree | null;
-  right: INodeTree | null;
+class NodeTree {
+  value: NodeTree | number;
+  left: NodeTree | null;
+  right: NodeTree | null;
   constructor(value: number) {
     this.value = value;
     this.left = null;
@@ -39,7 +30,7 @@ class NodeTree implements INodeTree {
     }
   }
 
-  find(value: number): NodeTree | ((value: number) => any) | null {
+  find(value: number): NodeTree | ((value: number) =>any) | null {
     if(value === this.value) {
       return this;
     }
@@ -105,10 +96,6 @@ interface Array<T> {
 
 //// сортировка пузырьком
 Array.prototype.sortByBubble = function(callback) {
-  if(typeof callback !== "function") {
-    throw new Error("Parameter should be a callback function");
-  }
-
     for(let i = 0; i < this.length; i++) {
       for(let j = 0; j < this.length - i - 1; j++) {
         if(callback(this[j], this[j + 1])) {
@@ -121,10 +108,6 @@ Array.prototype.sortByBubble = function(callback) {
 
 //// сортировка выбором
 Array.prototype.sortBySelection = function(callback) {
-  if(typeof callback !== "function") {
-    throw new Error("Parameter should be a callback function");
-  }
-
   for(let i = 0; i < this.length; i++) {
     let min = i;
     for(let j = i; j < this.length; j++) {

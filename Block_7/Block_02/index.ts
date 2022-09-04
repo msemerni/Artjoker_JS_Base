@@ -2,14 +2,14 @@
 ///// Без использования стандартных функций.
 
 interface Function {
-  myBind(this: Function, context: any, ...rest: any[]): any;
-  myCall(this: Function, context: any, ...rest: any[]): any;
+  myBind(this: Function, context: any, ...rest: Array<any>): any;
+  myCall(this: Function, context: any, ...rest: Array<any>): any;
 }
 
 //// своя функция bind
 Function.prototype.myBind = function(context, ...argumnts): any {
   let bindedThis = this;
-  return function(...args: any[]) {
+  return function(...args: Array<any>) {
     const uniqueKey: unique symbol = Symbol();
     context[uniqueKey] = bindedThis;
     const result: any = context[uniqueKey](...argumnts.concat(args));
@@ -31,11 +31,11 @@ Function.prototype.myCall = function(context, ...argumnts): any {
 ///// Без использования стандартных функций.
 
 interface Array<T> {
-  myMap<U> (callback: (val: T, index?: number, array?: T[]) => U, thisArg?: any): U[];
-  myFilter (callback: (val: T, index?: number, array?: T[]) => boolean, thisArg?: any): T[];
-  myReduce (callback: (acc: T, currVal: T, index?: number, array?: T[]) => T, initValue?: T): T;
-  myFind (callback: (val: T, index?: number, obj?: T[]) => unknown, thisArg?: any): T | undefined;
-  myForEach (callback: (val: T, index?: number, array?: T[]) => void, thisArg?: any): void;
+  myMap<U> (callback: (val: T, index?: number, array?: Array<T>) => U, thisArg?: any): Array<U>;
+  myFilter (callback: (val: T, index?: number, array?: Array<T>) => boolean, thisArg?: any): Array<T>;
+  myReduce (callback: (acc: T, currVal: T, index?: number, array?: Array<T>) => T, initValue?: T): T;
+  myFind (callback: (val: T, index?: number, obj?: Array<T>) => unknown, thisArg?: any): T | undefined;
+  myForEach (callback: (val: T, index?: number, array?: Array<T>) => void, thisArg?: any): void;
 }
 
 //// своя функция map

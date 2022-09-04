@@ -1,4 +1,4 @@
-function isEquilateralMatrix(matrix: number[][]): boolean {
+function isEquilateralMatrix(matrix: Array<Array<number>>): boolean {
   for(let i: number = 0; i < matrix.length; i++) {
     if((matrix[i].length !== matrix.length)) {
       return false;
@@ -9,7 +9,7 @@ function isEquilateralMatrix(matrix: number[][]): boolean {
 
 interface String {
   myReplaceAll(initialChar: string, newChar: string): string;
-  mySplit(separator: string): string[];
+  mySplit(separator: string): Array<string>;
 }
 
 interface Array<T> {
@@ -31,8 +31,8 @@ String.prototype.myReplaceAll = function (initialChar: string, newChar: string):
   return newStr;
 };
 
-String.prototype.mySplit = function (separator: string): string[] {
-  let newArr: string[] = [];
+String.prototype.mySplit = function (separator: string): Array<string>{
+  let newArr: Array<string> = [];
   let word: string = '';
   for(let i: number = 0; i < this.length; i++) {
     if(separator === '') {
@@ -50,11 +50,11 @@ String.prototype.mySplit = function (separator: string): string[] {
   return newArr;
 };
 
-Array.prototype.mySort = function (): any[] {
+Array.prototype.mySort = function<T> (): Array<T> {
   for(let i: number = 0; i < this.length; i++) {
     for(let j: number = 0; j < this.length; j++) {
       if(this[j] > this[j + 1]) {
-        let temp: any[] = this[j];
+        let temp: Array<T> = this[j];
         this[j] = this[j + 1];
         this[j + 1] = temp;
       }
@@ -64,18 +64,11 @@ Array.prototype.mySort = function (): any[] {
 };
 
 Array.prototype.myJoin = function (separator: string): string {
-  if(separator !== undefined) {
     return this.toString().myReplaceAll(',', separator);
-  }
-  return this.toString();
 };
 
 // /////////// 1 - Написать функцию которая проверяет являются две строки анаграммой или нет ///////////
 function checkIsAnagram(firstStr: string, secondStr: string): boolean {
-  if((typeof (firstStr) !== 'string') || (typeof (secondStr) !== 'string')) {
-    throw new Error("Not String");
-  }
-
   let firstString: string = firstStr.toLowerCase().myReplaceAll(' ', '').mySplit('').mySort().myJoin('');
   let secondString: string = secondStr.toLowerCase().myReplaceAll(' ', '').mySplit('').mySort().myJoin('');
   return (firstString === secondString);
@@ -83,10 +76,6 @@ function checkIsAnagram(firstStr: string, secondStr: string): boolean {
 
 // /////////// 3 - Написать функцию которая вычисляет подсчет количество цифр в числе. Реализовать с помощью рекурсии. ///////////
 function countDigits(num: number): number {
-  if(typeof (num) !== 'number') {
-    throw new Error("Not Number");
-  }
-
   let digitsCounter: number = 0;
 
   for(let i: number = 0; num > 1; i++) {
@@ -97,10 +86,6 @@ function countDigits(num: number): number {
 }
 
 function countDigitsRecursion(num: number): number {
-  if(typeof (num) !== 'number') {
-    throw new Error("Not Number");
-  }
-
   if(Math.floor(num) === 0) {
     return 0;
   }
@@ -109,9 +94,6 @@ function countDigitsRecursion(num: number): number {
 
 // /////////// 4 - Реализовать функцию которая проверяет, является ли строка палиндромом ///////////
 function checkIsPalindrom(initialString: string): boolean {
-  if(typeof (initialString) !== 'string') {
-    throw new Error("Not String");
-  }
   let reversedString: string = '';
 
   for(let i: number = initialString.length - 1; i >= 0; i--) {
@@ -124,13 +106,9 @@ function checkIsPalindrom(initialString: string): boolean {
 
 // /////////// 5 - Написать функцию которая вычисляет подсчет уникальных слов в предложении ///////////
 function countUniqueWords(someString: string): number {
-  if(typeof (someString) !== 'string') {
-    throw new Error("Not String");
-  }
-
-  let allWords: string[] = someString.mySplit(' ');
+  let allWords: Array<string> = someString.mySplit(' ');
   let counter: number = 0;
-  let result: string[] = [];
+  let result: Array<string> = [];
 
   for(let word of allWords) {
     if(!result.includes(word)) {
@@ -147,10 +125,7 @@ type occurrenceWord = {
 }
 
 function countOccurrenceWord(someStr: string): occurrenceWord {
-  if(typeof (someStr) !== 'string') {
-    throw new Error("Not String");
-  }
-  let someString: string[] = someStr.split(" ");
+  let someString: Array<string> = someStr.split(" ");
   let words: occurrenceWord = {};
   for(let i: number = 0; i < someString.length; i++) {
     if(words[someString[i]]) {
@@ -164,9 +139,9 @@ function countOccurrenceWord(someStr: string): occurrenceWord {
 
 // /////////// 7 - Вычислить периметр и площадь для прямоугольника, треугольника и круга. С помощью конструктора и классов ///////////
 
-function Rectangle(this: any, width: number, height: number): void {
-  if((typeof (width) !== 'number' || width <= 0) || (typeof (height) !== 'number' || height <= 0)) {
-    throw new Error("Not Number");
+function Rectangle(width: number, height: number): void {
+  if(width <= 0 || height <= 0) {
+    throw new Error("Number <= 0");
   }
   this.width = width;
   this.height = height;
@@ -180,9 +155,9 @@ Rectangle.prototype.square = function (): number {
   return (this.width * this.height);
 };
 
-function Triangle(this: any, leftSide: number, rightSide: number, baseSide: number): void {
-  if(((typeof (leftSide) !== 'number') || (leftSide <= 0)) || ((typeof (rightSide) !== 'number') || (rightSide <= 0)) || ((typeof (baseSide)) !== 'number') || (baseSide <= 0)) {
-    throw new Error("Not Number");
+function Triangle(leftSide: number, rightSide: number, baseSide: number): void {
+  if(leftSide <= 0 || rightSide <= 0 || baseSide <= 0) {
+    throw new Error("Number <= 0");
   }
   this.leftSide = leftSide;
   this.rightSide = rightSide;
@@ -200,9 +175,9 @@ Triangle.prototype.square = function (): number {
 };
 
 
-function Circle(this: any, radius: number): void {
-  if((typeof (radius) !== 'number') || (radius <= 0)) {
-    throw new Error("Not Number");
+function Circle(radius: number): void {
+  if(radius <= 0) {
+    throw new Error("Radius <= 0");
   }
   this.radius = radius;
 }
@@ -219,8 +194,8 @@ class RectangleClass {
   width: number;
   height: number;
   constructor(width: number, height: number) {
-    if((typeof (width) !== 'number' || width <= 0) || (typeof (height) !== 'number' || height <= 0)) {
-      throw new Error("Not Number");
+    if(width <= 0 || height <= 0) {
+      throw new Error("Number <= 0");
     }
     this.width = width;
     this.height = height;
@@ -240,8 +215,8 @@ class TriangleClass {
   rightSide: number;
   baseSide: number;
   constructor(leftSide: number, rightSide: number, baseSide: number) {
-    if(((typeof (leftSide) !== 'number') || (leftSide <= 0)) || ((typeof (rightSide) !== 'number') || (rightSide <= 0)) || ((typeof (baseSide)) !== 'number') || (baseSide <= 0)) {
-      throw new Error("Not Number");
+    if(leftSide <= 0 || rightSide <= 0 || baseSide <= 0) {
+      throw new Error("Number <= 0");
     }
     this.leftSide = leftSide;
     this.rightSide = rightSide;
@@ -262,8 +237,8 @@ class TriangleClass {
 class CircleClass {
   radius: number;
   constructor(radius: number) {
-    if((typeof (radius) !== 'number') || (radius <= 0)) {
-      throw new Error("Not Number");
+    if(radius <= 0) {
+      throw new Error("Radius <= 0");
     }
     this.radius = radius;
   }
@@ -279,8 +254,8 @@ class CircleClass {
 // /////////// 8 - Вычислить факториал числа. Реализовать с помощью рекурсии. Реализовать мемоизированную функцию вычисления факториала. ///////////
 
 function calculateFactorial(num: number): number {
-  if(typeof (num) !== 'number' || num < 0) {
-    throw new Error("Not Number");
+  if(num < 0) {
+    throw new Error("Number < 0");
   }
 
   let result: number = 1;
@@ -293,8 +268,8 @@ function calculateFactorial(num: number): number {
 }
 
 function countFactorial(num: number): number {
-  if(typeof (num) !== 'number' || num < 0) {
-    throw new Error("Not Number");
+  if(num < 0) {
+    throw new Error("Number < 0");
   }
 
   if(num === 0 || num === 1) {
@@ -310,8 +285,8 @@ interface memoType {
 const calculateFactorialMemo = (function () {
   let memo: memoType = {};
   return function calculateFactorial(num: number): number {
-    if(typeof (num) !== 'number' || num < 0) {
-      throw new Error("Not Number");
+    if(num < 0) {
+      throw new Error("Number < 0");
     }
     if(num === 0 || num === 1) {
       return 1;
@@ -328,10 +303,7 @@ const calculateFactorialMemo = (function () {
 
 type callback = (num: number) => boolean;
 
-function countElementSum(array: number[], func: callback): number {
-  if(!Array.isArray(array)) {
-    throw new Error("First parameter should be Array");
-  }
+function countElementSum(array: Array<number>, func: callback): number {
   let sum: number = 0;
   for(let i: number = 0; i < array.length; i++) {
     if(func(array[i])) {
@@ -341,7 +313,7 @@ function countElementSum(array: number[], func: callback): number {
   return sum;
 }
 
-function getElementsSumRecursion(array: number[], func: callback, index: number): number {
+function getElementsSumRecursion(array: Array<number>, func: callback, index: number): number {
   index = index || 0;
   let sum: number = 0;
   sum += func(array[index]) ? array[index] : 0;
@@ -354,11 +326,7 @@ function getElementsSumRecursion(array: number[], func: callback, index: number)
 
 // /////////// 10 - Посчитать количество элементов массива которые (Нулевые, отрицательные, положительные, простые числа) ///////////
 
-function countArrayElements(array: number[], func: callback): number {
-  if(!Array.isArray(array)) {
-    throw new Error("First parameter should be Array");
-  }
-
+function countArrayElements(array: Array<number>, func: callback): number {
   let counter: number = 0;
 
   for(let i: number = 0; i < array.length; i++) {
@@ -372,11 +340,7 @@ function countArrayElements(array: number[], func: callback): number {
 // /////////// 11 - Написать функции которые преобразовывают число из десятичной системы счисления в двоичную и в обратную сторону. (Достаточно написать для целых положительных чисел) ///////////
 
 function convertFromTwoToTen(numberTwoSystem: string): number {
-  if(typeof (numberTwoSystem) !== 'string') {
-    throw new Error("Not String");
-  }
-
-  let numberInTwoSystem: string[] = numberTwoSystem.mySplit('');
+  let numberInTwoSystem: Array<string> = numberTwoSystem.mySplit('');
   let numberInTenSystem: number = 0;
   let rank: number = 0;
 
@@ -388,12 +352,8 @@ function convertFromTwoToTen(numberTwoSystem: string): number {
 }
 
 function convertFromTenToTwo(numberTenSystem: number): number {
-  if(typeof (numberTenSystem) !== 'number') {
-    throw new Error("Not Number");
-  }
-
   let remainder: number = 0;
-  let numberTwoSystem: number[] = [];
+  let numberTwoSystem: Array<number> = [];
   let result: number = 0;
 
   for(let i: number = 0; numberTenSystem >= 0; i++) {
@@ -410,11 +370,7 @@ function convertFromTenToTwo(numberTenSystem: number): number {
 
 // /////////// 12 - Пункты 9 и 10 выполнить для двумерных массивов. ///////////
 
-function countElementsSum(array: number[][], func: callback): number {
-  if(!Array.isArray(array)) {
-    throw new Error("First parameter should be Array");
-  }
-
+function countElementsSum(array: Array<Array<number>>, func: callback): number {
   let sum: number = 0;
 
   for(let i: number = 0; i < array.length; i++) {
@@ -427,11 +383,7 @@ function countElementsSum(array: number[][], func: callback): number {
   return sum;
 }
 
-function countArrayElement(array: number[][], func: callback): number {
-  if(!Array.isArray(array)) {
-    throw new Error("First parameter should be Array");
-  }
-
+function countArrayElement(array: Array<Array<number>>, func: callback): number {
   let counter: number = 0;
 
   for(let i: number = 0; i < array.length; i++) {
@@ -449,10 +401,6 @@ function countArrayElement(array: number[][], func: callback): number {
 type callbackFunc = (num: number, value?: number) => number;
 
 function countRangeSumRecursion(min: number, max: number, func: callbackFunc): number {
-  if((typeof (min) !== 'number') || (typeof (max) !== 'number')) {
-    throw new Error("Not Number !!");
-  }
-
   if(min >= max) {
     throw new Error("min >= max");
   }
@@ -470,15 +418,11 @@ function countRangeSumRecursion(min: number, max: number, func: callbackFunc): n
 }
 
 function countRangeSumReduce(min: number, max: number, func: callbackFunc): number {
-  if((typeof (min) !== 'number') || (typeof (max) !== 'number')) {
-    throw new Error("Not Number !!");
-  }
-
   if(min >= max) {
     throw new Error("min >= max");
   }
 
-  let array: number[] = [];
+  let array: Array<number> = [];
 
   for(let i: number = min; i <= max; i++) {
     array.push(i);
@@ -508,10 +452,7 @@ const sumPositiveElements = (total: number, currentValue: number): number => {
 type callBack = (total: number, currentValue: number) => number;
 
 function findAverageArrayValue(array: Array<never> | Array<Array<never>>, func: callBack): number {
-  if(!Array.isArray(array)) {
-    throw new Error("First parameter should be Array");
-  }
-  let digits: number[] = [].concat(...array);
+  let digits: Array<number> = [].concat(...array);
   return digits.reduce(func, 0);
 }
 
@@ -534,78 +475,82 @@ const findOddAverage = (total: number, currentValue: number): number => {
 };
 // /////////// 15 - Транспонировать матрицу, сложить две матрицы.
 
-function transposeMatrix(matrix: number[][]): number[][] {
-  if(!Array.isArray(matrix)) {
-    throw new Error("Parameter should be Array");
-  }
-
-  let transpMatrix: number[][] = [];
-
-  for(let i: number = 0; i < matrix[0].length; i++) {
-    transpMatrix[i] = [];
-    for(let j: number = 0; j < matrix.length; j++) {
-      transpMatrix[i][j] = matrix[j][i];
+function transposeMatrix(matrix: Array<Array<number>>): Array<Array<number>> {
+  let transpMatrix: Array<Array<number>> = [];
+  if (matrix.length > 0) {
+    for(let i: number = 0; i < matrix[0].length; i++) {
+      transpMatrix[i] = [];
+      for(let j: number = 0; j < matrix.length; j++) {
+        transpMatrix[i][j] = matrix[j][i];
+      }
     }
+  }else {
+    throw new Error("Empty matrix")
   }
+
   return transpMatrix;
 }
 
-function sumMatrix(firstMatrix: number[][], secondMatrix: number[][]): number[][] {
-  if((!Array.isArray(firstMatrix)) || (!Array.isArray(secondMatrix))) {
-    throw new Error("Parameters should be Arrays");
+function sumMatrix(firstMatrix: Array<Array<number>>, secondMatrix: Array<Array<number>>): Array<Array<number>> {
+  let transpMatrix: Array<Array<number>>= [];
+  if (firstMatrix.length > 0 && secondMatrix.length > 0 ) {
+    for(let i: number = 0; i < firstMatrix.length; i++) {
+      transpMatrix[i] = [];
+      for(let j: number = 0; j < firstMatrix[0].length; j++) {
+        transpMatrix[i][j] = firstMatrix[i][j] + secondMatrix[i][j];
+      }
+    }  
+  }else {
+    throw new Error("Empty matrix")
   }
-  let transpMatrix: number[][] = [];
 
-  for(let i: number = 0; i < firstMatrix.length; i++) {
-    transpMatrix[i] = [];
-    for(let j: number = 0; j < firstMatrix[0].length; j++) {
-      transpMatrix[i][j] = firstMatrix[i][j] + secondMatrix[i][j];
-    }
-  }
   return transpMatrix;
 }
 
 // /////////// 16 - Удалить из двумерного массива строку в которой присутствует хотя бы один нулевой элемент. Для столбца аналогично реализовать.
 
-function removeMatrixRowWithZero(array: number[][]): number[][] {
-  if(!Array.isArray(array)) {
-    throw new Error("Parameter should be Array");
-  }
-  for(let i: number = 0; i < array.length; i++) {
-    for(let j: number = 0; j < array[0].length; j++) {
-      if(array[i][j] === 0) {
-        array.splice(i--, 1);
-        break;
+function removeMatrixRowWithZero(array: Array<Array<number>>): Array<Array<number>> {
+  if (array.length > 0) {
+    for(let i: number = 0; i < array.length; i++) {
+      for(let j: number = 0; j < array[0].length; j++) {
+        if(array[i][j] === 0) {
+          array.splice(i--, 1);
+          break;
+        }
       }
     }
+  }else {
+    throw new Error("Empty array")
   }
   return array;
 }
 
-function removeMatrixColWithZero(array: number[][]): number[][] | number[] {
-  if(!Array.isArray(array)) {
-    throw new Error("Parameter should be Array");
-  }
+function removeMatrixColWithZero(array: Array<Array<number>>): Array<Array<number>> | Array<number>{
   let position: number;
-  for(let i: number = 0; i < array.length; i++) {
-    for(let j: number = 0; j < array[0].length; j++) {
-
-      if(array[i][j] === 0) {
-        position = j;
-        for(let i: number = 0; i < array.length; i++) {
-          for(let j: number = 0; j < array[0].length; j++) {
-            array[i].splice(position, 1);
-            break;
+  if (array.length > 0) {
+    for(let i: number = 0; i < array.length; i++) {
+      for(let j: number = 0; j < array[0].length; j++) {
+  
+        if(array[i][j] === 0) {
+          position = j;
+          for(let i: number = 0; i < array.length; i++) {
+            for(let j: number = 0; j < array[0].length; j++) {
+              array[i].splice(position, 1);
+              break;
+            }
           }
         }
       }
+  
+      if(array[0].length === 0) {
+        array = [];
+        break;
+      };
     }
-
-    if(array[0].length === 0) {
-      array = [];
-      break;
-    };
+  }else {
+    throw new Error("Empty array")
   }
+  
   return array;
 }
 
@@ -613,10 +558,7 @@ function removeMatrixColWithZero(array: number[][]): number[][] | number[] {
 
 type callbackMatrix = (i: number, j: number) => boolean;
 
-function sumMatrixElements(array: number[][], func: callbackMatrix): number {
-  if(!Array.isArray(array)) {
-    throw new Error("First parameter should be Array");
-  }
+function sumMatrixElements(array: Array<Array<number>>, func: callbackMatrix): number {
   isEquilateralMatrix(array);
 
   let sum: number = 0;
@@ -638,7 +580,7 @@ interface IterableIterator<T> extends Iterator<T> {
 }
 
 interface Fibonacci {
-  [Symbol.iterator](): { next(): { value: number; done: any; }; }
+  [Symbol.iterator](): { next(): { value: number; done: boolean; }; }
 }
 
 let iterateFibonacci: Fibonacci = {
@@ -668,10 +610,6 @@ function* generateFibonacci(): IterableIterator<number> {
 }
 
 function countFibonacci(number: number): number {
-  if(typeof (number) !== 'number') {
-    throw new Error("Not Number");
-  }
-
   if((number <= 1) && (number >= 0)) {
     return 1;
   }
@@ -681,9 +619,6 @@ function countFibonacci(number: number): number {
 
 
 function countFibonacciMemo(number: number, memo: memoType): number {
-  if(typeof (number) !== 'number') {
-    throw new Error("Not Number");
-  }
   memo = memo || {};
 
   if(memo[number]) {
@@ -717,17 +652,11 @@ function* generateTrafficLight(): IterableIterator<string> {
 
 //// first variant
 function checkIsPositivNumber(number: number): boolean {
-  if(typeof (number) !== 'number') {
-    throw new Error("Not Number !!");
-  }
   return (number & (1 << 31)) !== (1 << 31);
 }
 
 //// second variant
 function checkIsPositiveNumber(number: number): boolean {
-  if(typeof (number) !== 'number') {
-    throw new Error("Not Number !!");
-  }
   let binNumber: number = ~number.toString(2);
   let firstIndex: string = binNumber.toString().mySplit('')[0];
   return (firstIndex === '-');
@@ -736,10 +665,6 @@ function checkIsPositiveNumber(number: number): boolean {
 // ////////////////////////////////////////Посчитать количество битов числа
 //// first variant
 function countBits(number: number): {one: number; zero: number} {
-  if(typeof (number) !== 'number') {
-    throw new Error("Not Number !!");
-  }
-
   let zeroBitCount: number = 0;
   let oneBitCount: number = 0;
 
@@ -754,10 +679,6 @@ function countBits(number: number): {one: number; zero: number} {
 
 //// second variant
 function countZeroOneBits(numberBin: string): {one: number; zero: number} {
-  if(typeof (numberBin) !== 'string') {
-    throw new Error("Not String !!");
-  }
-
   numberBin.toString().mySplit('');
   let zeroBitCount: number = 0;
   let oneBitCount: number = 0;
@@ -774,15 +695,9 @@ function countZeroOneBits(numberBin: string): {one: number; zero: number} {
 
 // ///////////////////////////////////////////Написать свою реализацию для ~ тильда
 function invertBinNumber(number: number): number {
-  if(typeof (number) !== 'number') {
-    throw new Error("Not Number !!");
-  }
   return -(number + 1);
 }
 
 function invertBinDigits(number: number): number {
-  if(typeof (number) !== 'number') {
-    throw new Error("Not Number !!");
-  }
   return (number ^ -1);
 }

@@ -1,10 +1,11 @@
-var NodeTree = /** @class */ (function () {
-    function NodeTree(value) {
+//// Дерево
+class NodeTree {
+    constructor(value) {
         this.value = value;
         this.left = null;
         this.right = null;
     }
-    NodeTree.prototype.add = function (value) {
+    add(value) {
         if (value === this.value) {
             throw new Error("Value should be unique");
         }
@@ -22,8 +23,8 @@ var NodeTree = /** @class */ (function () {
             }
             this.left.add(value);
         }
-    };
-    NodeTree.prototype.find = function (value) {
+    }
+    find(value) {
         if (value === this.value) {
             return this;
         }
@@ -34,21 +35,21 @@ var NodeTree = /** @class */ (function () {
             return this.left.find(value);
         }
         return null;
-    };
-    NodeTree.prototype["delete"] = function (value, thisNode) {
+    }
+    delete(value, thisNode) {
         thisNode = thisNode || this;
         if (value > thisNode.value) {
             if (thisNode.right === null) {
                 return thisNode;
             }
-            thisNode.right = this["delete"](value, thisNode.right);
+            thisNode.right = this.delete(value, thisNode.right);
             return thisNode;
         }
         else if (value < thisNode.value) {
             if (thisNode.left === null) {
                 return thisNode;
             }
-            thisNode.left = this["delete"](value, thisNode.left);
+            thisNode.left = this.delete(value, thisNode.left);
             return thisNode;
         }
         else if (value === thisNode.value) {
@@ -64,14 +65,14 @@ var NodeTree = /** @class */ (function () {
                 thisNode = thisNode.left;
                 return thisNode;
             }
-            var minNode = this.findMinNode(thisNode.right);
+            let minNode = this.findMinNode(thisNode.right);
             thisNode.value = minNode.value;
-            thisNode.right = this["delete"](minNode.value, thisNode.right);
+            thisNode.right = this.delete(minNode.value, thisNode.right);
             return thisNode;
         }
         return thisNode;
-    };
-    NodeTree.prototype.findMinNode = function (thisNode) {
+    }
+    findMinNode(thisNode) {
         thisNode = thisNode || this;
         if (thisNode.right !== null && thisNode.left !== null) {
             return this.findMinNode(thisNode.left);
@@ -82,19 +83,14 @@ var NodeTree = /** @class */ (function () {
         else {
             throw new Error("Shouldn't be reachable");
         }
-    };
-    return NodeTree;
-}());
+    }
+}
 //// сортировка пузырьком
 Array.prototype.sortByBubble = function (callback) {
-    var _a;
-    if (typeof callback !== "function") {
-        throw new Error("Parameter should be a callback function");
-    }
-    for (var i = 0; i < this.length; i++) {
-        for (var j = 0; j < this.length - i - 1; j++) {
+    for (let i = 0; i < this.length; i++) {
+        for (let j = 0; j < this.length - i - 1; j++) {
             if (callback(this[j], this[j + 1])) {
-                _a = [this[j + 1], this[j]], this[j] = _a[0], this[j + 1] = _a[1];
+                [this[j], this[j + 1]] = [this[j + 1], this[j]];
             }
         }
     }
@@ -102,18 +98,14 @@ Array.prototype.sortByBubble = function (callback) {
 };
 //// сортировка выбором
 Array.prototype.sortBySelection = function (callback) {
-    var _a;
-    if (typeof callback !== "function") {
-        throw new Error("Parameter should be a callback function");
-    }
-    for (var i = 0; i < this.length; i++) {
-        var min = i;
-        for (var j = i; j < this.length; j++) {
+    for (let i = 0; i < this.length; i++) {
+        let min = i;
+        for (let j = i; j < this.length; j++) {
             if (callback(this[min], this[j])) {
                 min = j;
             }
         }
-        _a = [this[min], this[i]], this[i] = _a[0], this[min] = _a[1];
+        [this[i], this[min]] = [this[min], this[i]];
     }
     return this;
 };
