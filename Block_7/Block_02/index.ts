@@ -1,28 +1,33 @@
 ///// 1. Написать свою реализацию функций bind, call. Новая реализация должна по функционалу работать аналогично как и соответствующие стандартные функции. 
 ///// Без использования стандартных функций.
 
+type Context<T> = { 
+  [key: string | symbol]: T; 
+} 
+
 interface Function {
-  myBind(this: Function, context: any, ...rest: Array<any>): any;
-  myCall(this: Function, context: any, ...rest: Array<any>): any;
+  myBind<T>(this: Function, context: Context<Function>, ...rest: Array<T>): Function;
+  myCall<T>(this: Function, context: Context<Function>, ...rest: Array<T>): T;
 }
 
 //// своя функция bind
-Function.prototype.myBind = function(context, ...argumnts): any {
+Function.prototype.myBind = function<T>(context: Context<Function>, ...argumnts: Array<T>): Function {
   let bindedThis = this;
-  return function(...args: Array<any>) {
+
+  return function (...args: Array<T>): T {
     const uniqueKey: unique symbol = Symbol();
     context[uniqueKey] = bindedThis;
-    const result: any = context[uniqueKey](...argumnts.concat(args));
+    const result: T = context[uniqueKey](...argumnts.concat(args));
     delete context[uniqueKey];
     return result;
   };
 };
 
 //// своя функция call
-Function.prototype.myCall = function(context, ...argumnts): any {
+Function.prototype.myCall = function<T>(context: Context<Function>, ...argumnts: Array<T>): T {
     const uniqueKey: unique symbol = Symbol();
     context[uniqueKey] = this;
-    const result: any = context[uniqueKey](...argumnts);
+    const result: T = context[uniqueKey](...argumnts);
     delete context[uniqueKey];
     return result;
 };
@@ -31,11 +36,11 @@ Function.prototype.myCall = function(context, ...argumnts): any {
 ///// Без использования стандартных функций.
 
 interface Array<T> {
-  myMap<U> (callback: (val: T, index?: number, array?: Array<T>) => U, thisArg?: any): Array<U>;
-  myFilter (callback: (val: T, index?: number, array?: Array<T>) => boolean, thisArg?: any): Array<T>;
+  myMap<U> (callback: (val: T, index?: number, array?: Array<T>) => U, thisArg?: T): Array<U>;
+  myFilter (callback: (val: T, index?: number, array?: Array<T>) => boolean, thisArg?: T): Array<T>;
   myReduce (callback: (acc: T, currVal: T, index?: number, array?: Array<T>) => T, initValue?: T): T;
-  myFind (callback: (val: T, index?: number, obj?: Array<T>) => unknown, thisArg?: any): T | undefined;
-  myForEach (callback: (val: T, index?: number, array?: Array<T>) => void, thisArg?: any): void;
+  myFind (callback: (val: T, index?: number, obj?: Array<T>) => unknown, thisArg?: T): T | undefined;
+  myForEach (callback: (val: T, index?: number, array?: Array<T>) => void, thisArg?: T): void;
 }
 
 //// своя функция map

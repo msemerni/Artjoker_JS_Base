@@ -1,16 +1,16 @@
 //// Дерево
 
-class NodeTree {
-  value: NodeTree | number;
-  left: NodeTree | null;
-  right: NodeTree | null;
-  constructor(value: number) {
+class NodeTree<T> {
+  value: NodeTree<T> | T;
+  left: NodeTree<T> | null;
+  right: NodeTree<T> | null;
+  constructor(value: T) {
     this.value = value;
     this.left = null;
     this.right = null;
   }
 
-  add(value: number): void {
+  add(value: T): void {
     if(value === this.value) {
       throw new Error("Value should be unique");
     }
@@ -30,7 +30,7 @@ class NodeTree {
     }
   }
 
-  find(value: number): NodeTree | ((value: number) =>any) | null {
+  find(value: T): NodeTree<T> | ((value: T) =>any) | null {
     if(value === this.value) {
       return this;
     }
@@ -43,7 +43,7 @@ class NodeTree {
     return null;
   }
 
-  delete(value: number | NodeTree, thisNode: NodeTree | null): NodeTree | null {
+  delete(value: T | NodeTree<T>, thisNode: NodeTree<T> | null): NodeTree<T> | null {
     thisNode = thisNode || this;
 
     if(value > thisNode.value) {
@@ -71,13 +71,13 @@ class NodeTree {
         }
         let minNode = this.findMinNode(thisNode.right);
         thisNode.value = minNode!.value;
-        thisNode.right = this.delete(minNode.value, thisNode.right);
+        thisNode.right = this.delete(minNode.value as NodeTree<T>, thisNode.right);
         return thisNode;
     } 
     return thisNode;
   }
 
-  findMinNode(thisNode: NodeTree): NodeTree {
+  findMinNode(thisNode: NodeTree<T>): NodeTree<T> {
     thisNode = thisNode || this;
     if(thisNode.right !== null && thisNode.left !== null) {
       return this.findMinNode(thisNode.left);

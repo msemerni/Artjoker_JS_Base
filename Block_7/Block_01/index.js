@@ -341,42 +341,40 @@ const sumElementsDivideThree = (total, currentValue) => {
     if (currentValue % 3 === 0) {
         return total + currentValue;
     }
-    else {
-        return total;
-    }
+    return total;
 };
 const sumPositiveElements = (total, currentValue) => {
     if (currentValue > 0) {
         return total + currentValue;
     }
-    else {
-        return total;
-    }
+    return total;
 };
-function findAverageArrayValue(array, func) {
+function findAverageArrayValue(array, callback) {
     let digits = [].concat(...array);
-    return digits.reduce(func, 0);
+    return digits.reduce(callback, 0);
 }
 const findEvenAverage = (total, currentValue) => {
     if (currentValue % 2 === 0) {
         return (total + currentValue / 2);
     }
-    else {
-        return total;
-    }
+    return total;
 };
 const findOddAverage = (total, currentValue) => {
     if (currentValue % 2 !== 0) {
         return (total + currentValue / 2);
     }
-    else {
-        return total;
-    }
+    return total;
 };
 // /////////// 15 - Транспонировать матрицу, сложить две матрицы.
+let matrix = [[1, 2], [3, 4]];
+let matrix1 = [[3, 4]];
+let matrix2 = [[], [3, 4]];
+let matrix3 = [[], []];
+let matrix4 = [[]];
+let matrix5 = [];
 function transposeMatrix(matrix) {
     let transpMatrix = [];
-    if (matrix.length > 0) {
+    if (matrix.length > 0 && matrix[0].length > 0) {
         for (let i = 0; i < matrix[0].length; i++) {
             transpMatrix[i] = [];
             for (let j = 0; j < matrix.length; j++) {
@@ -385,13 +383,13 @@ function transposeMatrix(matrix) {
         }
     }
     else {
-        throw new Error("Empty matrix");
+        throw new Error("Empty/wrong matrix");
     }
     return transpMatrix;
 }
 function sumMatrix(firstMatrix, secondMatrix) {
     let transpMatrix = [];
-    if (firstMatrix.length > 0 && secondMatrix.length > 0) {
+    if ((firstMatrix.length > 0 && firstMatrix[0].length > 0) && (secondMatrix.length > 0 && secondMatrix[0].length > 0)) {
         for (let i = 0; i < firstMatrix.length; i++) {
             transpMatrix[i] = [];
             for (let j = 0; j < firstMatrix[0].length; j++) {
@@ -400,13 +398,13 @@ function sumMatrix(firstMatrix, secondMatrix) {
         }
     }
     else {
-        throw new Error("Empty matrix");
+        throw new Error("Empty/wrong matrix");
     }
     return transpMatrix;
 }
 // /////////// 16 - Удалить из двумерного массива строку в которой присутствует хотя бы один нулевой элемент. Для столбца аналогично реализовать.
 function removeMatrixRowWithZero(array) {
-    if (array.length > 0) {
+    if (array.length > 0 && array[0].length > 0) {
         for (let i = 0; i < array.length; i++) {
             for (let j = 0; j < array[0].length; j++) {
                 if (array[i][j] === 0) {
@@ -417,13 +415,13 @@ function removeMatrixRowWithZero(array) {
         }
     }
     else {
-        throw new Error("Empty array");
+        throw new Error("Empty/wrong array");
     }
     return array;
 }
 function removeMatrixColWithZero(array) {
     let position;
-    if (array.length > 0) {
+    if (array.length > 0 && array[0].length > 0) {
         for (let i = 0; i < array.length; i++) {
             for (let j = 0; j < array[0].length; j++) {
                 if (array[i][j] === 0) {
@@ -444,17 +442,19 @@ function removeMatrixColWithZero(array) {
         }
     }
     else {
-        throw new Error("Empty array");
+        throw new Error("Empty/wrong array");
     }
     return array;
 }
 function sumMatrixElements(array, func) {
     isEquilateralMatrix(array);
     let sum = 0;
-    for (let i = 0; i < array.length; i++) {
-        for (let j = 0; j < array[i].length; j++) {
-            if (func(i, j)) {
-                sum += array[i][j];
+    if (array.length > 0 && array[0].length > 0) {
+        for (let i = 0; i < array.length; i++) {
+            for (let j = 0; j < array[i].length; j++) {
+                if (func(i, j)) {
+                    sum += array[i][j];
+                }
             }
         }
     }
@@ -477,28 +477,28 @@ let iterateFibonacci = {
 function* generateFibonacci() {
     let leftNumber = 0;
     let rightNumber = 1;
-    while (true) {
+    for (;;) {
         let sum = leftNumber + rightNumber;
         leftNumber = rightNumber;
         rightNumber = sum;
         yield sum;
     }
 }
-function countFibonacci(number) {
-    if ((number <= 1) && (number >= 0)) {
+function countFibonacci(num) {
+    if ((num <= 1) && (num >= 0)) {
         return 1;
     }
-    return countFibonacci(number - 1) + countFibonacci(number - 2);
+    return countFibonacci(num - 1) + countFibonacci(num - 2);
 }
-function countFibonacciMemo(number, memo) {
+function countFibonacciMemo(num, memo) {
     memo = memo || {};
-    if (memo[number]) {
-        return memo[number];
+    if (memo[num]) {
+        return memo[num];
     }
-    if ((number <= 1) && (number >= 0)) {
+    if ((num <= 1) && (num >= 0)) {
         return 1;
     }
-    return memo[number] = countFibonacciMemo(number - 1, memo) + countFibonacciMemo(number - 2, memo);
+    return memo[num] = countFibonacciMemo(num - 1, memo) + countFibonacciMemo(num - 2, memo);
 }
 // /////////// 19 - Реализовать с помощью итератора и генератора светофор.
 // /////////// При каждой следующей итерации мы должны получать следующий корректный цвет по логике светофора. ///////////
@@ -515,22 +515,22 @@ function* generateTrafficLight() {
 // /////////// Написать свою реализацию для ~, двумя способами).
 // ////////////////////////////////////является ли число отрицательным или положительным
 //// first variant
-function checkIsPositivNumber(number) {
-    return (number & (1 << 31)) !== (1 << 31);
+function checkIsPositivNumber(num) {
+    return (num & (1 << 31)) !== (1 << 31);
 }
 //// second variant
-function checkIsPositiveNumber(number) {
-    let binNumber = ~number.toString(2);
+function checkIsPositiveNumber(num) {
+    let binNumber = ~num.toString(2);
     let firstIndex = binNumber.toString().mySplit('')[0];
     return (firstIndex === '-');
 }
 // ////////////////////////////////////////Посчитать количество битов числа
 //// first variant
-function countBits(number) {
+function countBits(num) {
     let zeroBitCount = 0;
     let oneBitCount = 0;
     for (let i = 0; i < 32; i++) {
-        if ((number & (1 << i)) === (1 << i)) {
+        if ((num & (1 << i)) === (1 << i)) {
             oneBitCount++;
         }
         zeroBitCount = 32 - oneBitCount;
@@ -551,9 +551,9 @@ function countZeroOneBits(numberBin) {
     return { zero: zeroBitCount, one: oneBitCount };
 }
 // ///////////////////////////////////////////Написать свою реализацию для ~ тильда
-function invertBinNumber(number) {
-    return -(number + 1);
+function invertBinNumber(num) {
+    return -(num + 1);
 }
-function invertBinDigits(number) {
-    return (number ^ -1);
+function invertBinDigits(num) {
+    return (num ^ -1);
 }
