@@ -153,46 +153,61 @@ Circle.prototype.perimeter = function () {
 Circle.prototype.square = function () {
     return (Math.PI * Math.pow(this.radius, 2));
 };
-class RectangleClass {
+class Figure {
+}
+class Rectangle_ extends Figure {
     constructor(width, height) {
         if (width <= 0 || height <= 0) {
             throw new Error("Number <= 0");
         }
+        ;
+        super();
         this.width = width;
         this.height = height;
     }
+    ;
     perimeter() {
         return (this.width + this.height) * 2;
     }
+    ;
     square() {
-        return (this.width * this.height);
+        return this.width * this.height;
     }
+    ;
 }
-class TriangleClass {
+;
+class Triangle_ extends Figure {
     constructor(leftSide, rightSide, baseSide) {
         if (leftSide <= 0 || rightSide <= 0 || baseSide <= 0) {
             throw new Error("Number <= 0");
         }
+        super();
         this.leftSide = leftSide;
         this.rightSide = rightSide;
         this.baseSide = baseSide;
     }
+    ;
     perimeter() {
         return (this.leftSide + this.rightSide + this.baseSide);
     }
+    ;
     square() {
         let semiperimetr = (this.leftSide + this.rightSide + this.baseSide) / 2;
         let square = Math.sqrt(semiperimetr * (semiperimetr - this.leftSide) * (semiperimetr - this.rightSide) * (semiperimetr - this.baseSide));
         return square;
     }
+    ;
 }
-class CircleClass {
+;
+class Circle_ extends Figure {
     constructor(radius) {
         if (radius <= 0) {
             throw new Error("Radius <= 0");
         }
+        super();
         this.radius = radius;
     }
+    ;
     perimeter() {
         return (2 * Math.PI * this.radius);
     }
@@ -202,6 +217,7 @@ class CircleClass {
     }
     ;
 }
+;
 // /////////// 8 - Вычислить факториал числа. Реализовать с помощью рекурсии. Реализовать мемоизированную функцию вычисления факториала. ///////////
 function calculateFactorial(num) {
     if (num < 0) {

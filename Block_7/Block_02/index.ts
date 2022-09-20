@@ -44,73 +44,49 @@ interface Array<T> {
 }
 
 //// своя функция map
-Array.prototype.myMap = function(callback) {
-  if(typeof callback !== "function") {
-    throw new Error("Parameter is not a callback function");
-  }
-
-  let array = [];
+Array.prototype.myMap = function<T>(callback: Function): Array<T> {
+  let array: Array<T> = [];
 
   for(let i = 0; i < this.length; i++) {
     array.push(callback(this[i], i, this));
   }
-
   return array;
 };
 
 //// своя функция filter
-Array.prototype.myFilter = function(callback) {
-  if(typeof callback !== "function") {
-    throw new Error("Parameter is not a callback function");
-  }
-
-  let array = [];
+Array.prototype.myFilter = function<T>(callback: Function): Array<T> {
+  let array: Array<T> = [];
 
   for(let i = 0; i < this.length; i++) {
     if (callback(this[i])) {
       array.push(this[i]);
     }
   }
-
   return array;
 };
 
 //// своя функция reduce
-Array.prototype.myReduce = function(callback, initialAccum) {
-  if(typeof callback !== "function") {
-    throw new Error("Parameter is not a callback function");
-  }
-
+Array.prototype.myReduce = function<T>(callback: Function, initialAccum: T): T | null {
   let accumulator = initialAccum || null;
 
   for(let i = 0; i < this.length; i++) {
     accumulator = callback(accumulator, this[i]);
   }
-
   return accumulator;
 };
 
 //// своя функция find
-Array.prototype.myFind = function(callback) {
-  if(typeof callback !== "function") {
-    throw new Error("Parameter is not a callback function");
-  }
-
+Array.prototype.myFind = function<T>(callback: Function): T | number{
   for(let i = 0; i < this.length; i++) {
     if(callback(this[i])) {
       return this[i];
     }
   }
-
   return -1;
 };
 
 //// своя функция forEach
-Array.prototype.myForEach = function(callback) {
-  if(typeof callback !== "function") {
-    throw new Error("Parameter is not a callback function");
-  }
-
+Array.prototype.myForEach = function(callback: Function): void {
   for(let i = 0; i < this.length; i++) {
     callback(this[i], i, this);
   }

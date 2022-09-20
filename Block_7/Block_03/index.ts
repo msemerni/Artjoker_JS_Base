@@ -1,9 +1,14 @@
 //// Дерево
 
-class NodeTree<T> {
-  value: NodeTree<T> | T;
+interface IComparable { 
+  hashCode: () => number; 
+} 
+
+class NodeTree<T extends IComparable> {
+  value: T;
   left: NodeTree<T> | null;
   right: NodeTree<T> | null;
+  
   constructor(value: T) {
     this.value = value;
     this.left = null;
@@ -11,11 +16,7 @@ class NodeTree<T> {
   }
 
   add(value: T): void {
-    if(value === this.value) {
-      throw new Error("Value should be unique");
-    }
-
-    if(value > this.value) {
+    if(value.hashCode() > this.value.hashCode()) {
       if(this.right === null) {
         this.right = new NodeTree(value);
         return;
@@ -28,31 +29,34 @@ class NodeTree<T> {
       }
       this.left.add(value);
     }
+    if(value.hashCode() === this.value.hashCode()) {
+      throw new Error("Value should be unique");
+    }
   }
 
   find(value: T): NodeTree<T> | ((value: T) =>any) | null {
-    if(value === this.value) {
+    if(value.hashCode() === this.value.hashCode()) {
       return this;
     }
-    if(value > this.value && this.right) {
+    if(value.hashCode() > this.value.hashCode() && this.right) {
       return this.right.find(value);
     }
-    if(value < this.value && this.left) {
+    if(value.hashCode() < this.value.hashCode() && this.left) {
       return this.left.find(value);
     }
     return null;
   }
 
-  delete(value: T | NodeTree<T>, thisNode: NodeTree<T> | null): NodeTree<T> | null {
+  delete(value: T, thisNode: NodeTree<T> | null): NodeTree<T> | null {
     thisNode = thisNode || this;
 
-    if(value > thisNode.value) {
+    if(value.hashCode() > thisNode.value.hashCode()) {
       if(thisNode.right === null) {
         return thisNode;
       }
       thisNode.right = this.delete(value, thisNode.right);
       return thisNode;
-    } else if (value < thisNode.value) {
+    } else if (value.hashCode() < thisNode.value.hashCode()) {
         if (thisNode.left === null) {
           return thisNode;
         }
@@ -71,7 +75,7 @@ class NodeTree<T> {
         }
         let minNode = this.findMinNode(thisNode.right);
         thisNode.value = minNode!.value;
-        thisNode.right = this.delete(minNode.value as NodeTree<T>, thisNode.right);
+        thisNode.right = this.delete(minNode.value, thisNode.right);
         return thisNode;
     } 
     return thisNode;
@@ -89,13 +93,14 @@ class NodeTree<T> {
   }
 }
 
+
 interface Array<T> {
   sortByBubble(callback: (firstElem: T, secondElem: T) => boolean): Array<T>;
   sortBySelection(callback: (firstElem: T, secondElem: T) => boolean): Array<T>;
 }
 
 //// сортировка пузырьком
-Array.prototype.sortByBubble = function(callback) {
+Array.prototype.sortByBubble = function<T>(callback: Function): Array<T> {
     for(let i = 0; i < this.length; i++) {
       for(let j = 0; j < this.length - i - 1; j++) {
         if(callback(this[j], this[j + 1])) {
@@ -107,7 +112,7 @@ Array.prototype.sortByBubble = function(callback) {
 }
 
 //// сортировка выбором
-Array.prototype.sortBySelection = function(callback) {
+Array.prototype.sortBySelection = function<T>(callback: Function): Array<T> {
   for(let i = 0; i < this.length; i++) {
     let min = i;
     for(let j = i; j < this.length; j++) {

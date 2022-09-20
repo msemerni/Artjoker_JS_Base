@@ -54,7 +54,7 @@ Array.prototype.mySort = function<T> (): Array<T> {
   for(let i: number = 0; i < this.length; i++) {
     for(let j: number = 0; j < this.length; j++) {
       if(this[j] > this[j + 1]) {
-        let temp: Array<T> = this[j];
+        let temp:T = this[j];
         this[j] = this[j + 1];
         this[j + 1] = temp;
       }
@@ -190,27 +190,33 @@ Circle.prototype.square = function (): number {
   return (Math.PI * Math.pow(this.radius, 2));
 };
 
-class RectangleClass {
+abstract class Figure {
+  abstract perimeter(): number;
+  abstract square(): number;
+}
+
+class Rectangle_ extends Figure {
   width: number;
   height: number;
   constructor(width: number, height: number) {
     if(width <= 0 || height <= 0) {
       throw new Error("Number <= 0");
-    }
+    };
+    super();
     this.width = width;
     this.height = height;
-  }
+  };
 
   perimeter(): number {
     return (this.width + this.height) * 2;
-  }
+  };
 
   square(): number {
-    return (this.width * this.height);
-  }
-}
+    return this.width * this.height;
+  };
+};
 
-class TriangleClass {
+class Triangle_ extends Figure{
   leftSide: number;
   rightSide: number;
   baseSide: number;
@@ -218,30 +224,33 @@ class TriangleClass {
     if(leftSide <= 0 || rightSide <= 0 || baseSide <= 0) {
       throw new Error("Number <= 0");
     }
+    super();
     this.leftSide = leftSide;
     this.rightSide = rightSide;
     this.baseSide = baseSide;
-  }
+  };
 
   perimeter(): number {
     return (this.leftSide + this.rightSide + this.baseSide);
-  }
+  };
 
   square(): number {
     let semiperimetr: number = (this.leftSide + this.rightSide + this.baseSide) / 2;
     let square: number = Math.sqrt(semiperimetr * (semiperimetr - this.leftSide) * (semiperimetr - this.rightSide) * (semiperimetr - this.baseSide));
     return square;
-  }
-}
+  };
+};
 
-class CircleClass {
+class Circle_ extends Figure{
   radius: number;
   constructor(radius: number) {
     if(radius <= 0) {
       throw new Error("Radius <= 0");
     }
+    super();
     this.radius = radius;
-  }
+  };
+
   perimeter(): number {
     return (2 * Math.PI * this.radius);
   };
@@ -249,7 +258,7 @@ class CircleClass {
   square(): number {
     return Math.PI * Math.pow(this.radius, 2);
   };
-}
+};
 
 // /////////// 8 - Вычислить факториал числа. Реализовать с помощью рекурсии. Реализовать мемоизированную функцию вычисления факториала. ///////////
 

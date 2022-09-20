@@ -6,10 +6,7 @@ class NodeTree {
         this.right = null;
     }
     add(value) {
-        if (value === this.value) {
-            throw new Error("Value should be unique");
-        }
-        if (value > this.value) {
+        if (value.hashCode() > this.value.hashCode()) {
             if (this.right === null) {
                 this.right = new NodeTree(value);
                 return;
@@ -23,29 +20,32 @@ class NodeTree {
             }
             this.left.add(value);
         }
+        if (value.hashCode() === this.value.hashCode()) {
+            throw new Error("Value should be unique");
+        }
     }
     find(value) {
-        if (value === this.value) {
+        if (value.hashCode() === this.value.hashCode()) {
             return this;
         }
-        if (value > this.value && this.right) {
+        if (value.hashCode() > this.value.hashCode() && this.right) {
             return this.right.find(value);
         }
-        if (value < this.value && this.left) {
+        if (value.hashCode() < this.value.hashCode() && this.left) {
             return this.left.find(value);
         }
         return null;
     }
     delete(value, thisNode) {
         thisNode = thisNode || this;
-        if (value > thisNode.value) {
+        if (value.hashCode() > thisNode.value.hashCode()) {
             if (thisNode.right === null) {
                 return thisNode;
             }
             thisNode.right = this.delete(value, thisNode.right);
             return thisNode;
         }
-        else if (value < thisNode.value) {
+        else if (value.hashCode() < thisNode.value.hashCode()) {
             if (thisNode.left === null) {
                 return thisNode;
             }
