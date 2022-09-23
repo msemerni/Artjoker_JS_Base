@@ -93,34 +93,33 @@ class NodeTree<T extends IComparable> {
   }
 }
 
-
 interface Array<T> {
   sortByBubble(callback: (firstElem: T, secondElem: T) => boolean): Array<T>;
   sortBySelection(callback: (firstElem: T, secondElem: T) => boolean): Array<T>;
 }
 
 //// сортировка пузырьком
-Array.prototype.sortByBubble = function<T>(callback: Function): Array<T> {
-    for(let i = 0; i < this.length; i++) {
-      for(let j = 0; j < this.length - i - 1; j++) {
-        if(callback(this[j], this[j + 1])) {
-          [this[j], this[j + 1]] = [this[j + 1], this[j]];
-        }
+Array.prototype.sortByBubble = function<T>(callback: (firstElem: T, secondElem: T) => boolean): Array<T> {
+  for(let i: number = 0; i < this.length; i++) {
+    for(let j: number = 0; j < this.length - i - 1; j++) {
+      if(callback(this[j], this[j + 1])) {
+        [this[j], this[j + 1]] = [this[j + 1], this[j]];
       }
     }
-  return this;
+  }
+return this;
 }
 
 //// сортировка выбором
-Array.prototype.sortBySelection = function<T>(callback: Function): Array<T> {
-  for(let i = 0; i < this.length; i++) {
-    let min = i;
-    for(let j = i; j < this.length; j++) {
-      if(callback(this[min], this[j])) {
-        min = j;
-      }
+Array.prototype.sortBySelection = function<T>(callback: (firstElem: T, secondElem: T) => boolean): Array<T> {
+for(let i: number = 0; i < this.length; i++) {
+  let min: number = i;
+  for(let j: number = i; j < this.length; j++) {
+    if(callback(this[min], this[j])) {
+      min = j;
     }
-    [this[i], this[min]] = [this[min], this[i]];
   }
-  return this;
+  [this[i], this[min]] = [this[min], this[i]];
+}
+return this;
 }
