@@ -1,0 +1,185 @@
+@import "style";
+@import "variables";
+
+.our-projects {
+  position: relative;
+  padding: 110px 0 105px 0;
+  overflow: hidden;
+
+  @media (max-width: $mobileWidth) {
+    flex-direction: column;
+    margin-bottom: 40px;
+  }
+
+  &__title {
+    position: relative;
+    max-width: 1470px;
+    font-size: 20px;
+    padding: 0px 15px 80px 15px;
+    margin: 0 auto;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+
+    &::after {
+      @media (max-width: $mobileWidth) {
+        width: 150px;
+      }
+
+      position: absolute;
+      content: '';
+      top: 8px;
+      left: 240px;
+      width: 200px;
+      height: 1px;
+      background: #8D9AA5;
+    }
+  }
+
+  &__container {
+    @media (max-width: 560px) {
+      flex-direction: column;
+    }
+
+    display: flex;
+    justify-content: space-between;
+    max-width: 1470px;
+    margin: 0 auto;
+  }
+
+  &__img {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    text-align: end;
+
+    &::before {
+      content: '';
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      z-index: 5;
+      top: 59%;
+      left: 18%;
+      background: url(../../img/ourprojects/magnifying_glass_plus.svg) no-repeat center;
+      background-color: rgb(249, 249, 250, 0.2);
+    }
+  }
+
+  &__img img {
+    @media (max-width: $mobileWidth) {
+      height: 100%;
+    }
+
+    height: 806px;
+    max-width: 100%;
+    object-fit: cover;
+  }
+
+  &__button-prev,
+  &__button-next {
+    display: flex;
+    box-sizing: border-box;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    width: 54px;
+    height: 54px;
+    background-position: center;
+    border: 1px solid #98A4AE;
+    fill: grey;
+    >svg {
+      fill: $main;
+    }
+    >svg:hover {
+      cursor: pointer;
+      fill: $red;
+    }
+  }
+
+  &__content {
+    flex: 1 1 auto;
+  }
+}
+
+.content {
+  &__container {
+    padding: 0 15px 0 85px;
+  }
+
+  .block-button {
+    @media (max-width: $mobileWidth) {
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 85px;
+    gap: 30px;
+
+    &__link {
+      text-transform: uppercase;
+      font-size: 14px;
+      color: $blue;
+      border: 1px solid $blue;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      padding: 0 40px;
+    }
+  }
+
+  &__title {
+    font-size: 43px;
+    line-height: 1.3;
+    padding: 0 0 35px 0;
+  }
+
+  &__description {
+    @media (max-width: $mobileWidth) {
+      max-width: 100%;
+      margin-bottom: 25px;
+    }
+
+    width: 517px;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.6;
+    color: $main;
+    letter-spacing: 1.2px;
+
+    p {
+      padding: 0 0 10px 0;
+    }
+  }
+}
+
+.block-button__slider-buttons {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.slider-our-projects {
+  &.swiper-container {
+    @media (max-width: $mobileWidth) {
+      position: relative;
+      padding-left: 0;
+    }
+    position: absolute;
+    top: 62%;
+    width: 100%;
+    z-index: 5;
+    padding-left: 50%;
+    overflow: hidden;
+  }
+
+  &__slide.swiper-slide {
+    max-width: 327px;
+
+    img {
+      max-width: 100%;
+      object-fit: contain;
+    }
+  }
+}

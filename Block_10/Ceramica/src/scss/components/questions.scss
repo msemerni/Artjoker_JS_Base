@@ -1,0 +1,105 @@
+@import "style";
+@import "variables";
+
+.questions {
+  background-color: #e5e5e533;
+  padding: 120px 0 120px 0;
+
+  &__wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    height: 893px;
+    background: url("../../img/questions/PALMIRA_decor2_4000x4000\ 1.png") no-repeat;
+    background-position: 15px 0;
+  }
+
+  &__form {
+    margin: 0 65px 0 0;
+  }
+}
+
+.form {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: baseline;
+  max-width: 735px;
+  padding: 75px 155px 105px 112px;
+  margin: 5px 0 0 0;
+  background-color: $white;
+
+  &::before {
+    content: '';
+    position: absolute;
+    display: block;
+    width: 690px;
+    height: 685px;
+    top: 2%;
+    left: 4%;
+    z-index: 0;
+    border: 1px solid $lightGray;
+    transform: matrix(-0.26, 0.97, -0.97, -0.26, 0, 0);
+  }
+
+  &__head {
+    font-size: 44px;
+    margin: 0 0 18px 0;
+  }
+
+  &__text {
+    max-width: 420px;
+    font-size: 18px;
+    margin: 0 0 40px 0;
+  }
+
+  &__questionary {
+    display: flex;
+    flex-direction: column;
+    width: 470px;
+  }
+
+  &__input {
+    padding: 15px 20px;
+
+    margin: 0 0 17px 0;
+    z-index: 5;
+    border: 1px solid $lightGray;
+
+    &::placeholder {
+      font-family: $fontFamily;
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 1.2;
+      color: $lightGray;
+    }
+  }
+
+  & textarea {
+    height: 100px;
+    margin: 0 0 25px 0;
+    resize: none;
+  }
+
+  &__button {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    z-index: 5;
+    padding: 19px 30px 19px 30px;
+    background-color: $blue;
+    border: none;
+    cursor: pointer;
+    >span {
+      font-family: $fontFamily;
+      color: $white;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 1.2;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+  }
+}
