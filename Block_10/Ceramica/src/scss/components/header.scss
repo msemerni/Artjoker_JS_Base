@@ -45,7 +45,7 @@
       top: 0px;
       left: -100%;
       z-index: 99;
-      background-color: $bgFill;
+      background-color: $bgFillWhite;
       flex-direction: column;
       justify-content: flex-start;
     }
@@ -191,7 +191,7 @@
     cursor: pointer;
     border: none;
     z-index: 99;
-    background-color: $bgFill;
+    background-color: $bgFillWhite;
     margin-right: 30px;
 
     span,
