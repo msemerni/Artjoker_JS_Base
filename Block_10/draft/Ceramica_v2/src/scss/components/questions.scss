@@ -6,17 +6,13 @@
   padding: 120px 0 120px 0;
 
   &__wrapper {
-    @media (max-width: $mobileWidth) {
-      background-position: 0;
-
-    }
     display: flex;
     align-items: center;
     justify-content: flex-end;
     max-width: 1470px;
     margin: 0 auto;
     height: 893px;
-    background: url(".././img/questions/PALMIRA_decor2_4000x4000.png") no-repeat;
+    background: url("../../img/questions/PALMIRA_decor2_4000x4000.png") no-repeat;
     background-position: 15px 0;
   }
 
@@ -26,25 +22,16 @@
 }
 
 .form {
-  @media (max-width: $mobileWidth) {
-    width: 90%;
-    margin: 0 auto;
-    padding: 15px;
-  }
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: baseline;
   max-width: 735px;
-  width: 100%;
   padding: 75px 155px 105px 112px;
   background-color: $white;
 
   &::before {
-    @media (max-width: $mobileWidth) {
-      display: none;
-    }
     content: '';
     position: absolute;
     display: block;
@@ -71,8 +58,7 @@
   &__questionary {
     display: flex;
     flex-direction: column;
-    max-width: 470px;
-    width: 100%;
+    width: 470px;
   }
 
   &__input {

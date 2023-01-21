@@ -1,0 +1,92 @@
+@import "style";
+@import "variables";
+
+.insta {
+  &__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #cfdae333;
+    justify-content: center;
+  }
+
+  &__body {
+    max-width: 880px;
+    padding: 120px 0;
+  }
+
+  &__title {
+    position: relative;
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 80px;
+    font-size: 20px;
+    letter-spacing: 2px;
+
+    &::before {
+      @media (max-width: $mobileWidth) {
+        display: none;
+      }
+
+      position: absolute;
+      content: '';
+      width: 200px;
+      height: 1px;
+      background: #8D9AA5;
+      top: 8px;
+      left: 0;
+    }
+
+    &::after {
+      @media (max-width: $mobileWidth) {
+        display: none;
+      }
+      position: absolute;
+      content: '';
+      width: 200px;
+      height: 1px;
+      background: #8D9AA5;
+      top: 8px;
+      right: 0;
+    }
+  }
+}
+
+.ourwork-instance {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  flex-direction: row;
+  gap: 20px;
+
+  .item-ourwork {
+    height: 280px;
+    width: 280px;
+    background: $white;
+    text-align: center;
+
+    &__img {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      background: $main;
+      height: 50px;
+      width: 50px;
+      margin-top: 70px;
+      margin-bottom: 15px;
+      border-radius: 50%;
+    }
+
+    &__title {
+      font-size: 24px;
+      line-height: 1.2;
+      margin-bottom: 18px;
+    }
+
+    &__button {
+      padding: 14px 30px;
+      background-color: $blue;
+      color: #F9F9FA;
+    }
+  }
+}

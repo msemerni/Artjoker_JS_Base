@@ -1,0 +1,235 @@
+@use "sass:math";
+@import "calculation";
+@import "style";
+
+.header {
+
+  &__logo img {
+    @media (max-width: $mobile){
+      width: 66px;
+      height: 56px;
+    }
+  } 
+  &__body {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: calc(75px + (93 - 75) * ((100vw - 360px) / (1470 - 360)));
+    column-gap: calc(10px + (40 - 10) * ((100vw - 360px) / (1470 - 360)));
+  }
+  &__logo {
+    cursor: pointer;
+    z-index: 8;
+  }
+}
+
+.menu {
+  &__body { 
+    @media (max-width: $tablet) {
+      position: fixed;
+      z-index: 7;
+      top: 0;
+      left: -150%;
+      width: 100%;
+      height: 100%;
+      background-color: #E5E5E5;
+      padding-top: 100px; 
+      transition: left 0.3s ease 0s;
+      overflow: auto;
+      flex-direction: column;
+      justify-content: flex-start;
+      row-gap: rem(20);
+    }
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    column-gap: calc(10px + (40 - 10) * ((100vw - 360px) / (1470 - 360)));
+
+    &._active {
+      left: 0;
+    }
+  }
+
+  &__button {
+    @media (max-width: $tablet){
+      border: none;
+      padding: 0;
+    }
+    border-color: $redColor;
+    padding: calc(8px + (11 - 8) * (100vw - 360px) / (1470 - 360)) calc(20px + (38.5 - 20) * (100vw - 360px) / (1470 - 360));
+    white-space: nowrap;
+
+    &:hover {
+      color: $redColor;
+    }
+  }
+  
+  &__list { 
+    @media (max-width: $tablet) {
+      flex-direction: column;
+      row-gap: rem(20);
+    }
+    @media (max-width: 1400px) {
+      row-gap: rem(10);
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap; 
+    }
+    display: flex;
+    justify-content: space-between;
+    column-gap: calc(10px + (40 - 10) * ((100vw - 360px) / (1470 - 360)));
+  }
+  
+  &__item {
+    text-transform: uppercase;
+  }
+  &__link {
+    font-size: rem(16);
+    line-height: 115.7%;
+    white-space: nowrap;
+  }
+  &__link span:first-child {
+    color: $redColor;
+  }
+  &__link:hover {
+    color: $redColor;
+  }
+}
+
+.select {
+  position: relative;
+  z-index: 8;
+  background: #E5E5E5;
+  position: relative;
+  font-size: rem(16);
+  line-height: 115.7%;
+
+  &__current:hover, &__item:hover {
+    color: $redColor;
+  }
+  &.active {
+    .select__body {
+      display: block;
+      position: absolute;
+      top: 30px;
+      left: 0;
+    }
+  }
+  &__icon {
+      width: 0;
+      height: 0;
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      border-top: 6px solid #40474E;;
+  }
+  &__header {
+    display: flex; 
+    justify-content: space-between;
+    gap: 8px;
+    align-items: center;
+    cursor: pointer;
+  }
+  &__body {
+    display: none;
+  }
+  &__item {
+    cursor: pointer;
+  }
+}
+
+.actions {
+  z-index: 8;
+  display: flex;
+  justify-content: space-between;
+  gap: calc(10px + (30 - 10) * ((100vw - 360px) / (1470 - 360)));
+
+  &__item {
+    color: #40474E;
+  }
+  &__item:hover {
+    color: $redColor;
+  }
+  ._icon-magnifying_glass::before {
+    font-size: rem(19.11);
+  }
+  ._icon-scales::before {
+    font-size: rem(22);
+  }
+  ._icon-hurt::before {
+    font-size: rem(20);
+  }
+  ._icon-user::before {
+    font-size: rem(20);
+  }
+
+  .hurt-icon {
+    position: relative;
+
+    &::before {
+      position: absolute;
+      content: '';
+      top: -7px;
+      left: 17px;
+      height: 15px;
+      width: 15px;
+      background: $redColor;
+      transform: rotate(15deg);
+    }
+    &::after {
+      position: absolute;
+      content: '10';
+      color: #FFFFFF;
+      top: -3px;
+      left: 90%;
+      font-size: 8px;
+      font-weight: 700;
+    }
+  }
+}
+
+.icon-menu {
+  display: none;
+  @media (max-width: $tablet){
+    display: block;
+    position: relative;
+    flex: 0 0 30px;
+    height: 18px;
+    cursor: pointer;
+    z-index: 8;
+
+    span, 
+    &::before,
+    &::after {
+      content: '';
+      transition: all 0.3s ease 0s;
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: $redColor;
+    }
+    &::before{
+      top: 0px;
+    }
+    &::after{
+      bottom: 0px;
+    }
+    span {
+      top: calc(50% - 1px);
+    }
+
+    &.menu-open {
+      span {
+        transform: scale(0);
+      }
+      &::before{
+        transform: rotate(-45deg);
+        top: calc(50% - 1px);
+      }
+      &::after{
+        transform: rotate(45deg);
+        top: calc(50% - 1px);
+      }
+    }
+  }
+}

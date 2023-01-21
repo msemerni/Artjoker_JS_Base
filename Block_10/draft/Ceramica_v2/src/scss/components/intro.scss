@@ -39,9 +39,6 @@
   }
 
   &__introduction {
-    @media screen and (max-width:840px) {
-      width: 80%;
-    }
     position: absolute;
     top: 430px;
     padding: 0 0 0 15px;
@@ -50,14 +47,15 @@
 
 .introduction {
   &__title {
-    @media screen and (max-width:1450px) {
-      font-size: 30px;
-    }
     font-size: 86px;
     line-height: 1.16;
     color: $white;
     padding: 0 0 10px 0;
     text-transform: uppercase;
+
+    @media screen and (max-width:1450px) {
+      font-size: 60px;
+    }
   }
 
   &__description {
