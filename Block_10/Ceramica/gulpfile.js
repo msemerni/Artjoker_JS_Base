@@ -81,7 +81,7 @@ function font() {
 };
 
 function img(){
-  return gulp.src('./src/img/**/*.{jpg,jpeg,svg,png,gif}')
+  return gulp.src('./src/html/img/**/*.{jpg,jpeg,svg,png,gif}')
     .pipe(imagemin({
       verbose: true
     }))

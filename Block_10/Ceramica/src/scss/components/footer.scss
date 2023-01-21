@@ -7,6 +7,11 @@
   background-color: #6A737A;
 
   &__wrapper {
+    @media (max-width: $mobileWidth) {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
     display: grid;
     padding: 80px 10px 78px 10px;
     grid-template-columns: 0.78fr 2.7fr 1.1fr;
@@ -41,6 +46,12 @@
 }
 
 .footer-menu {
+  @media (max-width: $mobileWidth) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 15px;
+  }
   display: grid;
   font-family: $fontFamily;
   font-weight: 400;
@@ -48,6 +59,9 @@
   grid-template-columns: 0.95fr 0.95fr 1.2fr 0.99fr;
 
   &__gap {
+    @media (max-width: $mobileWidth) {
+      margin: 0 15px;
+    }
     display: grid;
     row-gap: 25px;
     grid-template-rows: 0.8fr 0.56fr;
@@ -81,6 +95,9 @@
 
 .review {
   &__button {
+    @media (max-width: $mobileWidth) {
+      margin: 10px;
+    }
     display: flex;
     align-items: center;
     width: 100%;
@@ -122,7 +139,7 @@
 .copyright {
   display: grid;
   grid-template-columns: 1.75fr 1fr 1fr;
-
+  padding: 0 15px;
   &__year {
     font-family: $fontFamily;
     font-weight: normal;
