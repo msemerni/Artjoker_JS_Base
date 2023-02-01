@@ -54,7 +54,7 @@
       font-size: 30px;
     }
     font-size: 86px;
-    line-height: 1.16;
+    line-height: 100%;
     color: $white;
     padding: 0 0 10px 0;
     text-transform: uppercase;
@@ -62,6 +62,7 @@
 
   &__description {
     max-width: 540px;
+    line-height: 140%;
     color: $white;
     font-size: 30px;
 

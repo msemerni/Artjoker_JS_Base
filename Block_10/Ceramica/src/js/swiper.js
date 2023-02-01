@@ -12,7 +12,13 @@ const introSwiper = new Swiper('.introSwiper', {
   },
   mousewheel: true,
   keyboard: true,
-  loop: true,
+  // loop: true,
+});
+
+introSwiper.on('slideChange', function (e) {
+  if (e.isEnd) {
+    e.mousewheel.disable();
+   }
 });
 
 const projectsSwiper = new Swiper('.slider-our-projects', {
